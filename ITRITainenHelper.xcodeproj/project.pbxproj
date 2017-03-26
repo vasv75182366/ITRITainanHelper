@@ -25,6 +25,13 @@
 		67250A331E867E8100F824DD /* Apps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67250A321E867E8100F824DD /* Apps.storyboard */; };
 		6788C25A1E837FC90089EC2D /* Macros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6788C2591E837FC90089EC2D /* Macros.swift */; };
 		67BB5A861E82D23300D344BC /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BB5A851E82D23300D344BC /* CustomSearchBar.swift */; };
+		67FA180F1E87C0FD0017DF11 /* AppsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FA180E1E87C0FD0017DF11 /* AppsViewController.swift */; };
+		67FA18111E87C18A0017DF11 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FA18101E87C18A0017DF11 /* TemplateViewController.swift */; };
+		67FA18131E87C8E90017DF11 /* FacilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FA18121E87C8E90017DF11 /* FacilityViewController.swift */; };
+		67FA18151E87C9220017DF11 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FA18141E87C9220017DF11 /* NavigationViewController.swift */; };
+		67FA18171E87C93D0017DF11 /* ServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FA18161E87C93D0017DF11 /* ServiceViewController.swift */; };
+		67FA18191E87C9580017DF11 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FA18181E87C9580017DF11 /* ActivityViewController.swift */; };
+		67FA181B1E87C9780017DF11 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FA181A1E87C9780017DF11 /* MessageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +79,13 @@
 		67250A321E867E8100F824DD /* Apps.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Apps.storyboard; sourceTree = "<group>"; };
 		6788C2591E837FC90089EC2D /* Macros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Macros.swift; sourceTree = "<group>"; };
 		67BB5A851E82D23300D344BC /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
+		67FA180E1E87C0FD0017DF11 /* AppsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppsViewController.swift; sourceTree = "<group>"; };
+		67FA18101E87C18A0017DF11 /* TemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
+		67FA18121E87C8E90017DF11 /* FacilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityViewController.swift; sourceTree = "<group>"; };
+		67FA18141E87C9220017DF11 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		67FA18161E87C93D0017DF11 /* ServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceViewController.swift; sourceTree = "<group>"; };
+		67FA18181E87C9580017DF11 /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		67FA181A1E87C9780017DF11 /* MessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				67250A201E867AFF00F824DD /* MainCollectionViewCell.swift */,
+				67FA18101E87C18A0017DF11 /* TemplateViewController.swift */,
 			);
 			name = CustomObjects;
 			sourceTree = "<group>";
@@ -181,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				67250A231E867E1D00F824DD /* Message.storyboard */,
+				67FA181A1E87C9780017DF11 /* MessageViewController.swift */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -189,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				67250A261E867E3800F824DD /* Activity.storyboard */,
+				67FA18181E87C9580017DF11 /* ActivityViewController.swift */,
 			);
 			name = Activity;
 			sourceTree = "<group>";
@@ -197,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				67250A291E867E4B00F824DD /* Service.storyboard */,
+				67FA18161E87C93D0017DF11 /* ServiceViewController.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -205,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				67250A2C1E867E5A00F824DD /* Navigation.storyboard */,
+				67FA18141E87C9220017DF11 /* NavigationViewController.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -213,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				67250A2F1E867E7100F824DD /* Facility.storyboard */,
+				67FA18121E87C8E90017DF11 /* FacilityViewController.swift */,
 			);
 			name = Facility;
 			sourceTree = "<group>";
@@ -221,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				67250A321E867E8100F824DD /* Apps.storyboard */,
+				67FA180E1E87C0FD0017DF11 /* AppsViewController.swift */,
 			);
 			name = Apps;
 			sourceTree = "<group>";
@@ -387,10 +408,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				6788C25A1E837FC90089EC2D /* Macros.swift in Sources */,
+				67FA181B1E87C9780017DF11 /* MessageViewController.swift in Sources */,
+				67FA180F1E87C0FD0017DF11 /* AppsViewController.swift in Sources */,
+				67FA18111E87C18A0017DF11 /* TemplateViewController.swift in Sources */,
 				67250A211E867AFF00F824DD /* MainCollectionViewCell.swift in Sources */,
 				67117C441E7A50C500357D9F /* ViewController.swift in Sources */,
 				67250A1C1E8670EF00F824DD /* StringExtension.swift in Sources */,
+				67FA18171E87C93D0017DF11 /* ServiceViewController.swift in Sources */,
+				67FA18191E87C9580017DF11 /* ActivityViewController.swift in Sources */,
+				67FA18131E87C8E90017DF11 /* FacilityViewController.swift in Sources */,
 				67117C421E7A50C500357D9F /* AppDelegate.swift in Sources */,
+				67FA18151E87C9220017DF11 /* NavigationViewController.swift in Sources */,
 				67BB5A861E82D23300D344BC /* CustomSearchBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
