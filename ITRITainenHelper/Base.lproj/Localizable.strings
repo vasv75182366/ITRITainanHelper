@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  ITRITainenHelper
+
+  Created by Oslo on 3/25/17.
+  Copyright © 2017 uscc. All rights reserved.
+*/
+
+// Main page
+"main_title" = "Tainan Helper";
+
+"search_banner" = "Search";
+
+"message" = "City Hall Messages";
+
+"activites" = "Hot activities";
+
+"services" = "Services";
+
+"navigation" = "Department navigation";
+
+"facilities" = "City Hall facilities";
+
+"apps" = "City Hall APPs";

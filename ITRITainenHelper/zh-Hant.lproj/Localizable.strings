@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  ITRITainenHelper
+
+  Created by Oslo on 3/25/17.
+  Copyright © 2017 uscc. All rights reserved.
+*/
+
+// Main page
+"main_title" = "台南洽公小幫手";
+
+"search_banner" = "搜尋";
+
+"message" = "市府訊息";
+
+"activites" = "熱門活動";
+
+"services" = "便民服務";
+
+"navigation" = "局處導覽";
+
+"facilities" = "市府設施";
+
+"apps" = "市府APP專區";
