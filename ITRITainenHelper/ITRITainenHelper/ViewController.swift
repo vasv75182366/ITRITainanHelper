@@ -219,7 +219,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             let bgImageView = UIImageView(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cellWidth, height: cellHeight * 4/5))
             // re-draw image
             UIGraphicsBeginImageContext(bgImageView.bounds.size)
-            UIImage(named: "change_index_icon_fix.png")!.draw(in: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cellWidth, height: cellHeight*4/5), blendMode: CGBlendMode.color, alpha: 1.0)
+            UIImage(named: "change_index_icon_six.png")!.draw(in: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cellWidth, height: cellHeight*4/5), blendMode: CGBlendMode.color, alpha: 1.0)
             var bgImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             // image for imageview
