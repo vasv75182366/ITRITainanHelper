@@ -20,9 +20,9 @@ PODS:
     - ObjectMapper (~> 2.0)
   - MBProgressHUD (1.0.0)
   - ObjectMapper (2.2.5)
-  - SQLite.swift (0.11.2):
-    - SQLite.swift/standard (= 0.11.2)
-  - SQLite.swift/standard (0.11.2)
+  - SQLite.swift (0.11.3):
+    - SQLite.swift/standard (= 0.11.3)
+  - SQLite.swift/standard (0.11.3)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -40,7 +40,7 @@ SPEC CHECKSUMS:
   AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898
-  SQLite.swift: 670c3e9e0a806bbfd56a3de5d530768dc0e6fe7c
+  SQLite.swift: 99b36c22084427f0abbeb957556ce1528cf10bb3
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
 PODFILE CHECKSUM: 0ac87d09125ccea71566c79bfdc3e57fe2c59be4

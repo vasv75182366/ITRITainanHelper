@@ -1,0 +1,10 @@
+framework module NitigationKit {
+  umbrella header "NitigationKit.h"
+
+  export *
+  module * { export * }
+}
+
+module NitigationKit.Swift {
+    header "NitigationKit-Swift.h"
+}
