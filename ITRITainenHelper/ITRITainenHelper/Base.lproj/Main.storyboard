@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="-473" y="60"/>
         </scene>
-        <!--View Controller-->
+        <!--台南洽公小幫手-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ITRITainenHelper" customModuleProvider="target" sceneMemberID="viewController">
@@ -140,12 +140,13 @@
                             <constraint firstItem="76E-gb-nii" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="z4g-Q9-fCu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="VzZ-mw-NzT"/>
+                    <navigationItem key="navigationItem" title="台南洽公小幫手" id="VzZ-mw-NzT"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityView" destination="xxS-AQ-KSu" id="blo-dY-jXP"/>
                         <outlet property="functionCollection" destination="reu-8k-AMw" id="DwM-x9-iM5"/>
+                        <outlet property="myNavigationItem" destination="VzZ-mw-NzT" id="MaV-sS-ltV"/>
                         <outlet property="searchBar" destination="76E-gb-nii" id="iUW-RA-16s"/>
                         <outlet property="searchButton" destination="N9K-k7-5bF" id="8a1-wt-HlS"/>
                     </connections>
@@ -166,9 +167,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wug-uN-pxz">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wug-uN-pxz">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="台南市洽公小幫手" id="vDx-IO-fRz">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="HJf-km-xVN">
@@ -179,13 +179,21 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="svE-cL-6q8">
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="svE-cL-6q8">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wug-uN-pxz" firstAttribute="trailing" secondItem="svE-cL-6q8" secondAttribute="trailing" id="I17-gy-aYA"/>
+                            <constraint firstItem="svE-cL-6q8" firstAttribute="bottom" secondItem="CwZ-20-bKv" secondAttribute="top" id="Vd4-fe-dUi"/>
+                            <constraint firstItem="wug-uN-pxz" firstAttribute="leading" secondItem="svE-cL-6q8" secondAttribute="leading" id="W1R-WX-e9p"/>
+                            <constraint firstItem="svE-cL-6q8" firstAttribute="top" secondItem="wug-uN-pxz" secondAttribute="bottom" id="kZw-Of-aZN"/>
+                            <constraint firstItem="wug-uN-pxz" firstAttribute="top" secondItem="crL-Dp-gn7" secondAttribute="top" id="rD0-H0-8Ml"/>
+                            <constraint firstAttribute="trailing" secondItem="wug-uN-pxz" secondAttribute="trailing" id="wCN-Dr-TjI"/>
+                            <constraint firstItem="wug-uN-pxz" firstAttribute="leading" secondItem="crL-Dp-gn7" secondAttribute="leading" id="xKW-dU-wzP"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>

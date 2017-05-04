@@ -279,14 +279,16 @@ class DatabaseHelper {
         }
     }
     
+    
     // MARK: - insert or update
+    // cannot insert into this table
     func insertOrUpdateAdministrativeUnitTable(x: Int64, y: Int64, fieldId: String, unitId: String, parentUnitId: String, name: String, tel: String, fax: String, email: String, website: String, description: String, iconName: String, createTime: Int64, lastUpdateTime: Int64, nearByPathId: String, keyword: String) -> Bool {
         do {
             let db = try Connection(Constants.DB_FULLPATH)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
             
             // try insert/replace
-            try db.run(table.insert(or: .replace, self.x <- x, self.y <- y, self.fieldId <- fieldId, self.unitId <- unitId, self.parentUnitId <- parentUnitId, self.name <- name, self.tel <- tel, self.email <- email, self.website <- website, self.description <- description, self.iconName <- iconName, self.createTime <- createTime, self.lastUpdateTime <- lastUpdateTime, self.nearByPathId <- nearByPathId, self.keyword <- keyword))
+            try db.run(table.insert(or: .replace, self.x <- x, self.y <- y, self.fieldId <- fieldId, self.unitId <- unitId, self.parentUnitId <- parentUnitId, self.name <- name, self.tel <- tel, self.fax <- fax, self.email <- email, self.website <- website, self.description <- description, self.iconName <- iconName, self.createTime <- createTime, self.lastUpdateTime <- lastUpdateTime, self.nearByPathId <- nearByPathId, self.keyword <- keyword))
             
             print("insert/update administrative unit table succeeded.")
             return true
