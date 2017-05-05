@@ -12,4 +12,5 @@ target 'ITRITainenHelper' do
     pod 'SwiftyJSON'
     pod 'AFNetworking', '~> 3.0'
     pod 'SQLite.swift'
+    pod 'FeedKit', '~> 5.0'
 end

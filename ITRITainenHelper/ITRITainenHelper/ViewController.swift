@@ -194,6 +194,8 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         
         // configuration of cells
         if (indexPath.row == 0) {
+            self.checkFunction = 1
+
             // get cell id and dequeue
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "messageCell", for: indexPath)
             let cellWidth = cell.bounds.width
@@ -209,7 +211,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             bgImageView.image = bgImage
             
             let textLabel = UILabel(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y+(cellHeight * 4/5), width: cellWidth, height: (cellHeight * 1/5)))
-            textLabel.text = "messages"
+            textLabel.text = "市府訊息"
             textLabel.textAlignment = NSTextAlignment.center
             
             // add subview and bring to front
@@ -222,7 +224,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             collectionView.addGestureRecognizer(tap)
             collectionView.isUserInteractionEnabled = true
             
-            self.checkFunction = 1
+            print("test")
             
             return cell;
         } else if (indexPath.row == 1) {
@@ -398,12 +400,15 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     //MARK: - tap processing
     
     func handleTap(_ sender: UITapGestureRecognizer) {
+        print("testß", self.checkFunction)
+        
         // open corresponding storyboard
         switch self.checkFunction {
-        case 1:
+        case 5:
             // open "Message" storyboard with initial VC
             let storyboard = UIStoryboard(name: "Message", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
+            print("Message test.")
             self.present(controller, animated: true, completion: nil)
             break
         case 2:
@@ -421,12 +426,12 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
             break
-        case 5:
+        case 6:
             let storyboard = UIStoryboard(name: "Facility", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
             break
-        case 6:
+        case 0:
             let storyboard = UIStoryboard(name: "Apps", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
