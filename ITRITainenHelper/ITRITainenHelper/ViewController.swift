@@ -191,11 +191,8 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     // uicollectionviewcell: for every cell, add UIImageView and UILabel
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         // configuration of cells
         if (indexPath.row == 0) {
-            self.checkFunction = 1
-
             // get cell id and dequeue
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "messageCell", for: indexPath)
             let cellWidth = cell.bounds.width
@@ -220,12 +217,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             cell.contentView.bringSubview(toFront: bgImageView)
             cell.contentView.bringSubview(toFront: textLabel)
             
-            let tap =  UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(_:)))
-            collectionView.addGestureRecognizer(tap)
-            collectionView.isUserInteractionEnabled = true
-            
-            print("test")
-            
             return cell;
         } else if (indexPath.row == 1) {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "activityCell", for: indexPath)
@@ -244,7 +235,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             
             // UILabel
             let textLabel = UILabel(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y+(cellHeight * 4/5), width: cellWidth, height: (cellHeight * 1/5)))
-            textLabel.text = "activities"
+            textLabel.text = "熱門活動"
             textLabel.textAlignment = NSTextAlignment.center
 
             // add subview and bring to front
@@ -252,12 +243,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             cell.contentView.addSubview(textLabel)
             cell.contentView.bringSubview(toFront: bgImageView)
             cell.contentView.bringSubview(toFront: textLabel)
-            
-            let tap =  UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(_:)))
-            collectionView.addGestureRecognizer(tap)
-            collectionView.isUserInteractionEnabled = true
-            
-            self.checkFunction = 2
             
             return cell;
         } else if (indexPath.row == 2) {
@@ -277,7 +262,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             
             // UILabel
             let textLabel = UILabel(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y+(cellHeight * 4/5), width: cellWidth, height: (cellHeight * 1/5)))
-            textLabel.text = "services"
+            textLabel.text = "便民服務"
             textLabel.textAlignment = NSTextAlignment.center
 
             // add subview and bring to front
@@ -285,12 +270,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             cell.contentView.addSubview(textLabel)
             cell.contentView.bringSubview(toFront: bgImageView)
             cell.contentView.bringSubview(toFront: textLabel)
-            
-            let tap =  UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(_:)))
-            collectionView.addGestureRecognizer(tap)
-            collectionView.isUserInteractionEnabled = true
-            
-            self.checkFunction = 3
             
             return cell;
         } else if (indexPath.row == 3) {
@@ -310,7 +289,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             
             // UILabel
             let textLabel = UILabel(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y+(cellHeight * 4/5), width: cellWidth, height: (cellHeight * 1/5)))
-            textLabel.text = "navigation"
+            textLabel.text = "局處導覽"
             textLabel.textAlignment = NSTextAlignment.center
 
             // add subview and bring to front
@@ -318,12 +297,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             cell.contentView.addSubview(textLabel)
             cell.contentView.bringSubview(toFront: bgImageView)
             cell.contentView.bringSubview(toFront: textLabel)
-            
-            let tap =  UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(_:)))
-            collectionView.addGestureRecognizer(tap)
-            collectionView.isUserInteractionEnabled = true
-            
-            self.checkFunction = 4
             
             return cell;
         } else if (indexPath.row == 4) {
@@ -343,7 +316,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             
             // UILabel
             let textLabel = UILabel(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y+(cellHeight * 4/5), width: cellWidth, height: (cellHeight * 1/5)))
-            textLabel.text = "facilities"
+            textLabel.text = "市府設施"
             textLabel.textAlignment = NSTextAlignment.center
 
             // add subview and bring to front
@@ -351,12 +324,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             cell.contentView.addSubview(textLabel)
             cell.contentView.bringSubview(toFront: bgImageView)
             cell.contentView.bringSubview(toFront: textLabel)
-            
-            let tap =  UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(_:)))
-            collectionView.addGestureRecognizer(tap)
-            collectionView.isUserInteractionEnabled = true
-            
-            self.checkFunction = 5
             
             return cell;
         } else {
@@ -377,7 +344,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             
             // UILabel
             let textLabel = UILabel(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y+(cellHeight * 4/5), width: cellWidth, height: (cellHeight * 1/5)))
-            textLabel.text = "apps"
+            textLabel.text = "市府APP專區"
             textLabel.textAlignment = NSTextAlignment.center
 
             // add subview and bring to front
@@ -386,58 +353,41 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             cell.contentView.bringSubview(toFront: bgImageView)
             cell.contentView.bringSubview(toFront: textLabel)
             
-            let tap =  UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(_:)))
-            collectionView.addGestureRecognizer(tap)
-            collectionView.isUserInteractionEnabled = true
-            
-            self.checkFunction = 6
-            
             return cell;
         }
     }
     
-    
-    //MARK: - tap processing
-    
-    func handleTap(_ sender: UITapGestureRecognizer) {
-        print("testß", self.checkFunction)
-        
-        // open corresponding storyboard
-        switch self.checkFunction {
-        case 5:
-            // open "Message" storyboard with initial VC
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("index: ", indexPath.row)
+        if (indexPath.row == 0) {
             let storyboard = UIStoryboard(name: "Message", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
-            print("Message test.")
             self.present(controller, animated: true, completion: nil)
-            break
-        case 2:
+        } else if (indexPath.row == 1) {
+            self.checkFunction = 2
             let storyboard = UIStoryboard(name: "Activity", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
-            break
-        case 3:
+        } else if (indexPath.row == 2) {
+            self.checkFunction = 3
             let storyboard = UIStoryboard(name: "Service", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
-            break
-        case 4:
+        } else if (indexPath.row == 3) {
+            self.checkFunction = 4
             let storyboard = UIStoryboard(name: "Navigation", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
-            break
-        case 6:
+        } else if (indexPath.row == 4) {
+            self.checkFunction = 5
             let storyboard = UIStoryboard(name: "Facility", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
-            break
-        case 0:
+        } else {
+            self.checkFunction = 6
             let storyboard = UIStoryboard(name: "Apps", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
-            break
-        default:
-            break
         }
     }
     

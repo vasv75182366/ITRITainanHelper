@@ -8,15 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		361A9786AB311540F13F37C7 /* Pods_ITRITainenHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8875017D01ADB2C4A1117FC1 /* Pods_ITRITainenHelper.framework */; };
-		5F785B8E1EBC14CC00FD8052 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B8B1EBC14CC00FD8052 /* NewsCell.swift */; };
-		5F785B8F1EBC14CD00FD8052 /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B8C1EBC14CC00FD8052 /* NewsDetailViewController.swift */; };
-		5F785B901EBC14CD00FD8052 /* RSSFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B8D1EBC14CC00FD8052 /* RSSFormat.swift */; };
 		5F785B971EBCBFDD00FD8052 /* Bathroomcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B911EBCBFDD00FD8052 /* Bathroomcell.swift */; };
 		5F785B981EBCBFDD00FD8052 /* BathroomViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B921EBCBFDD00FD8052 /* BathroomViewViewController.swift */; };
 		5F785B991EBCBFDD00FD8052 /* DrinkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B931EBCBFDD00FD8052 /* DrinkTableViewController.swift */; };
 		5F785B9A1EBCBFDD00FD8052 /* DrinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B941EBCBFDD00FD8052 /* DrinkViewController.swift */; };
 		5F785B9B1EBCBFDD00FD8052 /* Facility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F785B951EBCBFDD00FD8052 /* Facility.storyboard */; };
 		5F785B9C1EBCBFDD00FD8052 /* FacilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B961EBCBFDD00FD8052 /* FacilityViewController.swift */; };
+		5F785BA41EBCE8EC00FD8052 /* AppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BA31EBCE8EC00FD8052 /* AppCell.swift */; };
+		5F785BA61EC2B3A700FD8052 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BA51EC2B3A700FD8052 /* NewsCell.swift */; };
+		5F785BA81EC2B53700FD8052 /* RSSFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BA71EC2B53700FD8052 /* RSSFormat.swift */; };
+		5F785BAA1EC2B57500FD8052 /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BA91EC2B57500FD8052 /* NewsDetailViewController.swift */; };
 		67117C421E7A50C500357D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67117C411E7A50C500357D9F /* AppDelegate.swift */; };
 		67117C441E7A50C500357D9F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67117C431E7A50C500357D9F /* ViewController.swift */; };
 		67117C471E7A50C500357D9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67117C451E7A50C500357D9F /* Main.storyboard */; };
@@ -80,15 +81,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5F785B8B1EBC14CC00FD8052 /* NewsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsCell.swift; path = ../../../tainanProj/tainanProj/NewsCell.swift; sourceTree = "<group>"; };
-		5F785B8C1EBC14CC00FD8052 /* NewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsDetailViewController.swift; path = ../../../tainanProj/tainanProj/NewsDetailViewController.swift; sourceTree = "<group>"; };
-		5F785B8D1EBC14CC00FD8052 /* RSSFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSSFormat.swift; path = ../../../tainanProj/tainanProj/RSSFormat.swift; sourceTree = "<group>"; };
 		5F785B911EBCBFDD00FD8052 /* Bathroomcell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bathroomcell.swift; path = ../../../testyu/testyu/Bathroomcell.swift; sourceTree = "<group>"; };
 		5F785B921EBCBFDD00FD8052 /* BathroomViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BathroomViewViewController.swift; path = ../../../testyu/testyu/BathroomViewViewController.swift; sourceTree = "<group>"; };
 		5F785B931EBCBFDD00FD8052 /* DrinkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrinkTableViewController.swift; path = ../../../testyu/testyu/DrinkTableViewController.swift; sourceTree = "<group>"; };
 		5F785B941EBCBFDD00FD8052 /* DrinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrinkViewController.swift; path = ../../../testyu/testyu/DrinkViewController.swift; sourceTree = "<group>"; };
 		5F785B951EBCBFDD00FD8052 /* Facility.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Facility.storyboard; path = ../../../testyu/testyu/Facility.storyboard; sourceTree = "<group>"; };
 		5F785B961EBCBFDD00FD8052 /* FacilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FacilityViewController.swift; path = ../../../testyu/testyu/FacilityViewController.swift; sourceTree = "<group>"; };
+		5F785BA31EBCE8EC00FD8052 /* AppCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCell.swift; sourceTree = "<group>"; };
+		5F785BA51EC2B3A700FD8052 /* NewsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
+		5F785BA71EC2B53700FD8052 /* RSSFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSFormat.swift; sourceTree = "<group>"; };
+		5F785BA91EC2B57500FD8052 /* NewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		67117C3E1E7A50C500357D9F /* ITRITainenHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ITRITainenHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67117C411E7A50C500357D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67117C431E7A50C500357D9F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -283,11 +285,11 @@
 		67250A221E867E0F00F824DD /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				5F785B8B1EBC14CC00FD8052 /* NewsCell.swift */,
-				5F785B8C1EBC14CC00FD8052 /* NewsDetailViewController.swift */,
-				5F785B8D1EBC14CC00FD8052 /* RSSFormat.swift */,
 				67250A231E867E1D00F824DD /* Message.storyboard */,
 				67FA181A1E87C9780017DF11 /* MessageViewController.swift */,
+				5F785BA51EC2B3A700FD8052 /* NewsCell.swift */,
+				5F785BA71EC2B53700FD8052 /* RSSFormat.swift */,
+				5F785BA91EC2B57500FD8052 /* NewsDetailViewController.swift */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -340,6 +342,7 @@
 			children = (
 				67250A321E867E8100F824DD /* Apps.storyboard */,
 				67FA180E1E87C0FD0017DF11 /* AppsViewController.swift */,
+				5F785BA31EBCE8EC00FD8052 /* AppCell.swift */,
 			);
 			name = Apps;
 			sourceTree = "<group>";
@@ -459,7 +462,7 @@
 				TargetAttributes = {
 					67117C3D1E7A50C500357D9F = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = SNDW4UT5VM;
+						DevelopmentTeam = P7Y2HNH4ZD;
 						ProvisioningStyle = Automatic;
 					};
 					67117C511E7A50C500357D9F = {
@@ -595,19 +598,19 @@
 				6740EC0D1EA84A89000879A3 /* AdministrativeUnit.swift in Sources */,
 				67FA181B1E87C9780017DF11 /* MessageViewController.swift in Sources */,
 				6740EC111EA85785000879A3 /* AdministrativeUnitInCategory.swift in Sources */,
-				5F785B8E1EBC14CC00FD8052 /* NewsCell.swift in Sources */,
 				67FA180F1E87C0FD0017DF11 /* AppsViewController.swift in Sources */,
 				6756BB491E9554BB002D9B96 /* APIConstants.swift in Sources */,
+				5F785BA61EC2B3A700FD8052 /* NewsCell.swift in Sources */,
 				673F102F1E95E9D000499F16 /* DBCol.swift in Sources */,
 				67FA18111E87C18A0017DF11 /* TemplateViewController.swift in Sources */,
-				5F785B901EBC14CD00FD8052 /* RSSFormat.swift in Sources */,
 				67250A211E867AFF00F824DD /* MainCollectionViewCell.swift in Sources */,
 				6740EC231EA89C70000879A3 /* NavigationDetailTableViewController.swift in Sources */,
 				67117C441E7A50C500357D9F /* ViewController.swift in Sources */,
-				5F785B8F1EBC14CD00FD8052 /* NewsDetailViewController.swift in Sources */,
 				6740EC1D1EA86484000879A3 /* MappingKeyword.swift in Sources */,
 				67250A1C1E8670EF00F824DD /* StringExtension.swift in Sources */,
 				67FA18171E87C93D0017DF11 /* ServiceViewController.swift in Sources */,
+				5F785BA41EBCE8EC00FD8052 /* AppCell.swift in Sources */,
+				5F785BAA1EC2B57500FD8052 /* NewsDetailViewController.swift in Sources */,
 				6740EC191EA8612F000879A3 /* InstructionItem.swift in Sources */,
 				67FA18191E87C9580017DF11 /* ActivityViewController.swift in Sources */,
 				67117C421E7A50C500357D9F /* AppDelegate.swift in Sources */,
@@ -618,6 +621,7 @@
 				6735317B1EACED5D00F2E20B /* DatabaseTester.swift in Sources */,
 				5F785B981EBCBFDD00FD8052 /* BathroomViewViewController.swift in Sources */,
 				67BB5A861E82D23300D344BC /* CustomSearchBar.swift in Sources */,
+				5F785BA81EC2B53700FD8052 /* RSSFormat.swift in Sources */,
 				673868DA1E9F2A4000C4823B /* MainPageViewController.swift in Sources */,
 				5F785B9A1EBCBFDD00FD8052 /* DrinkViewController.swift in Sources */,
 				6740EC131EA8594C000879A3 /* Edm.swift in Sources */,
@@ -789,7 +793,7 @@
 			baseConfigurationReference = 770B123BA99BAFAF4E20AA21 /* Pods-ITRITainenHelper.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = SNDW4UT5VM;
+				DEVELOPMENT_TEAM = P7Y2HNH4ZD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)/**",
 					"$(PROJECT_DIR)/**",
@@ -801,7 +805,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = itri.500.ITRITainenHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = itri.jiaing.ITRITainenHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "armv7 arm64 armv7s x86_64";
@@ -813,7 +817,7 @@
 			baseConfigurationReference = F29D885B1DE2474646A5D98E /* Pods-ITRITainenHelper.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = SNDW4UT5VM;
+				DEVELOPMENT_TEAM = P7Y2HNH4ZD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)/**",
 					"$(PROJECT_DIR)/**",
@@ -825,7 +829,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = itri.500.ITRITainenHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = itri.jiaing.ITRITainenHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "armv7 arm64 armv7s x86_64";

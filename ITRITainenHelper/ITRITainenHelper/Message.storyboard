@@ -38,7 +38,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QPd-kQ-dyl" id="eFL-Ik-OZk">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4t0-1Z-OG0">
@@ -76,9 +76,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="img" destination="kKG-5j-Xd0" id="DzW-fk-K7L"/>
-                                            <outlet property="lbIndex" destination="4t0-1Z-OG0" id="VUc-3b-LHk"/>
-                                            <outlet property="lbTitle" destination="qBP-VO-KZ9" id="47J-hi-OSJ"/>
+                                            <outlet property="img" destination="kKG-5j-Xd0" id="6u4-e4-Mei"/>
+                                            <outlet property="lbIndex" destination="4t0-1Z-OG0" id="8UZ-OS-EJP"/>
+                                            <outlet property="lbTitle" destination="qBP-VO-KZ9" id="wF9-OY-aDx"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -160,7 +160,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <outlet property="delegate" destination="2CS-04-cqd" id="0SD-ei-maz"/>
+                                    <outlet property="delegate" destination="2CS-04-cqd" id="off-Bh-AQu"/>
                                 </connections>
                             </webView>
                         </subviews>
@@ -176,7 +176,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="webNews" destination="EWt-hO-3Im" id="LvE-bd-e0R"/>
+                        <outlet property="webNews" destination="EWt-hO-3Im" id="A05-YF-Lr2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wkH-Pq-mc2" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -18,10 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // customize UINavigationBar
-        let navigationImage: UIImage = UIImage.init(imageLiteralResourceName: "title_bg.png")
+        // let navigationImage: UIImage = UIImage.init(imageLiteralResourceName: "title_bg.png")
         // TODO: may have to stretch the image to the size bar
 
-        UINavigationBar.appearance().backgroundColor = UIColor(patternImage: navigationImage)
+        // UINavigationBar.appearance().backgroundColor = UIColor(patternImage: navigationImage)
         
         return true
     }
