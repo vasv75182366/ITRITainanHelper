@@ -38,18 +38,18 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="76E-gb-nii">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
+                            <searchBar contentMode="redraw" placeholder="搜尋" translatesAutoresizingMaskIntoConstraints="NO" id="76E-gb-nii">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N9K-k7-5bF">
-                                <rect key="frame" x="300" y="0.0" width="75" height="44"/>
+                                <rect key="frame" x="300" y="0.0" width="75" height="50"/>
+                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="75" id="RXA-4v-wHo"/>
                                 </constraints>
-                                <state key="normal" title="搜尋">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
+                                <state key="normal" image="index_search"/>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="reu-8k-AMw">
                                 <rect key="frame" x="0.0" y="249" width="375" height="334"/>
@@ -119,7 +119,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xxS-AQ-KSu">
-                                <rect key="frame" x="0.0" y="52" width="375" height="189"/>
+                                <rect key="frame" x="0.0" y="58" width="375" height="183"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -207,4 +207,7 @@
             <point key="canvasLocation" x="1356" y="59.820089955022496"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="index_search" width="50" height="50"/>
+    </resources>
 </document>

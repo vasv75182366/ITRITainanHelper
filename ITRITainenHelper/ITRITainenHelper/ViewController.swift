@@ -32,7 +32,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     
     // image arrays
     var logoImage: [UIImage] = [
-        UIImage(named: "instructor.png")!,
+        UIImage(named: "demo1.png")!,
         UIImage(named: "activities.png")!,
         UIImage(named: "news.png")!
     ]
@@ -50,8 +50,11 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         self.navigationItem.hidesBackButton = false
         
         // add left and right button to activityView
-        self.rightActivityButton = UIButton.init(frame: CGRect(x: self.activityView.bounds.origin.x + self.activityView.bounds.size.width/12*9.5, y: self.activityView.bounds.origin.y, width: self.activityView.bounds.size.width/12, height: self.activityView.bounds.size.width/12))
-        self.leftActivityButton = UIButton.init(frame: CGRect(x: self.activityView.bounds.origin.x + self.activityView.bounds.size.width/12*1.5, y: self.activityView.bounds.origin.y, width: self.activityView.bounds.size.width/12, height: self.activityView.bounds.size.width/12))
+        self.rightActivityButton = UIButton.init(frame: CGRect(x: self.activityView.bounds.origin.x + self.activityView.bounds.size.width/12*9.5, y: self.activityView.bounds.origin.y + self.activityView.bounds.size.height/2, width: self.activityView.bounds.size.width/12, height: self.activityView.bounds.size.width/12))
+        self.rightActivityButton.setImage(UIImage.init(named: "index_right.png"), for: UIControlState.normal)
+        self.leftActivityButton = UIButton.init(frame: CGRect(x: self.activityView.bounds.origin.x + self.activityView.bounds.size.width/12*1.5, y: self.activityView.bounds.origin.y + self.activityView.bounds.size.height/2, width: self.activityView.bounds.size.width/12, height: self.activityView.bounds.size.width/12))
+        self.leftActivityButton.setImage(UIImage.init(named: "index_left.png"), for: UIControlState.normal)
+
         
         // need to initialize
         self.activityImageView = UIImageView.init(frame: self.activityView.bounds)
@@ -67,16 +70,19 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         }
         
         // put image to title bar
-        let topView = UIView.init(frame: (self.myNavigationItem.titleView?.bounds)!)
+        print(self.myNavigationItem.title!)
+        self.myNavigationItem.titleView = UIView.init(frame: CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y, width: self.view.bounds.size.width, height: self.view.bounds.height/12.5))
+        // TODO: - need to re-render the image to the imageView size
         let logo = UIImage.init(named: "index_logo1.png")
-        let logoImageView = UIImageView.init(frame: CGRect(x: topView.bounds.origin.x, y: topView.bounds.origin.y, width: topView.bounds.size.width * 1/5, height: topView.bounds.size.height))
-        let logoLabel = UILabel.init(frame: CGRect(x: topView.bounds.origin.x, y: topView.bounds.origin.y, width: topView.bounds.size.width * 4/5, height: topView.bounds.size.height))
+        let logoImageView = UIImageView.init(frame: CGRect(x: self.navigationItem.titleView!.bounds.origin.x, y: self.navigationItem.titleView!.bounds.origin.y, width: self.navigationItem.titleView!.bounds.size.width * 1/5, height: self.navigationItem.titleView!.bounds.size.height))
+        let logoLabel = UILabel.init(frame: CGRect(x: self.navigationItem.titleView!.bounds.origin.x + self.navigationItem.titleView!.bounds.width/5, y: self.navigationItem.titleView!.bounds.origin.y, width: self.navigationItem.titleView!.bounds.size.width * 4/5, height: self.navigationItem.titleView!.bounds.size.height))
         logoImageView.image = logo
         logoLabel.text = "台南洽公小幫手"
-        topView.addSubview(logoImageView)
-        topView.addSubview(logoLabel)
-        topView.bringSubview(toFront: logoImageView)
-        topView.bringSubview(toFront: logoLabel)
+        self.myNavigationItem.titleView!.addSubview(logoImageView)
+        self.myNavigationItem.titleView!.addSubview(logoLabel)
+        self.myNavigationItem.titleView!.bringSubview(toFront: logoImageView)
+        self.myNavigationItem.titleView!.bringSubview(toFront: logoLabel)
+        self.myNavigationItem.titleView!.backgroundColor = UIColor.init(red: 60, green: 176, blue: 157, alpha: 1)
         
         insertData()
     }
@@ -167,24 +173,26 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     
     // switch to previous imageview
     func leftActivitySwitch() {
-        // swipe left
         self.logoImageCount -= 1
         if (self.logoImageCount < 0) {
+            print("count: \(self.logoImageCount)")
             self.logoImageCount = 0
+        } else {
+            // assign image to imageView
+            UIView.transition(with: self.activityView, duration: 1, options: .transitionFlipFromRight, animations: { self.activityImageView.image = self.logoImage[self.logoImageCount] }, completion: nil)
         }
-        UIView.transition(with: self.activityView, duration: 1, options: .transitionFlipFromLeft, animations: { self.activityImageView.image = self.logoImage[self.logoImageCount] }, completion: nil)
     }
     
     // switch to next imageview
     func rightActivitySwitch() {
-        
-        // swipe right
         self.logoImageCount += 1
-        if (self.logoImageCount > self.maxImageCount) {
-            self.logoImageCount = self.maxImageCount
+        if (self.logoImageCount > self.maxImageCount - 1) {
+            print("count: \(self.logoImageCount)")
+            self.logoImageCount = self.maxImageCount - 1
+        } else {
+            // assign image to imageView
+            UIView.transition(with: self.activityView, duration: 1, options: .transitionFlipFromLeft, animations: { self.activityImageView.image = self.logoImage[self.logoImageCount] }, completion: nil)
         }
-        // assign image to imageView
-        UIView.transition(with: self.activityView, duration: 1, options: .transitionFlipFromRight, animations: { self.activityImageView.image = self.logoImage[self.logoImageCount] }, completion: nil)
     }
     
     
@@ -226,12 +234,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             cell.contentView.bringSubview(toFront: bgImageView)
             cell.contentView.bringSubview(toFront: textLabel)
             
-            let tap =  UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(_:)))
-            collectionView.addGestureRecognizer(tap)
-            collectionView.isUserInteractionEnabled = true
-            
-            self.checkFunction = 1
-            
             return cell;
         } else if (indexPath.row == 1) {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "activityCell", for: indexPath)
@@ -258,12 +260,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             cell.contentView.addSubview(textLabel)
             cell.contentView.bringSubview(toFront: bgImageView)
             cell.contentView.bringSubview(toFront: textLabel)
-            
-            let tap =  UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(_:)))
-            collectionView.addGestureRecognizer(tap)
-            collectionView.isUserInteractionEnabled = true
-            
-            self.checkFunction = 2
             
             return cell;
         } else if (indexPath.row == 2) {
@@ -292,12 +288,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             cell.contentView.bringSubview(toFront: bgImageView)
             cell.contentView.bringSubview(toFront: textLabel)
             
-            let tap =  UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(_:)))
-            collectionView.addGestureRecognizer(tap)
-            collectionView.isUserInteractionEnabled = true
-            
-            self.checkFunction = 3
-            
             return cell;
         } else if (indexPath.row == 3) {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchCell", for: indexPath)
@@ -325,12 +315,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             cell.contentView.bringSubview(toFront: bgImageView)
             cell.contentView.bringSubview(toFront: textLabel)
             
-            let tap =  UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(_:)))
-            collectionView.addGestureRecognizer(tap)
-            collectionView.isUserInteractionEnabled = true
-            
-            self.checkFunction = 4
-            
             return cell;
         } else if (indexPath.row == 4) {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "navigateCell", for: indexPath)
@@ -357,12 +341,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             cell.contentView.addSubview(textLabel)
             cell.contentView.bringSubview(toFront: bgImageView)
             cell.contentView.bringSubview(toFront: textLabel)
-            
-            let tap =  UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(_:)))
-            collectionView.addGestureRecognizer(tap)
-            collectionView.isUserInteractionEnabled = true
-            
-            self.checkFunction = 5
             
             return cell;
         } else {
@@ -392,57 +370,45 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             cell.contentView.bringSubview(toFront: bgImageView)
             cell.contentView.bringSubview(toFront: textLabel)
             
-            let tap =  UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(_:)))
-            collectionView.addGestureRecognizer(tap)
-            collectionView.isUserInteractionEnabled = true
-            
-            self.checkFunction = 6
-            
             return cell;
         }
     }
 
     
-    //MARK: - tap processing
-    
-    func handleTap(_ sender: UITapGestureRecognizer) {
-        // open corresponding storyboard
-        switch self.checkFunction {
-        case 1:
-            // open "Message" storyboard with initial VC
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("index: ", indexPath.row)
+        if (indexPath.row == 0) {
             let storyboard = UIStoryboard(name: "Message", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
-            break
-        case 2:
+        } else if (indexPath.row == 1) {
+            self.checkFunction = 2
             let storyboard = UIStoryboard(name: "Activity", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
-            break
-        case 3:
+        } else if (indexPath.row == 2) {
+            self.checkFunction = 3
             let storyboard = UIStoryboard(name: "Service", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
-            break
-        case 4:
+        } else if (indexPath.row == 3) {
+            self.checkFunction = 4
             let storyboard = UIStoryboard(name: "Navigation", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
-            break
-        case 5:
+        } else if (indexPath.row == 4) {
+            self.checkFunction = 5
             let storyboard = UIStoryboard(name: "Facility", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
-            break
-        case 6:
+        } else {
+            self.checkFunction = 6
             let storyboard = UIStoryboard(name: "Apps", bundle: nil)
             let controller = storyboard.instantiateInitialViewController()!
             self.present(controller, animated: true, completion: nil)
-            break
-        default:
-            break
         }
     }
+    
     
     // MARK: - insert data
     func insertData() {
