@@ -1,5 +1,5 @@
 //
-//  RSSFormat.swift
+//  ActivityRSSFormat.swift
 //  ITRITainenHelper
 //
 //  Created by uscc on 2017/5/11.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RSSFormat {
+class ActivityRSSFormat{
     var title: String!
     var pubDate: Date?
     var link: String!
