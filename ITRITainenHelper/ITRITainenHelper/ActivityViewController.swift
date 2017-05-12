@@ -59,6 +59,7 @@ class ActivityViewController: UIViewController, UITableViewDataSource, UITableVi
                     for item in list! {
                         self.items.append(ActivityRSSFormat(title: item.title, pubDate: item.pubDate, link: item.link))
                     }
+                    print(self.items.count)
                     self.tvActivity.reloadData()
                     self.activityIndicator.stopAnimating()
                     self.overlay.removeFromSuperview()
