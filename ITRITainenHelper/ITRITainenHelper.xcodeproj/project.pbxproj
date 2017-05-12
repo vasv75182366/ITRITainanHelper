@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5F785B971EBCBFDD00FD8052 /* Bathroomcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B911EBCBFDD00FD8052 /* Bathroomcell.swift */; };
-		5F785B981EBCBFDD00FD8052 /* BathroomViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B921EBCBFDD00FD8052 /* BathroomViewViewController.swift */; };
-		5F785B991EBCBFDD00FD8052 /* DrinkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B931EBCBFDD00FD8052 /* DrinkTableViewController.swift */; };
-		5F785B9A1EBCBFDD00FD8052 /* DrinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B941EBCBFDD00FD8052 /* DrinkViewController.swift */; };
 		5F785B9B1EBCBFDD00FD8052 /* Facility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F785B951EBCBFDD00FD8052 /* Facility.storyboard */; };
 		5F785B9C1EBCBFDD00FD8052 /* FacilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785B961EBCBFDD00FD8052 /* FacilityViewController.swift */; };
 		5F785BA41EBCE8EC00FD8052 /* AppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BA31EBCE8EC00FD8052 /* AppCell.swift */; };
@@ -21,6 +17,10 @@
 		5F785BAF1EC4585D00FD8052 /* NewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BAE1EC4585D00FD8052 /* NewViewController.swift */; };
 		5F785BB11EC458CA00FD8052 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BB01EC458CA00FD8052 /* ActivityCell.swift */; };
 		5F785BB51EC4649A00FD8052 /* ActivityRSSFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BB41EC4649A00FD8052 /* ActivityRSSFormat.swift */; };
+		5F785BC41EC54DCD00FD8052 /* Bathroomcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BC01EC54DCD00FD8052 /* Bathroomcell.swift */; };
+		5F785BC51EC54DCD00FD8052 /* BathroomViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BC11EC54DCD00FD8052 /* BathroomViewViewController.swift */; };
+		5F785BC61EC54DCD00FD8052 /* DrinkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BC21EC54DCD00FD8052 /* DrinkTableViewController.swift */; };
+		5F785BC71EC54DCD00FD8052 /* DrinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BC31EC54DCD00FD8052 /* DrinkViewController.swift */; };
 		67117C421E7A50C500357D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67117C411E7A50C500357D9F /* AppDelegate.swift */; };
 		67117C441E7A50C500357D9F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67117C431E7A50C500357D9F /* ViewController.swift */; };
 		67117C471E7A50C500357D9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67117C451E7A50C500357D9F /* Main.storyboard */; };
@@ -83,10 +83,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5F785B911EBCBFDD00FD8052 /* Bathroomcell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bathroomcell.swift; path = ../../../testyu/testyu/Bathroomcell.swift; sourceTree = "<group>"; };
-		5F785B921EBCBFDD00FD8052 /* BathroomViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BathroomViewViewController.swift; path = ../../../testyu/testyu/BathroomViewViewController.swift; sourceTree = "<group>"; };
-		5F785B931EBCBFDD00FD8052 /* DrinkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrinkTableViewController.swift; path = ../../../testyu/testyu/DrinkTableViewController.swift; sourceTree = "<group>"; };
-		5F785B941EBCBFDD00FD8052 /* DrinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrinkViewController.swift; path = ../../../testyu/testyu/DrinkViewController.swift; sourceTree = "<group>"; };
 		5F785B951EBCBFDD00FD8052 /* Facility.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Facility.storyboard; path = ../../../testyu/testyu/Facility.storyboard; sourceTree = "<group>"; };
 		5F785B961EBCBFDD00FD8052 /* FacilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FacilityViewController.swift; path = ../../../testyu/testyu/FacilityViewController.swift; sourceTree = "<group>"; };
 		5F785BA31EBCE8EC00FD8052 /* AppCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCell.swift; sourceTree = "<group>"; };
@@ -96,6 +92,10 @@
 		5F785BAE1EC4585D00FD8052 /* NewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewViewController.swift; sourceTree = "<group>"; };
 		5F785BB01EC458CA00FD8052 /* ActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		5F785BB41EC4649A00FD8052 /* ActivityRSSFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityRSSFormat.swift; sourceTree = "<group>"; };
+		5F785BC01EC54DCD00FD8052 /* Bathroomcell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bathroomcell.swift; sourceTree = "<group>"; };
+		5F785BC11EC54DCD00FD8052 /* BathroomViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BathroomViewViewController.swift; sourceTree = "<group>"; };
+		5F785BC21EC54DCD00FD8052 /* DrinkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkTableViewController.swift; sourceTree = "<group>"; };
+		5F785BC31EC54DCD00FD8052 /* DrinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkViewController.swift; sourceTree = "<group>"; };
 		67117C3E1E7A50C500357D9F /* ITRITainenHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ITRITainenHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67117C411E7A50C500357D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67117C431E7A50C500357D9F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -334,10 +334,10 @@
 		67250A2E1E867E5E00F824DD /* Facility */ = {
 			isa = PBXGroup;
 			children = (
-				5F785B911EBCBFDD00FD8052 /* Bathroomcell.swift */,
-				5F785B921EBCBFDD00FD8052 /* BathroomViewViewController.swift */,
-				5F785B931EBCBFDD00FD8052 /* DrinkTableViewController.swift */,
-				5F785B941EBCBFDD00FD8052 /* DrinkViewController.swift */,
+				5F785BC01EC54DCD00FD8052 /* Bathroomcell.swift */,
+				5F785BC11EC54DCD00FD8052 /* BathroomViewViewController.swift */,
+				5F785BC21EC54DCD00FD8052 /* DrinkTableViewController.swift */,
+				5F785BC31EC54DCD00FD8052 /* DrinkViewController.swift */,
 				5F785B951EBCBFDD00FD8052 /* Facility.storyboard */,
 				5F785B961EBCBFDD00FD8052 /* FacilityViewController.swift */,
 			);
@@ -594,17 +594,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				6788C25A1E837FC90089EC2D /* Macros.swift in Sources */,
-				5F785B971EBCBFDD00FD8052 /* Bathroomcell.swift in Sources */,
 				6740EC251EA89CA7000879A3 /* NavigationDetailTableViewCell.swift in Sources */,
 				6740EC1B1EA86231000879A3 /* Keyword.swift in Sources */,
 				5F785BB11EC458CA00FD8052 /* ActivityCell.swift in Sources */,
 				6740EC211EA8681A000879A3 /* SQLiteSequence.swift in Sources */,
+				5F785BC71EC54DCD00FD8052 /* DrinkViewController.swift in Sources */,
 				5F785BB51EC4649A00FD8052 /* ActivityRSSFormat.swift in Sources */,
 				6756BB471E955419002D9B96 /* DatabaseHelper.swift in Sources */,
 				5F785BAF1EC4585D00FD8052 /* NewViewController.swift in Sources */,
 				6740EC171EA85EA2000879A3 /* InKeywords.swift in Sources */,
 				6740EC0F1EA85233000879A3 /* AdministrativeUnitCategory.swift in Sources */,
-				5F785B991EBCBFDD00FD8052 /* DrinkTableViewController.swift in Sources */,
 				6740EC0D1EA84A89000879A3 /* AdministrativeUnit.swift in Sources */,
 				67FA181B1E87C9780017DF11 /* MessageViewController.swift in Sources */,
 				6740EC111EA85785000879A3 /* AdministrativeUnitInCategory.swift in Sources */,
@@ -612,10 +611,12 @@
 				6756BB491E9554BB002D9B96 /* APIConstants.swift in Sources */,
 				5F785BA61EC2B3A700FD8052 /* NewsCell.swift in Sources */,
 				673F102F1E95E9D000499F16 /* DBCol.swift in Sources */,
+				5F785BC41EC54DCD00FD8052 /* Bathroomcell.swift in Sources */,
 				67FA18111E87C18A0017DF11 /* TemplateViewController.swift in Sources */,
 				67250A211E867AFF00F824DD /* MainCollectionViewCell.swift in Sources */,
 				6740EC231EA89C70000879A3 /* NavigationDetailTableViewController.swift in Sources */,
 				67117C441E7A50C500357D9F /* ViewController.swift in Sources */,
+				5F785BC61EC54DCD00FD8052 /* DrinkTableViewController.swift in Sources */,
 				6740EC1D1EA86484000879A3 /* MappingKeyword.swift in Sources */,
 				67250A1C1E8670EF00F824DD /* StringExtension.swift in Sources */,
 				67FA18171E87C93D0017DF11 /* ServiceViewController.swift in Sources */,
@@ -629,11 +630,10 @@
 				6740EC151EA85CE7000879A3 /* HotItem.swift in Sources */,
 				6740EC1F1EA8666D000879A3 /* MobileApps.swift in Sources */,
 				6735317B1EACED5D00F2E20B /* DatabaseTester.swift in Sources */,
-				5F785B981EBCBFDD00FD8052 /* BathroomViewViewController.swift in Sources */,
 				67BB5A861E82D23300D344BC /* CustomSearchBar.swift in Sources */,
 				5F785BA81EC2B53700FD8052 /* RSSFormat.swift in Sources */,
 				673868DA1E9F2A4000C4823B /* MainPageViewController.swift in Sources */,
-				5F785B9A1EBCBFDD00FD8052 /* DrinkViewController.swift in Sources */,
+				5F785BC51EC54DCD00FD8052 /* BathroomViewViewController.swift in Sources */,
 				6740EC131EA8594C000879A3 /* Edm.swift in Sources */,
 				67E81DD51E898B370005CE40 /* ServiceResultViewController.swift in Sources */,
 			);
