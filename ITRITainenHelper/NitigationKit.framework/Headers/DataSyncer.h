@@ -14,7 +14,9 @@ enum SyncStatus {
 
 @protocol DataSyncerListener <NSObject>
 
+@optional
 - (void)onSyncerStatus:(enum SyncStatus)status;
+@required
 - (void)onGetData:(NSString *)pTableName data:(id)data;
 
 @end
@@ -24,6 +26,7 @@ enum SyncStatus {
 @property (nonatomic, copy)NSString *projectId;
 @property (readonly, nonatomic, strong)id project;
 @property (readonly, nonatomic, copy)NSString *downloadDir;
+@property (readonly, nonatomic, strong)NSURL *downloadUrl;
 @property (nonatomic, weak)id <DataSyncerListener> dataSyncListener;
 
 + (DataSyncer *)createInstance:(NSString *)projectId;
@@ -35,8 +38,12 @@ enum SyncStatus {
 -(void)syncProjectFile;
 -(NSSet *)getProjectFileCache;
 -(void)syncNavigationData;
--(id)getFieldMapById:(NSString *)fieldId;
 -(void)getData:(NSString *)tableName time:(NSInteger)time;
+
+-(id)getFieldMapById:(NSString *)fieldId;
+-(NSDictionary *)getPathConnectorsByFieldId:(NSString *)fieldId;
+-(NSArray *)getTransitionPointsByFieldId:(NSString *)fieldId;
+-(NSDictionary *)getPathsByFieldId:(NSString *)fieldId pathConnectorReference:(NSDictionary *)pathConnectorReference;
 
 @end
 

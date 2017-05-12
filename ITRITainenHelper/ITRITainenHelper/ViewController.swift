@@ -8,7 +8,7 @@
 
 import UIKit
 import SQLite
-
+import NitigationKit
 
 class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
     
@@ -245,7 +245,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     // uicollectionviewcell: for every cell, add UIImageView and UILabel
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         // configuration of cells
         if (indexPath.row == 0) {
             // get cell id and dequeue
@@ -263,7 +262,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             bgImageView.image = bgImage
             
             let textLabel = UILabel(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y+(cellHeight * 4/5), width: cellWidth, height: (cellHeight * 1/5)))
-            textLabel.text = "messages"
+            textLabel.text = "市府訊息"
             textLabel.textAlignment = NSTextAlignment.center
             
             // add subview and bring to front
@@ -290,7 +289,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             
             // UILabel
             let textLabel = UILabel(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y+(cellHeight * 4/5), width: cellWidth, height: (cellHeight * 1/5)))
-            textLabel.text = "activities"
+            textLabel.text = "熱門活動"
             textLabel.textAlignment = NSTextAlignment.center
 
             // add subview and bring to front
@@ -317,7 +316,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             
             // UILabel
             let textLabel = UILabel(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y+(cellHeight * 4/5), width: cellWidth, height: (cellHeight * 1/5)))
-            textLabel.text = "services"
+            textLabel.text = "便民服務"
             textLabel.textAlignment = NSTextAlignment.center
 
             // add subview and bring to front
@@ -344,7 +343,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             
             // UILabel
             let textLabel = UILabel(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y+(cellHeight * 4/5), width: cellWidth, height: (cellHeight * 1/5)))
-            textLabel.text = "navigation"
+            textLabel.text = "局處導覽"
             textLabel.textAlignment = NSTextAlignment.center
 
             // add subview and bring to front
@@ -371,7 +370,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             
             // UILabel
             let textLabel = UILabel(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y+(cellHeight * 4/5), width: cellWidth, height: (cellHeight * 1/5)))
-            textLabel.text = "facilities"
+            textLabel.text = "市府設施"
             textLabel.textAlignment = NSTextAlignment.center
 
             // add subview and bring to front
@@ -399,7 +398,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             
             // UILabel
             let textLabel = UILabel(frame: CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y+(cellHeight * 4/5), width: cellWidth, height: (cellHeight * 1/5)))
-            textLabel.text = "apps"
+            textLabel.text = "市府APP專區"
             textLabel.textAlignment = NSTextAlignment.center
 
             // add subview and bring to front
@@ -538,6 +537,17 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         let path2 = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let dbName = "tainan.sqlite"
         let tempDB = path2 + dbName
+        let adminUnits = NSMutableArray()
+        let adminUnitsCat = NSMutableArray()
+        let adminUnitsInCat = NSMutableArray()
+        let edms = NSMutableArray()
+        let hots = NSMutableArray()
+        let inKeys = NSMutableArray()
+        let instructs = NSMutableArray()
+        let keys = NSMutableArray()
+        let mappings = NSMutableArray()
+        let mobiles = NSMutableArray()
+
         do {
             // db connection to tainan.sqlite
             let db = try Connection(tempDB)
@@ -553,83 +563,57 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             let keywordTable = Table("keyword")
             let mappingKeyTable = Table("mappingKeyword")
             let mobileTable = Table("mobileApp")
-            
+
             // query and store data
-            let adminUnits = NSMutableArray()
             for units in try db.prepare(adminUnitTable) {
                 let temp = AdministrativeUnit(x: units[self.x], y: units[self.y], fieldId: units[self.fieldId], unitId: units[self.unitId], parentUnitId: units[self.parentUnitId], name: units[self.name], tel: units[self.tel], fax: units[self.fax], email: units[self.email], website: units[self.website], description: units[self.descriptio], iconName: units[self.iconName], createTime: units[self.createTime], lastUpdateTime: units[self.lastUpdateTime], nearByPathId: units[self.nearByPathId], keyword: units[self.keyword])
                 adminUnits.add(temp)
             }
             
-            let adminUnitsCat = NSMutableArray()
             for cats in try db.prepare(adminUnitCatTable) {
                 let temp = AdministrativeUnitCategory(categoryId: cats[self.categoryId], name: cats[self.name], description: cats[self.descriptio], iconName: cats[self.iconName], createTime: cats[self.createTime], lastUpdateTime: cats[self.lastUpdateTime], keyword: cats[self.keyword])
                 adminUnitsCat.add(temp)
             }
             
-            let adminUnitsInCat = NSMutableArray()
             for ins in try db.prepare(adminUnitInCatTable) {
                 let temp = AdministrativeUnitInCategory(unitId: ins[self.unitId], categoryId: ins[self.categoryId], lastUpdateTime: ins[self.lastUpdateTime])
                 adminUnitsInCat.add(temp)
             }
             
-            let edms = NSMutableArray()
             for edmm in try db.prepare(edmTable) {
                 let temp = Edm(edmId: edmm[self.edmId], edmName: edmm[self.edmName], edmURL: edmm[self.edmURL], edmImage: edmm[self.edmImage], edmEndDay: edmm[self.edmEndDay], lastUpdateTime: edmm[self.lastUpdateTime])
                 edms.add(temp)
             }
             
-            let hots = NSMutableArray()
             for hott in try db.prepare(hotTable) {
                 let temp = HotItem(id: hott[self.id], hotDate: hott[self.hotDate], hotTitle: hott[self.hotTitle], hotDescription: hott[self.hotDescription], hotLink: hott[self.hotLink], isDelete: hott[self.isDelete])
                 hots.add(temp)
             }
             
-            let inKeys = NSMutableArray()
             for keys in try db.prepare(inKeyTable) {
                 let temp = InKeywords(id: String(keys[self.stringId]), keywordId: keys[self.keywordId], lastUpdateTime: keys[self.lastUpdateTime])
                 inKeys.add(temp)
             }
             
-            let instructs = NSMutableArray()
             for instrs in try db.prepare(instructionTable) {
                 let temp = InstructionItem(id: instrs[self.id], name: instrs[self.name], read: instrs[self.read])
                 instructs.add(temp)
             }
             
-            let keys = NSMutableArray()
             for k in try db.prepare(keywordTable) {
                 let temp = Keyword(keywordId: k[self.keywordId], keyword: k[self.keyword], rank: k[self.rank], description: k[self.descriptio], createTime: k[self.createTime], lastUpdateTime: k[self.lastUpdateTime])
                 keys.add(temp)
             }
             
-            let mappings = NSMutableArray()
             for maps in try db.prepare(mappingKeyTable) {
                 let temp = MappingKeyword(unitId: maps[self.unitId], keyword: maps[self.keyword])
                 mappings.add(temp)
             }
             
-            let mobiles = NSMutableArray()
             for mobs in try db.prepare(mobileTable) {
                 let temp = MobileApps(appId: mobs[self.appId], appName: mobs[self.appName], appURL: mobs[self.appURL], appImage: mobs[self.appImage], lastUpdateTime: mobs[self.lastUpdateTime])
                 mobiles.add(temp)
             }
-            
-            
-            
-//            let administrativeUnitCategories = NSMutableArray()
-//            do {
-//                let administrativeUnitCategoryTable = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)
-//                let db = try Connection(Constants.DB_FULLPATH)
-//                for categories in try db.prepare(administrativeUnitCategoryTable) {
-//                    let adminUnitCategory = AdministrativeUnitCategory(categoryId: categories[self.categoryId], name: categories[self.name], description: categories[self.description], iconName: categories[self.iconName], createTime: categories[self.createTime], lastUpdateTime: categories[self.lastUpdateTime], keyword: categories[self.keyword])
-//                    administrativeUnitCategories.add(adminUnitCategory)
-//                }
-//                print("query administrative unit category table succeed.")
-//            } catch _ {
-//                print("query administrative unit category table fail.")
-//            }
-            
         } catch _ {
             print("there is error.")
         }

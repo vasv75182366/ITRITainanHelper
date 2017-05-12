@@ -17,13 +17,13 @@ FOUNDATION_EXPORT const unsigned char NitigationKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <NitigationKit/PublicHeader.h>
 
-#import <Availability.h>
-#import <TargetConditionals.h>
-
 #ifndef _NITIGATIONKIT_
 #define _NITIGATIONKIT_
 
 #import <NitigationKit/DataSyncer.h>
+#import <NitigationKit/UINavigationMap.h>
+#import <NitigationKit/Utilities.h>
+
 
 #endif /* _NITIGATIONKIT_ */
 
