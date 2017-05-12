@@ -8,13 +8,14 @@
 
 import UIKit
 
-class NewViewController: UIViewController {
+class NewViewController: UIViewController, UIWebViewDelegate {
+    
+    @IBOutlet weak var webActivity: UIWebView!
     
     var overlay: UIView = UIView()
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
-    @IBOutlet weak var webActivity: UIWebView!
-    
     var webLink: String! = "https://www.google.com.tw"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -31,35 +32,22 @@ class NewViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
         
         overlay.addSubview(activityIndicator)
-        self.view.addSubview(overlay)
-        //        activityIndicator.startAnimating()
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        webViewDidStartLoad(webView: webActivity)
-    }
-    
-    
-    func webViewDidStartLoad(webView: UIWebView){
+        view.addSubview(overlay)
         activityIndicator.startAnimating()
+        loadWeb()
+    }
+    
+    func loadWeb(){
         let range =  webLink.range(of: "=")
         let host = webLink.substring(to: (range?.lowerBound)!)
         var data = webLink.substring(from: (range?.lowerBound)!)
         data = data.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        
-        print(host)
-        print(data)
-        DispatchQueue.global(qos: .userInitiated).async {
-            let url = URL(string: host + data)
-            let request = URLRequest(url: url!)
-            self.webActivity.loadRequest(request)
-        }
-        webViewDidFinishLoad(webView: webActivity)
+        let url = URL(string: host + data)
+        let request = URLRequest(url: url!)
+        webActivity.loadRequest(request)
     }
     
-    func webViewDidFinishLoad(webView: UIWebView){
+    func webViewDidFinishLoad(_ webView: UIWebView){
         activityIndicator.stopAnimating()
         self.overlay.removeFromSuperview()
     }
