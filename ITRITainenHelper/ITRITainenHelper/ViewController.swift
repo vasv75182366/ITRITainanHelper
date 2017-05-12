@@ -39,6 +39,44 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     var logoImageCount: Int = 0
     var webviewString = [String]()
     var maxImageCount: Int = 0
+    let x = Expression<Int64>(DBCol.X)
+    let y = Expression<Int64>(DBCol.Y)
+    let fieldId = Expression<String>(DBCol.FIELD_ID)
+    let parentUnitId = Expression<String>(DBCol.PARENT_UNIT_ID)
+    let tel = Expression<String>(DBCol.TEL)
+    let fax = Expression<String>(DBCol.FAX)
+    let email = Expression<String>(DBCol.EMAIL)
+    let website = Expression<String>(DBCol.WEBSITE)
+    let category = Expression<String>(DBCol.CATEGORY)
+    let name = Expression<String>(DBCol.NAME)
+    let descriptio = Expression<String>(DBCol.DESCRIPTION)
+    let nearByPathId = Expression<String>(DBCol.NEAR_BY_PATH_ID)
+    let iconName = Expression<String>(DBCol.ICON_NAME)
+    let createTime = Expression<Int64>(DBCol.CREATE_TIME)
+    let lastUpdateTime = Expression<Int64>(DBCol.LAST_UPDATE_TIME)
+    let keyword = Expression<String>(DBCol.KEYWORD)
+    let unitId = Expression<String>(DBCol.UNIT_ID)
+    let categoryId = Expression<String>(DBCol.CATEGORY_ID)
+    let edmId = Expression<String>(DBCol.EDM_ID)
+    let edmName = Expression<String>(DBCol.EDM_NAME)
+    let edmURL = Expression<String>(DBCol.EDM_URL)
+    let edmImage = Expression<String>(DBCol.EDM_IMAGE)
+    let edmEndDay = Expression<String>(DBCol.EDM_END_DAY)
+    let id = Expression<Int64>("id")
+    let stringId = Expression<String>("id")
+    let hotDate = Expression<String>(DBCol.HOT_DATE)
+    let hotTitle = Expression<String>(DBCol.HOT_TITLE)
+    let hotDescription = Expression<String>(DBCol.HOT_DESCRIPTION)
+    let hotLink = Expression<String>(DBCol.HOT_LINK)
+    let isDelete = Expression<Int64>(DBCol.IS_DELETE)
+    let keywordId = Expression<String>(DBCol.KEYWORD_ID)
+    let read = Expression<Int64>("read")
+    let rank = Expression<Int64>(DBCol.RANK)
+    let appId = Expression<String>(DBCol.APP_ID)
+    let appName = Expression<String>(DBCol.APP_NAME)
+    let appURL = Expression<String>(DBCol.APP_URL)
+    let appImage = Expression<String>(DBCol.APP_IMAGE)
+    let sequence = Expression<String>("sequence")
 
     
     //MARK: - basic functions
@@ -493,22 +531,109 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         if dbHelper.insertOrUpdateMobileAppTable(appId: "appId_3", appName: "app 3", appURL: "itunes.apple.com", appImage: "image3.png", lastUpdateTime: 3) {
             print("insert mobile app table success.")
         }
-        
-        /* test query */
-//        let adminUnitArray = dbHelper.queryAdministrativeUnitTable()
-//        let adminUniCategoryArray = dbHelper.queryAdministrativeUnitCategoryTable()
-//        let unitInCategoryArray = dbHelper.queryAdministrativeUnitInCategoryTable()
-//        let keywordArray = dbHelper.queryKeywordTable()
-//        let inKeywordArray = dbHelper.queryInKeywordTable()
-//        let edmArray = dbHelper.queryEdmTable()
-//        let mobileAppArray = dbHelper.queryMobileAppTable()
-//        print(adminUnitArray)
-//        print(adminUniCategoryArray)
-//        print(unitInCategoryArray)
-//        print(keywordArray)
-//        print(inKeywordArray)
-//        print(edmArray)
-//        print(mobileAppArray)
     }
+    
+    func readDataFromTainanSQLite() {
+        // let dbURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("tainan")
+        let path2 = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let dbName = "tainan.sqlite"
+        let tempDB = path2 + dbName
+        do {
+            // db connection to tainan.sqlite
+            let db = try Connection(tempDB)
+            
+            // define tables
+            let adminUnitTable = Table("administrativeunit")
+            let adminUnitCatTable = Table("administrativeunitcategory")
+            let adminUnitInCatTable = Table("administrativeunitincategory")
+            let edmTable = Table("edm")
+            let hotTable = Table("hot")
+            let inKeyTable = Table("inKeyword")
+            let instructionTable = Table("instruction")
+            let keywordTable = Table("keyword")
+            let mappingKeyTable = Table("mappingKeyword")
+            let mobileTable = Table("mobileApp")
+            
+            // query and store data
+            let adminUnits = NSMutableArray()
+            for units in try db.prepare(adminUnitTable) {
+                let temp = AdministrativeUnit(x: units[self.x], y: units[self.y], fieldId: units[self.fieldId], unitId: units[self.unitId], parentUnitId: units[self.parentUnitId], name: units[self.name], tel: units[self.tel], fax: units[self.fax], email: units[self.email], website: units[self.website], description: units[self.descriptio], iconName: units[self.iconName], createTime: units[self.createTime], lastUpdateTime: units[self.lastUpdateTime], nearByPathId: units[self.nearByPathId], keyword: units[self.keyword])
+                adminUnits.add(temp)
+            }
+            
+            let adminUnitsCat = NSMutableArray()
+            for cats in try db.prepare(adminUnitCatTable) {
+                let temp = AdministrativeUnitCategory(categoryId: cats[self.categoryId], name: cats[self.name], description: cats[self.descriptio], iconName: cats[self.iconName], createTime: cats[self.createTime], lastUpdateTime: cats[self.lastUpdateTime], keyword: cats[self.keyword])
+                adminUnitsCat.add(temp)
+            }
+            
+            let adminUnitsInCat = NSMutableArray()
+            for ins in try db.prepare(adminUnitInCatTable) {
+                let temp = AdministrativeUnitInCategory(unitId: ins[self.unitId], categoryId: ins[self.categoryId], lastUpdateTime: ins[self.lastUpdateTime])
+                adminUnitsInCat.add(temp)
+            }
+            
+            let edms = NSMutableArray()
+            for edmm in try db.prepare(edmTable) {
+                let temp = Edm(edmId: edmm[self.edmId], edmName: edmm[self.edmName], edmURL: edmm[self.edmURL], edmImage: edmm[self.edmImage], edmEndDay: edmm[self.edmEndDay], lastUpdateTime: edmm[self.lastUpdateTime])
+                edms.add(temp)
+            }
+            
+            let hots = NSMutableArray()
+            for hott in try db.prepare(hotTable) {
+                let temp = HotItem(id: hott[self.id], hotDate: hott[self.hotDate], hotTitle: hott[self.hotTitle], hotDescription: hott[self.hotDescription], hotLink: hott[self.hotLink], isDelete: hott[self.isDelete])
+                hots.add(temp)
+            }
+            
+            let inKeys = NSMutableArray()
+            for keys in try db.prepare(inKeyTable) {
+                let temp = InKeywords(id: String(keys[self.stringId]), keywordId: keys[self.keywordId], lastUpdateTime: keys[self.lastUpdateTime])
+                inKeys.add(temp)
+            }
+            
+            let instructs = NSMutableArray()
+            for instrs in try db.prepare(instructionTable) {
+                let temp = InstructionItem(id: instrs[self.id], name: instrs[self.name], read: instrs[self.read])
+                instructs.add(temp)
+            }
+            
+            let keys = NSMutableArray()
+            for k in try db.prepare(keywordTable) {
+                let temp = Keyword(keywordId: k[self.keywordId], keyword: k[self.keyword], rank: k[self.rank], description: k[self.descriptio], createTime: k[self.createTime], lastUpdateTime: k[self.lastUpdateTime])
+                keys.add(temp)
+            }
+            
+            let mappings = NSMutableArray()
+            for maps in try db.prepare(mappingKeyTable) {
+                let temp = MappingKeyword(unitId: maps[self.unitId], keyword: maps[self.keyword])
+                mappings.add(temp)
+            }
+            
+            let mobiles = NSMutableArray()
+            for mobs in try db.prepare(mobileTable) {
+                let temp = MobileApps(appId: mobs[self.appId], appName: mobs[self.appName], appURL: mobs[self.appURL], appImage: mobs[self.appImage], lastUpdateTime: mobs[self.lastUpdateTime])
+                mobiles.add(temp)
+            }
+            
+            
+            
+//            let administrativeUnitCategories = NSMutableArray()
+//            do {
+//                let administrativeUnitCategoryTable = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)
+//                let db = try Connection(Constants.DB_FULLPATH)
+//                for categories in try db.prepare(administrativeUnitCategoryTable) {
+//                    let adminUnitCategory = AdministrativeUnitCategory(categoryId: categories[self.categoryId], name: categories[self.name], description: categories[self.description], iconName: categories[self.iconName], createTime: categories[self.createTime], lastUpdateTime: categories[self.lastUpdateTime], keyword: categories[self.keyword])
+//                    administrativeUnitCategories.add(adminUnitCategory)
+//                }
+//                print("query administrative unit category table succeed.")
+//            } catch _ {
+//                print("query administrative unit category table fail.")
+//            }
+            
+        } catch _ {
+            print("there is error.")
+        }
+    }
+    
 }
 

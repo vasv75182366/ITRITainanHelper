@@ -64,6 +64,10 @@ class DatabaseHelper {
         self.db_name = Constants.DB_NAME
     }
     
+    init(name: String) {
+        self.db_name = name
+    }
+    
     func createDB() -> Void {
         createAllTables()
     }

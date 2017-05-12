@@ -43,6 +43,8 @@
 		6740EC251EA89CA7000879A3 /* NavigationDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6740EC241EA89CA7000879A3 /* NavigationDetailTableViewCell.swift */; };
 		6756BB471E955419002D9B96 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6756BB461E955419002D9B96 /* DatabaseHelper.swift */; };
 		6756BB491E9554BB002D9B96 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6756BB481E9554BB002D9B96 /* APIConstants.swift */; };
+		67575DD21EC4B72400CA1DBC /* tainan.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 67575DD11EC4B72400CA1DBC /* tainan.sqlite */; };
+		67575DD51EC4B98F00CA1DBC /* TainanAdminUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67575DD41EC4B98F00CA1DBC /* TainanAdminUnit.swift */; };
 		6788C25A1E837FC90089EC2D /* Macros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6788C2591E837FC90089EC2D /* Macros.swift */; };
 		67BB5A861E82D23300D344BC /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BB5A851E82D23300D344BC /* CustomSearchBar.swift */; };
 		67E81DD51E898B370005CE40 /* ServiceResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E81DD41E898B370005CE40 /* ServiceResultViewController.swift */; };
@@ -117,6 +119,8 @@
 		6740EC241EA89CA7000879A3 /* NavigationDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationDetailTableViewCell.swift; sourceTree = "<group>"; };
 		6756BB461E955419002D9B96 /* DatabaseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		6756BB481E9554BB002D9B96 /* APIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		67575DD11EC4B72400CA1DBC /* tainan.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = tainan.sqlite; sourceTree = "<group>"; };
+		67575DD41EC4B98F00CA1DBC /* TainanAdminUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TainanAdminUnit.swift; sourceTree = "<group>"; };
 		6788C2591E837FC90089EC2D /* Macros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Macros.swift; sourceTree = "<group>"; };
 		67998F9B1EAB9B9700311345 /* NitigationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NitigationKit.framework; path = ../../NitigationKitSample/NitigationKitSample/NitigationKit.framework; sourceTree = "<group>"; };
 		67998FA11EABBE9100311345 /* MacroDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacroDefinition.h; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 		67117C401E7A50C500357D9F /* ITRITainenHelper */ = {
 			isa = PBXGroup;
 			children = (
+				67575DD31EC4B97B00CA1DBC /* TainanData */,
+				67575DD11EC4B72400CA1DBC /* tainan.sqlite */,
 				6756BB451E9553FE002D9B96 /* Database */,
 				67250A311E867E7500F824DD /* Apps */,
 				67250A2E1E867E5E00F824DD /* Facility */,
@@ -339,6 +345,14 @@
 				6735317A1EACED5D00F2E20B /* DatabaseTester.swift */,
 			);
 			name = Database;
+			sourceTree = "<group>";
+		};
+		67575DD31EC4B97B00CA1DBC /* TainanData */ = {
+			isa = PBXGroup;
+			children = (
+				67575DD41EC4B98F00CA1DBC /* TainanAdminUnit.swift */,
+			);
+			name = TainanData;
 			sourceTree = "<group>";
 		};
 		6788C2571E837EB70089EC2D /* MACROS */ = {
@@ -491,6 +505,7 @@
 				67117C471E7A50C500357D9F /* Main.storyboard in Resources */,
 				67250A331E867E8100F824DD /* Apps.storyboard in Resources */,
 				67250A2A1E867E4B00F824DD /* Service.storyboard in Resources */,
+				67575DD21EC4B72400CA1DBC /* tainan.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,6 +609,7 @@
 				673868DA1E9F2A4000C4823B /* MainPageViewController.swift in Sources */,
 				6740EC131EA8594C000879A3 /* Edm.swift in Sources */,
 				67E81DD51E898B370005CE40 /* ServiceResultViewController.swift in Sources */,
+				67575DD51EC4B98F00CA1DBC /* TainanAdminUnit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
