@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0830"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E7AD932E72DB9C301BC131CB932635A3"
+               BlueprintIdentifier = "D8779A59D29EB1C42A86193CBF23933B"
                BuildableName = "Pods_ITRITainenHelper.framework"
                BlueprintName = "Pods-ITRITainenHelper"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E7AD932E72DB9C301BC131CB932635A3"
+            BlueprintIdentifier = "D8779A59D29EB1C42A86193CBF23933B"
             BuildableName = "Pods_ITRITainenHelper.framework"
             BlueprintName = "Pods-ITRITainenHelper"
             ReferencedContainer = "container:Pods.xcodeproj">

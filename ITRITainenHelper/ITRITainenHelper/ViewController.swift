@@ -8,12 +8,10 @@
 
 import UIKit
 import SQLite
-import NitigationKit
 
 class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
     
     //MARK: - variables
-    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchButton: UIButton!
     
@@ -29,6 +27,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     var cellBgImage: UIImage!
     var titleCombineView: UIView!
     var checkFunction: Int = 0
+    var databaseHelper: DatabaseHelper!
     
     // image arrays
     var logoImage: [UIImage] = [
@@ -39,45 +38,8 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     var logoImageCount: Int = 0
     var webviewString = [String]()
     var maxImageCount: Int = 0
-    let x = Expression<Int64>(DBCol.X)
-    let y = Expression<Int64>(DBCol.Y)
-    let fieldId = Expression<String>(DBCol.FIELD_ID)
-    let parentUnitId = Expression<String>(DBCol.PARENT_UNIT_ID)
-    let tel = Expression<String>(DBCol.TEL)
-    let fax = Expression<String>(DBCol.FAX)
-    let email = Expression<String>(DBCol.EMAIL)
-    let website = Expression<String>(DBCol.WEBSITE)
-    let category = Expression<String>(DBCol.CATEGORY)
-    let name = Expression<String>(DBCol.NAME)
-    let descriptio = Expression<String>(DBCol.DESCRIPTION)
-    let nearByPathId = Expression<String>(DBCol.NEAR_BY_PATH_ID)
-    let iconName = Expression<String>(DBCol.ICON_NAME)
-    let createTime = Expression<Int64>(DBCol.CREATE_TIME)
-    let lastUpdateTime = Expression<Int64>(DBCol.LAST_UPDATE_TIME)
-    let keyword = Expression<String>(DBCol.KEYWORD)
-    let unitId = Expression<String>(DBCol.UNIT_ID)
-    let categoryId = Expression<String>(DBCol.CATEGORY_ID)
-    let edmId = Expression<String>(DBCol.EDM_ID)
-    let edmName = Expression<String>(DBCol.EDM_NAME)
-    let edmURL = Expression<String>(DBCol.EDM_URL)
-    let edmImage = Expression<String>(DBCol.EDM_IMAGE)
-    let edmEndDay = Expression<String>(DBCol.EDM_END_DAY)
-    let id = Expression<Int64>("id")
-    let stringId = Expression<String>("id")
-    let hotDate = Expression<String>(DBCol.HOT_DATE)
-    let hotTitle = Expression<String>(DBCol.HOT_TITLE)
-    let hotDescription = Expression<String>(DBCol.HOT_DESCRIPTION)
-    let hotLink = Expression<String>(DBCol.HOT_LINK)
-    let isDelete = Expression<Int64>(DBCol.IS_DELETE)
-    let keywordId = Expression<String>(DBCol.KEYWORD_ID)
-    let read = Expression<Int64>("read")
-    let rank = Expression<Int64>(DBCol.RANK)
-    let appId = Expression<String>(DBCol.APP_ID)
-    let appName = Expression<String>(DBCol.APP_NAME)
-    let appURL = Expression<String>(DBCol.APP_URL)
-    let appImage = Expression<String>(DBCol.APP_IMAGE)
-    let sequence = Expression<String>("sequence")
-
+    
+    
     
     //MARK: - basic functions
     
@@ -122,7 +84,29 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         self.myNavigationItem.titleView!.bringSubview(toFront: logoLabel)
         self.myNavigationItem.titleView!.backgroundColor = UIColor.init(red: 60, green: 176, blue: 157, alpha: 1)
         
-        insertData()
+        // self-created database
+        // insertData()
+        
+        // try to read from tainan3
+        readDataFromTainanSQLite()
+        
+        /*
+        self.databaseHelper = DatabaseHelper.init()
+        self.databaseHelper.createDB()
+        
+        // dataSyncer
+        let dataSyncer = DataSyncer.createInstance("project_1450347754")
+        dataSyncer?.dataSyncListener = self;
+        dataSyncer?.startSync()
+        // sync all database data, TODO: - test
+        dataSyncer?.getData(DBCol.TABLE_ADMINISTRATIVE_UNIT, time:Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_ADMINISTRATIVE_UNIT)))
+        dataSyncer?.getData(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)))
+        dataSyncer?.getData(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)))
+        dataSyncer?.getData(DBCol.TABLE_KEYWORD, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_KEYWORD)))
+        dataSyncer?.getData(DBCol.TABLE_IN_KEYWORD, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_IN_KEYWORD)))
+        dataSyncer?.getData(DBCol.TABLE_EDM, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_EDM)))
+        dataSyncer?.getData(DBCol.TABLE_MOBILEAPP, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_MOBILEAPP)))
+        */
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -530,13 +514,37 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         if dbHelper.insertOrUpdateMobileAppTable(appId: "appId_3", appName: "app 3", appURL: "itunes.apple.com", appImage: "image3.png", lastUpdateTime: 3) {
             print("insert mobile app table success.")
         }
+        
+        // query data example
+        let admins = dbHelper.queryAdministrativeUnitTable()
+        for admin in admins {
+            let temp = admin as! AdministrativeUnit
+            print(temp.x)
+        }
+    }
+    
+    
+    func checkDataBase(){
+//        let url = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("tainan3.sqlite")
+        let url = Bundle.main.url(forResource: "tainan3", withExtension: "sqlite")!
+//        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("DB.sqlite")
+        // Load the existing database
+        if !FileManager.default.fileExists(atPath: url.path) {
+            print("Not found, copy one!!!")//log
+            let sourceSqliteURL = Bundle.main.url(forResource: "tainan3", withExtension: "sqlite")!
+            print(sourceSqliteURL)
+            print(url)
+        }else{
+            print("DB file exist")//log
+        }
     }
     
     func readDataFromTainanSQLite() {
-        // let dbURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("tainan")
-        let path2 = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-        let dbName = "tainan.sqlite"
-        let tempDB = path2 + dbName
+//         let dbURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("tainan2")
+//        let path2 = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let path = Bundle.main.path(forResource: "tainan3", ofType: "sqlite")!
+        let dbName = "tainan2.sqlite"
+//        let tempDB = path + dbName
         let adminUnits = NSMutableArray()
         let adminUnitsCat = NSMutableArray()
         let adminUnitsInCat = NSMutableArray()
@@ -550,7 +558,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
 
         do {
             // db connection to tainan.sqlite
-            let db = try Connection(tempDB)
+            let db = try Connection(path)
             
             // define tables
             let adminUnitTable = Table("administrativeunit")
@@ -566,58 +574,134 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
 
             // query and store data
             for units in try db.prepare(adminUnitTable) {
-                let temp = AdministrativeUnit(x: units[self.x], y: units[self.y], fieldId: units[self.fieldId], unitId: units[self.unitId], parentUnitId: units[self.parentUnitId], name: units[self.name], tel: units[self.tel], fax: units[self.fax], email: units[self.email], website: units[self.website], description: units[self.descriptio], iconName: units[self.iconName], createTime: units[self.createTime], lastUpdateTime: units[self.lastUpdateTime], nearByPathId: units[self.nearByPathId], keyword: units[self.keyword])
+                let temp = AdministrativeUnit(x: units[DBColExpressions.x], y: units[DBColExpressions.y], fieldId: units[DBColExpressions.fieldId], unitId: units[DBColExpressions.unitId], parentUnitId: units[DBColExpressions.parentUnitId], name: units[DBColExpressions.name], tel: units[DBColExpressions.tel], fax: units[DBColExpressions.fax], email: units[DBColExpressions.email], website: units[DBColExpressions.website], description: units[DBColExpressions.description], iconName: units[DBColExpressions.iconName], createTime: units[DBColExpressions.createTime], lastUpdateTime: units[DBColExpressions.lastUpdateTime], nearByPathId: units[DBColExpressions.nearByPathId], keyword: units[DBColExpressions.keyword])
                 adminUnits.add(temp)
             }
             
             for cats in try db.prepare(adminUnitCatTable) {
-                let temp = AdministrativeUnitCategory(categoryId: cats[self.categoryId], name: cats[self.name], description: cats[self.descriptio], iconName: cats[self.iconName], createTime: cats[self.createTime], lastUpdateTime: cats[self.lastUpdateTime], keyword: cats[self.keyword])
+                let temp = AdministrativeUnitCategory(categoryId: cats[DBColExpressions.categoryId], name: cats[DBColExpressions.name], description: cats[DBColExpressions.description], iconName: cats[DBColExpressions.iconName], createTime: cats[DBColExpressions.createTime], lastUpdateTime: cats[DBColExpressions.lastUpdateTime], keyword: cats[DBColExpressions.keyword])
                 adminUnitsCat.add(temp)
             }
             
             for ins in try db.prepare(adminUnitInCatTable) {
-                let temp = AdministrativeUnitInCategory(unitId: ins[self.unitId], categoryId: ins[self.categoryId], lastUpdateTime: ins[self.lastUpdateTime])
+                let temp = AdministrativeUnitInCategory(unitId: ins[DBColExpressions.unitId], categoryId: ins[DBColExpressions.categoryId], lastUpdateTime: ins[DBColExpressions.lastUpdateTime])
                 adminUnitsInCat.add(temp)
             }
             
             for edmm in try db.prepare(edmTable) {
-                let temp = Edm(edmId: edmm[self.edmId], edmName: edmm[self.edmName], edmURL: edmm[self.edmURL], edmImage: edmm[self.edmImage], edmEndDay: edmm[self.edmEndDay], lastUpdateTime: edmm[self.lastUpdateTime])
+                let temp = Edm(edmId: edmm[DBColExpressions.edmId], edmName: edmm[DBColExpressions.edmName], edmURL: edmm[DBColExpressions.edmURL], edmImage: edmm[DBColExpressions.edmImage], edmEndDay: edmm[DBColExpressions.edmEndDay], lastUpdateTime: edmm[DBColExpressions.lastUpdateTime])
                 edms.add(temp)
             }
             
             for hott in try db.prepare(hotTable) {
-                let temp = HotItem(id: hott[self.id], hotDate: hott[self.hotDate], hotTitle: hott[self.hotTitle], hotDescription: hott[self.hotDescription], hotLink: hott[self.hotLink], isDelete: hott[self.isDelete])
+                let temp = HotItem(id: hott[DBColExpressions.id], hotDate: hott[DBColExpressions.hotDate], hotTitle: hott[DBColExpressions.hotTitle], hotDescription: hott[DBColExpressions.hotDescription], hotLink: hott[DBColExpressions.hotLink], isDelete: hott[DBColExpressions.isDelete])
                 hots.add(temp)
             }
             
             for keys in try db.prepare(inKeyTable) {
-                let temp = InKeywords(id: String(keys[self.stringId]), keywordId: keys[self.keywordId], lastUpdateTime: keys[self.lastUpdateTime])
+                let temp = InKeywords(id: String(keys[DBColExpressions.stringId]), keywordId: keys[DBColExpressions.keywordId], lastUpdateTime: keys[DBColExpressions.wrongLastUpdateTime])
                 inKeys.add(temp)
             }
             
             for instrs in try db.prepare(instructionTable) {
-                let temp = InstructionItem(id: instrs[self.id], name: instrs[self.name], read: instrs[self.read])
+                let temp = InstructionItem(id: instrs[DBColExpressions.id], name: instrs[DBColExpressions.name], read: instrs[DBColExpressions.read])
                 instructs.add(temp)
             }
             
             for k in try db.prepare(keywordTable) {
-                let temp = Keyword(keywordId: k[self.keywordId], keyword: k[self.keyword], rank: k[self.rank], description: k[self.descriptio], createTime: k[self.createTime], lastUpdateTime: k[self.lastUpdateTime])
+                let temp = Keyword(keywordId: k[DBColExpressions.keywordId], keyword: k[DBColExpressions.keyword], rank: k[DBColExpressions.rank], description: k[DBColExpressions.description], createTime: k[DBColExpressions.createTime], lastUpdateTime: k[DBColExpressions.lastUpdateTime])
                 keys.add(temp)
             }
             
             for maps in try db.prepare(mappingKeyTable) {
-                let temp = MappingKeyword(unitId: maps[self.unitId], keyword: maps[self.keyword])
+                let temp = MappingKeyword(unitId: maps[DBColExpressions.unitId], keyword: maps[DBColExpressions.keyword])
                 mappings.add(temp)
             }
             
             for mobs in try db.prepare(mobileTable) {
-                let temp = MobileApps(appId: mobs[self.appId], appName: mobs[self.appName], appURL: mobs[self.appURL], appImage: mobs[self.appImage], lastUpdateTime: mobs[self.lastUpdateTime])
+                let temp = MobileApps(appId: mobs[DBColExpressions.appId], appName: mobs[DBColExpressions.appName], appURL: mobs[DBColExpressions.appURL], appImage: mobs[DBColExpressions.appImage], lastUpdateTime: mobs[DBColExpressions.lastUpdateTime])
                 mobiles.add(temp)
             }
+ 
         } catch _ {
             print("there is error.")
         }
+        
+        // print out all table data
+        for data in adminUnits {
+            let temp = data as! AdministrativeUnit
+            print("administrative unit -> x: ", temp.x!, ", y: ", temp.y!, ", fieldId: ", temp.fieldId!, ", unitId: ", temp.unitId!, ", parentUnitId: ", temp.parentUnitId!, ", name: ", temp.name!, ", tel: ", temp.tel!, ", fax: ", temp.fax!, ", email: ", temp.email!, ", website: ", temp.website!, ", description: ", temp.description!, ", iconName: ", temp.iconName!, ", createTime: ", temp.createTime!, ", lastUpdateTime: ", temp.lastUpdateTime!, ", nearByPathId: ", temp.nearByPathId!, ", keyword: ", temp.keyword!)
+        }
+        
+        for data in adminUnitsCat {
+            let temp = data as! AdministrativeUnitCategory
+            print("administrative unit category -> categoryId: ", temp.categoryId!, ", name: ", temp.name!, ", description: ", temp.description!, ", iconName: ", temp.iconName!, ", createTime: ", temp.createTime, ", lastUpdateTime: ", temp.lastUpdateTime, ", keyword: ", temp.keyword!)
+        }
+        
+        for data in adminUnitsInCat {
+            let temp = data as! AdministrativeUnitInCategory
+            print("administrative unit in category -> unitId: ", temp.unitId!, ", categoryId: ", temp.categoryId!, ", lastUpdateTime: ", temp.lastUpdateTime!)
+        }
+        
+        for data in edms {
+            let temp = data as! Edm
+            print("edm -> edmId: ", temp.edmId!, ", edmName: ", temp.edmName!, ", edmURL: ", temp.edmURL!, ", edmImage: ", temp.edmImage!, ", edmEndDay: ", temp.edmEndDay!, ", lastUpdateTime: ", temp.lastUpdateTime!)
+        }
+        
+        for data in hots {
+            let temp = data as! HotItem
+            print("(", temp.id!, ", ", temp.hotDate!, ", ", temp.hotTitle!, ", ", temp.hotDescription!, ", ", temp.hotLink!, ", ", temp.isDelete!, ")")
+        }
+        
+        for data in inKeys {
+            let temp = data as! InKeywords
+            print("(", temp.id!, ", ", temp.keywordId!, ", ", temp.lastUpdateTime!, ")")
+        }
+        
+        for data in instructs {
+            let temp = data as! InstructionItem
+            print("(", temp.id!, ", ", temp.name!, ", ", temp.read!, ")")
+        }
+        
+        for data in keys {
+            let temp = data as! Keyword
+            print("(", temp.keywordId!, ", ", temp.keyword!, ", ", temp.rank!, ", ", temp.description!, ", ", temp.createTime!, ", ", temp.lastUpdateTime!, ")")
+        }
+        
+        for data in mappings {
+            let temp = data as! MappingKeyword
+            print("(", temp.unitId!, ", ", temp.keyword!, ")")
+        }
+        
+        for data in mobiles {
+            let temp = data as! MobileApps
+            print("(", temp.appId!, ", ", temp.appName!, ", ", temp.appURL!, ", ", temp.appImage!, ", ", temp.lastUpdateTime!, ")")
+        }
     }
     
+    /*
+    // DataSyncerListener protocol method
+    func onGetData(_ pTableName: String!, data: Any!) {
+        if (pTableName == DBCol.TABLE_ADMINISTRATIVE_UNIT) {
+            // should update administrative unit table here
+        } else if (pTableName == DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY) {
+            // TODO: - update unit category
+        } else if (pTableName == DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY) {
+            // TODO: - update unit in category
+        } else if (pTableName == DBCol.TABLE_KEYWORD) {
+            // TODO: - update keyword table
+        } else if (pTableName == DBCol.TABLE_IN_KEYWORD) {
+            // TODO: - update in keyword table
+        } else if (pTableName == DBCol.TABLE_EDM) {
+            // TODO: - edm table
+        } else if (pTableName == DBCol.TABLE_MOBILEAPP) {
+            // TODO: - mobile app table
+        }
+    }
+    
+    func onSyncerStatus(_ status: SyncStatus) {
+        print("synchronization status: ", status)
+    }
+    */
 }
 

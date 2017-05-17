@@ -71,6 +71,5 @@ class DBCol {
     static let TABLE_INSTRUCTION = "instruction"
     static let INSTR_NAME = "name"
     static let INSTR_READ = "read"
-    
 
 }
