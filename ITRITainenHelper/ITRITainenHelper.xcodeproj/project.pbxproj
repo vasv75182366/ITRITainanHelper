@@ -21,6 +21,7 @@
 		5F785BC71EC54DCD00FD8052 /* DrinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BC31EC54DCD00FD8052 /* DrinkViewController.swift */; };
 		5F785BCA1EC5F3E700FD8052 /* Facility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F785BC81EC5F3E700FD8052 /* Facility.storyboard */; };
 		5F785BCB1EC5F3E700FD8052 /* FacilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BC91EC5F3E700FD8052 /* FacilityViewController.swift */; };
+		5F785BCD1ED7E2FD00FD8052 /* Guide1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BCC1ED7E2FD00FD8052 /* Guide1ViewController.swift */; };
 		67117C421E7A50C500357D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67117C411E7A50C500357D9F /* AppDelegate.swift */; };
 		67117C441E7A50C500357D9F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67117C431E7A50C500357D9F /* ViewController.swift */; };
 		67117C471E7A50C500357D9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67117C451E7A50C500357D9F /* Main.storyboard */; };
@@ -99,6 +100,7 @@
 		5F785BC31EC54DCD00FD8052 /* DrinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkViewController.swift; sourceTree = "<group>"; };
 		5F785BC81EC5F3E700FD8052 /* Facility.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Facility.storyboard; sourceTree = "<group>"; };
 		5F785BC91EC5F3E700FD8052 /* FacilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityViewController.swift; sourceTree = "<group>"; };
+		5F785BCC1ED7E2FD00FD8052 /* Guide1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guide1ViewController.swift; sourceTree = "<group>"; };
 		67117C3E1E7A50C500357D9F /* ITRITainenHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ITRITainenHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67117C411E7A50C500357D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67117C431E7A50C500357D9F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 				5F785BA51EC2B3A700FD8052 /* NewsCell.swift */,
 				5F785BA71EC2B53700FD8052 /* RSSFormat.swift */,
 				5F785BA91EC2B57500FD8052 /* NewsDetailViewController.swift */,
+				5F785BCC1ED7E2FD00FD8052 /* Guide1ViewController.swift */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				67FA181B1E87C9780017DF11 /* MessageViewController.swift in Sources */,
 				6740EC111EA85785000879A3 /* AdministrativeUnitInCategory.swift in Sources */,
 				67FA180F1E87C0FD0017DF11 /* AppsViewController.swift in Sources */,
+				5F785BCD1ED7E2FD00FD8052 /* Guide1ViewController.swift in Sources */,
 				6756BB491E9554BB002D9B96 /* APIConstants.swift in Sources */,
 				5F785BA61EC2B3A700FD8052 /* NewsCell.swift in Sources */,
 				673F102F1E95E9D000499F16 /* DBCol.swift in Sources */,

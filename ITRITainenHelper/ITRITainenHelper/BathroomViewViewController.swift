@@ -45,7 +45,7 @@ class BathroomViewViewController: UIViewController, UITableViewDelegate, UITable
         //cell.img.text = "\(indexPath.row)"
         cell.textlabel.text = info[indexPath.row]
         //let imgname = indexPath.row % 2 == 0 ?"close.png":"1.png"
-        cell.img.image = UIImage(named: indexPath.row % 2 == 0 ?"close.png":"1.png")
+        cell.img.image = UIImage(named: indexPath.row % 2 == 0 ?"index_logo1.png":"govenment_128.png")
         
         /*if indexPath.row % 2 == 0{
             cell.img.image = UIImage(named: "close.png")

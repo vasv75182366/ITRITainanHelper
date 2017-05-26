@@ -19,7 +19,50 @@ class MessageViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let defaults = UserDefaults.standard
+        let checkFirstLaunch = defaults.bool(forKey: "isAppFirstLaunch")
+        if (checkFirstLaunch != true) {
+            // is first launch
+            setGuideLayout()
+        } else {
+            setGeneralLayout()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadNews()
+    }
 
+    // set Guide layout
+    func setGuideLayout() {
+        // set button
+        let btnCheck: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 210, height: 73))
+        btnCheck.setTitle("確定", for: .normal)
+        btnCheck.setTitleColor(UIColor.white, for: .normal)
+        btnCheck.isEnabled = true
+        btnCheck.setImage(UIImage(named: "instruction_button.png"), for: .normal)
+        btnCheck.center = CGPoint(x: view.frame.size.width * 0.5, y: view.frame.size.height * 0.3)
+        // set label
+        let lbGuide: UILabel = UILabel()
+        lbGuide.bounds.origin = CGPoint(x: view.frame.size.width * 0.5, y: view.frame.size.height * 0.5)
+        lbGuide.text = "上下滑動以瀏覽內容"
+        lbGuide.textColor = UIColor.white
+        lbGuide.font = UIFont.systemFont(ofSize: 18)
+        // set image
+        let imgHand: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 207, height: 255))
+        imgHand.image = UIImage(named: "up_down_hand.png")
+        imgHand.center = CGPoint(x: view.frame.size.width * 0.7, y: view.frame.size.height * 0.7)
+        // add component to view
+        view.addSubview(btnCheck)
+        view.addSubview(lbGuide)
+        view.addSubview(imgHand)
+        
+    }
+    
+    // set gerneral layout
+    func setGeneralLayout() {
         self.tvNews.layoutMargins = UIEdgeInsets.zero
         // set overlay
         overlay.frame = CGRect(x: 0, y: 0, width: view.frame.size.width * 0.8, height: 90)
@@ -41,10 +84,6 @@ class MessageViewController: UIViewController, UITableViewDataSource, UITableVie
         activityIndicator.startAnimating()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        loadNews()
-    }
     // News loading
     func loadNews() {
         // call API and transfer response to rss format

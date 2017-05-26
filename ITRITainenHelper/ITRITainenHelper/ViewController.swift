@@ -643,10 +643,10 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             print("administrative unit in category -> unitId: ", temp.unitId!, ", categoryId: ", temp.categoryId!, ", lastUpdateTime: ", temp.lastUpdateTime!)
         }
         
-        for data in edms {
-            let temp = data as! Edm
-            print("edm -> edmId: ", temp.edmId!, ", edmName: ", temp.edmName!, ", edmURL: ", temp.edmURL!, ", edmImage: ", temp.edmImage!, ", edmEndDay: ", temp.edmEndDay!, ", lastUpdateTime: ", temp.lastUpdateTime!)
-        }
+//        for data in edms {
+//            let temp = data as! Edm
+//            print("edm -> edmId: ", temp.edmId!, ", edmName: ", temp.edmName!, ", edmURL: ", temp.edmURL!, ", edmImage: ", temp.edmImage!, ", edmEndDay: ", temp.edmEndDay!, ", lastUpdateTime: ", temp.lastUpdateTime!)
+//        }
         
         for data in hots {
             let temp = data as! HotItem
@@ -675,7 +675,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         
         for data in mobiles {
             let temp = data as! MobileApps
-            print("(", temp.appId!, ", ", temp.appName!, ", ", temp.appURL!, ", ", temp.appImage!, ", ", temp.lastUpdateTime!, ")")
+            print("(", temp.appId, ", ", temp.appName!, ", ", temp.appURL!, ", ", temp.appImage!, ", ", temp.lastUpdateTime, ")")
         }
     }
     

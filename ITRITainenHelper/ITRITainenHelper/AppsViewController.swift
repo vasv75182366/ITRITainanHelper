@@ -14,12 +14,17 @@ class AppsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-        
+        let dbHelper = DatabaseHelper.init()
+        let apps = dbHelper.queryMobileAppTable()
+        for app in apps {
+            print((app as! MobileApps).appId)
+        }
     }
     
     @IBAction func backHomeAlone(_ sender: Any) {
