@@ -427,20 +427,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 @end
 
 
-SWIFT_CLASS("_TtC13NitigationKit14ProjectedPoint")
-@interface ProjectedPoint : NSObject
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSInteger OVER_PATH;)
-+ (NSInteger)OVER_PATH SWIFT_WARN_UNUSED_RESULT;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSInteger ON_PATH;)
-+ (NSInteger)ON_PATH SWIFT_WARN_UNUSED_RESULT;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSInteger NEGATIVE_PATH;)
-+ (NSInteger)NEGATIVE_PATH SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic) NSInteger pathLocation;
-@property (nonatomic, strong) PathConnector * _Nullable pathConnector;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
 SWIFT_CLASS("_TtC13NitigationKit6Target")
 @interface Target : ExternalPoint
 @property (nonatomic, copy) NSString * _Nonnull nearByPathId;

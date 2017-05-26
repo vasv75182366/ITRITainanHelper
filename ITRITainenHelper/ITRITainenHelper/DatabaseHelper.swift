@@ -264,6 +264,7 @@ class DatabaseHelper {
     }
     
     
+    
     func insertOrUpdateAdministrativeUnitCategory(categoryId: String, name: String, description: String, iconName: String, createTime: Int64, lastUpdateTime: Int64, keyword: String) -> Bool {
         do {
             let db = try Connection(Constants.DB_FULLPATH)
@@ -604,17 +605,6 @@ class DatabaseHelper {
     
     
     // MARK: - sync tables
-    func updateAdministrativeUnit(jsonObj: Any) {
-        do {
-            // pluck a row: if there is data
-            let db = try Connection(Constants.DB_FULLPATH)
-            let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
-            
-        } catch _ {
-            print("update administrative unit table error.")
-        }
-    }
-    
     
     // administrative unit
     func syncAdministrativeUnitTable(jsonObj: JSON) {
@@ -625,8 +615,161 @@ class DatabaseHelper {
             let dataArray = jsonObj["data"];
             for dict in dataArray {
                 // call new insert function by passing json object
-                updateAdministrativeUnit(jsonObj: dict)
+                // 取當下 dictionary 的 value 值 --> JSON
+                updateAdministrativeUnit(jsonObj: dict.1)
             }
+        }
+    }
+    
+    func updateAdministrativeUnit(jsonObj: JSON) {
+        do {
+            // pluck a row: if there is data
+            let db = try Connection(Constants.DB_FULLPATH)
+            let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
+            if (jsonObj["isDelete"].intValue == 0) {
+                /* perform insert or update */
+                // pluck to check if the row exists
+                let filtering = table.filter(DBColExpressions.unitId == jsonObj["unitId"].stringValue).limit(1)
+                let plucking = try db.pluck(filtering)
+                if (plucking != nil) {
+                    // update if there is row
+                    let updateFilter = table.filter(DBColExpressions.unitId == jsonObj["unitId"].stringValue)
+                    try db.run(updateFilter.update(DBColExpressions.parentUnitId <- jsonObj["parentUnitId"].stringValue, DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.fieldId <- jsonObj["fieldId"].stringValue, DBColExpressions.x <- jsonObj["x"].int64Value, DBColExpressions.y <- jsonObj["y"].int64Value, DBColExpressions.nearByPathId <- jsonObj["nearByPathId"].stringValue, DBColExpressions.tel <- jsonObj["tel"].stringValue, DBColExpressions.fax <- jsonObj["fax"].stringValue, DBColExpressions.email <- jsonObj["email"].stringValue, DBColExpressions.website <- jsonObj["website"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                } else {
+                    // else insert if there is no existing row
+                    try db.run(table.insert(or: .replace, DBColExpressions.unitId <- jsonObj["unitId"].stringValue, DBColExpressions.parentUnitId <- jsonObj["parentUnitId"].stringValue, DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.fieldId <- jsonObj["fieldId"].stringValue, DBColExpressions.x <- jsonObj["x"].int64Value, DBColExpressions.y <- jsonObj["y"].int64Value, DBColExpressions.nearByPathId <- jsonObj["nearByPathId"].stringValue, DBColExpressions.tel <- jsonObj["tel"].stringValue, DBColExpressions.fax <- jsonObj["fax"].stringValue, DBColExpressions.email <- jsonObj["email"].stringValue, DBColExpressions.website <- jsonObj["website"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                }
+            } else {
+                /* perform delete action */
+                // filter by unitId
+                let deleteUnitId = table.filter(DBColExpressions.unitId == jsonObj["unitId"].stringValue)
+                do {
+                    if try db.run(deleteUnitId.delete()) > 0 {
+                        print("deleted row, unitId: \(jsonObj["unitId"].stringValue)")
+                    } else {
+                        print("row unitId: \(jsonObj["unitId"].stringValue) not found.")
+                    }
+                } catch {
+                    print("delete failed: \(error)")
+                }
+            }
+        } catch _ {
+            print("update administrative unit table error.")
+        }
+    }
+    
+    
+    // administrative unit
+    func syncAdministrativeUnitCategory(jsonObj: JSON) {
+        let result = jsonObj["result"].intValue;
+        // print result
+        print(result)
+        if (result == 0) {
+            let dataArray = jsonObj["data"];
+            for dict in dataArray {
+                // call new insert function by passing json object
+                // 取當下 dictionary 的 value 值 --> JSON
+                updateAdministrativeUnitCategory(jsonObj: dict.1)
+            }
+        }
+    }
+    
+    func updateAdministrativeUnitCategory(jsonObj: JSON) {
+        do {
+            // pluck a row: if there is data
+            let db = try Connection(Constants.DB_FULLPATH)
+            let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)
+            if (jsonObj["isDelete"].intValue == 0) {
+                /* perform insert or update */
+                // pluck to check if the row exists
+                let filtering = table.filter(DBColExpressions.categoryId == jsonObj["categoryId"].stringValue).limit(1)
+                let plucking = try db.pluck(filtering)
+                if (plucking != nil) {
+                    // update if there is row
+                    let updateFilter = table.filter(DBColExpressions.categoryId == jsonObj["categoryId"].stringValue)
+                    try db.run(updateFilter.update(DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                } else {
+                    // else insert if there is no existing row
+                    try db.run(table.insert(or: .replace, DBColExpressions.categoryId <- jsonObj["categoryId"].stringValue, DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                }
+            } else {
+                /* perform delete action */
+                // filter by unitId
+                let deleteUnitId = table.filter(DBColExpressions.categoryId == jsonObj["categoryId"].stringValue)
+                do {
+                    if try db.run(deleteUnitId.delete()) > 0 {
+                        print("deleted row, unitId: \(jsonObj["categoryId"].stringValue)")
+                    } else {
+                        print("row unitId: \(jsonObj["categoryId"].stringValue) not found.")
+                    }
+                } catch {
+                    print("delete failed: \(error)")
+                }
+            }
+        } catch _ {
+            print("update administrative unit category table error.")
+        }
+    }
+    
+    
+    
+    // administrative unit in category
+    func syncAdministrativeUnitInCategory(jsonObj: JSON) {
+        let result = jsonObj["result"].intValue;
+        // print result
+        print(result)
+        if (result == 0) {
+            let dataArray = jsonObj["data"];
+            for dict in dataArray {
+                // call new insert function by passing json object
+                // 取當下 dictionary 的 value 值 --> JSON
+                updateAdministrativeUnitCategory(jsonObj: dict.1)
+            }
+        }
+    }
+    
+    func updateAdministrativeUnitInCategory(jsonObj: JSON) {
+        do {
+            // pluck a row: if there is data
+            let db = try Connection(Constants.DB_FULLPATH)
+            let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)
+            
+            let deleteFilter = table.filter(DBColExpressions.unitId == jsonObj["unitId"].stringValue)
+            if try db.run(deleteFilter.delete()) > 0 {
+                print("deleted row, unitId: \(jsonObj["unitId"].stringValue)")
+            } else {
+                print("row unitId: \(jsonObj["unitId"])");
+            }
+            
+            if (jsonObj["isDelete"].intValue == 0) {
+                /* perform insert or update */
+                // pluck to check if the row exists
+                let filtering = table.filter(DBColExpressions.categoryId == jsonObj["categoryId"].stringValue).limit(1)
+                let plucking = try db.pluck(filtering)
+                if (plucking != nil) {
+                    // update if there is row
+                    let updateFilter = table.filter(DBColExpressions.categoryId == jsonObj["categoryId"].stringValue)
+                    try db.run(updateFilter.update(DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                } else {
+                    // else insert if there is no existing row
+                    try db.run(table.insert(or: .replace, DBColExpressions.categoryId <- jsonObj["categoryId"].stringValue, DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                }
+            } else {
+                /* perform delete action */
+                // filter by unitId
+                let deleteUnitId = table.filter(DBColExpressions.categoryId == jsonObj["categoryId"].stringValue)
+                do {
+                    if try db.run(deleteUnitId.delete()) > 0 {
+                        print("deleted row, unitId: \(jsonObj["categoryId"].stringValue)")
+                    } else {
+                        print("row unitId: \(jsonObj["categoryId"].stringValue) not found.")
+                    }
+                } catch {
+                    print("delete failed: \(error)")
+                }
+            }
+        } catch _ {
+            print("update administrative unit category table error.")
         }
     }
     

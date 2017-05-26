@@ -8,8 +8,9 @@
 
 import UIKit
 import SQLite
+import NitigationKit
 
-class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
+class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
     
     //MARK: - variables
     @IBOutlet weak var searchBar: UISearchBar!
@@ -54,7 +55,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         self.rightActivityButton.setImage(UIImage.init(named: "index_right.png"), for: UIControlState.normal)
         self.leftActivityButton = UIButton.init(frame: CGRect(x: self.activityView.bounds.origin.x + self.activityView.bounds.size.width/12*1.5, y: self.activityView.bounds.origin.y + self.activityView.bounds.size.height/2, width: self.activityView.bounds.size.width/12, height: self.activityView.bounds.size.width/12))
         self.leftActivityButton.setImage(UIImage.init(named: "index_left.png"), for: UIControlState.normal)
-
         
         // need to initialize
         self.activityImageView = UIImageView.init(frame: self.activityView.bounds)
@@ -67,6 +67,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             print("app already launched")
         } else {
             print("app first launch")
+            // do something
         }
         
         // put image to title bar
@@ -88,9 +89,9 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         // insertData()
         
         // try to read from tainan3
-        readDataFromTainanSQLite()
+//        readDataFromTainanSQLite()
         
-        /*
+        
         self.databaseHelper = DatabaseHelper.init()
         self.databaseHelper.createDB()
         
@@ -98,7 +99,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         let dataSyncer = DataSyncer.createInstance("project_1450347754")
         dataSyncer?.dataSyncListener = self;
         dataSyncer?.startSync()
-        // sync all database data, TODO: - test
+//         sync all database data, TODO: - test
         dataSyncer?.getData(DBCol.TABLE_ADMINISTRATIVE_UNIT, time:Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_ADMINISTRATIVE_UNIT)))
         dataSyncer?.getData(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)))
         dataSyncer?.getData(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)))
@@ -106,7 +107,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         dataSyncer?.getData(DBCol.TABLE_IN_KEYWORD, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_IN_KEYWORD)))
         dataSyncer?.getData(DBCol.TABLE_EDM, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_EDM)))
         dataSyncer?.getData(DBCol.TABLE_MOBILEAPP, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_MOBILEAPP)))
-        */
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -679,7 +680,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         }
     }
     
-    /*
+    
     // DataSyncerListener protocol method
     func onGetData(_ pTableName: String!, data: Any!) {
         if (pTableName == DBCol.TABLE_ADMINISTRATIVE_UNIT) {
@@ -702,6 +703,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     func onSyncerStatus(_ status: SyncStatus) {
         print("synchronization status: ", status)
     }
-    */
+    
 }
 

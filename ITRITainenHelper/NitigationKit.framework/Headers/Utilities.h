@@ -24,5 +24,6 @@
 +(BOOL)checkFileExist:(NSString *)file;
 +(NSString *)objectToJson:(id)object;
 +(NSString *)getDeviceModel;
++(NSString *)getLocalizedString:(NSString *)key;
 
 @end
