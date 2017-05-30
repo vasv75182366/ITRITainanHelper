@@ -44,8 +44,7 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
     let welcomeLayer = CALayer()
     
     
-    
-    
+
     //MARK: - basic functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +58,7 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         self.leftActivityButton = UIButton.init(frame: CGRect(x: self.activityView.bounds.origin.x + self.activityView.bounds.size.width/12*1.5, y: self.activityView.bounds.origin.y + self.activityView.bounds.size.height/2, width: self.activityView.bounds.size.width/12, height: self.activityView.bounds.size.width/12))
         self.leftActivityButton.setImage(UIImage.init(named: "index_left.png"), for: UIControlState.normal)
         
-        // need to initialize
+        // initialize iamge view
         self.activityImageView = UIImageView.init(frame: self.activityView.bounds)
         
         // check app first launch
@@ -70,14 +69,13 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
             print("app already launched")
         } else {
             print("app first launch")
-            // do something
+            // do instruction layout only at viewDidLoad()
 //            layoutWelcomeLayoutOne()
         }
         
         // put image to title bar
         print(self.myNavigationItem.title!)
         self.myNavigationItem.titleView = UIView.init(frame: CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y, width: self.view.bounds.size.width, height: self.view.bounds.height/12.5))
-        // TODO: - need to re-render the image to the imageView size
         let logo = UIImage.init(named: "index_logo1.png")
         let logoImageView = UIImageView.init(frame: CGRect(x: self.navigationItem.titleView!.bounds.origin.x, y: self.navigationItem.titleView!.bounds.origin.y, width: self.navigationItem.titleView!.bounds.size.width * 1/5, height: self.navigationItem.titleView!.bounds.size.height))
         let logoLabel = UILabel.init(frame: CGRect(x: self.navigationItem.titleView!.bounds.origin.x + self.navigationItem.titleView!.bounds.width/5, y: self.navigationItem.titleView!.bounds.origin.y, width: self.navigationItem.titleView!.bounds.size.width * 4/5, height: self.navigationItem.titleView!.bounds.size.height))
@@ -89,13 +87,8 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         self.myNavigationItem.titleView!.bringSubview(toFront: logoLabel)
         self.myNavigationItem.titleView!.backgroundColor = UIColor.init(red: 60, green: 176, blue: 157, alpha: 1)
         
-        // self-created database
-        // insertData()
-        
-        // try to read from tainan3
-//        readDataFromTainanSQLite()
-        
-        self.databaseHelper = DatabaseHelper.init()
+        // database initialization
+        self.databaseHelper = DatabaseHelper.init(name: "new_db.sqlite")
         self.databaseHelper.createDB()
         
         // SQLITE: - download pictures and data

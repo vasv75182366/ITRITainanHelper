@@ -18,7 +18,7 @@ public class Constants {
     static let DB_NAME = "itriTainan.sqlite"
     static let DB_FULLPATH = DB_PATH + DB_NAME
     static let DATABASE_PATH = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-    static let FULL_DATABASE_NAME = "\(Constants.DATABASE_PATH)/check.sqlite"
+    static let FULL_DATABASE_NAME = "\(Constants.DATABASE_PATH)/\(Constants.DB_NAME)"
     
     static let SHOW_ADMINISTRATIVE_UNIT_BY_CATEGORY_ID = 1
     static let SHOW_ADMINISTRATIVE_UNIT_BY_KEYWORD = 2

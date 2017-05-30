@@ -12,61 +12,23 @@ import SwiftyJSON
 
 
 class DatabaseHelper {
-    /*
-    let x = Expression<Int64>(DBCol.X)
-    let y = Expression<Int64>(DBCol.Y)
-    let fieldId = Expression<String>(DBCol.FIELD_ID)
-    let parentUnitId = Expression<String>(DBCol.PARENT_UNIT_ID)
-    let tel = Expression<String>(DBCol.TEL)
-    let fax = Expression<String>(DBCol.FAX)
-    let email = Expression<String>(DBCol.EMAIL)
-    let website = Expression<String>(DBCol.WEBSITE)
-    let category = Expression<String>(DBCol.CATEGORY)
-    let name = Expression<String>(DBCol.NAME)
-    let description = Expression<String>(DBCol.DESCRIPTION)
-    let nearByPathId = Expression<String>(DBCol.NEAR_BY_PATH_ID)
-    let iconName = Expression<String>(DBCol.ICON_NAME)
-    let createTime = Expression<Int64>(DBCol.CREATE_TIME)
-    let lastUpdateTime = Expression<Int64>(DBCol.LAST_UPDATE_TIME)
-    let keyword = Expression<String>(DBCol.KEYWORD)
-    let unitId = Expression<String>(DBCol.UNIT_ID)
-    let categoryId = Expression<String>(DBCol.CATEGORY_ID)
-    let edmId = Expression<String>(DBCol.EDM_ID)
-    let edmName = Expression<String>(DBCol.EDM_NAME)
-    let edmURL = Expression<String>(DBCol.EDM_URL)
-    let edmImage = Expression<String>(DBCol.EDM_IMAGE)
-    let edmEndDay = Expression<String>(DBCol.EDM_END_DAY)
-    let id = Expression<Int64>("id")
-    let stringId = Expression<String>("id")
-    let hotDate = Expression<String>(DBCol.HOT_DATE)
-    let hotTitle = Expression<String>(DBCol.HOT_TITLE)
-    let hotDescription = Expression<String>(DBCol.HOT_DESCRIPTION)
-    let hotLink = Expression<String>(DBCol.HOT_LINK)
-    let isDelete = Expression<Int64>(DBCol.IS_DELETE)
-    let keywordId = Expression<String>(DBCol.KEYWORD_ID)
-    let read = Expression<Int64>("read")
-    let rank = Expression<Int64>(DBCol.RANK)
-    let appId = Expression<String>(DBCol.APP_ID)
-    let appName = Expression<String>(DBCol.APP_NAME)
-    let appURL = Expression<String>(DBCol.APP_URL)
-    let appImage = Expression<String>(DBCol.APP_IMAGE)
-    let sequence = Expression<String>("sequence")
-    let appIOSUrl = Expression<String>(DBCol.APP_IOSURL)
-    */
+
     var db_name: String!
+    var db_pathName: String!
     private static let DB_VERSION = 2
     public static let KEYWORD_ADMINISTRATIVE_CATEGORY_RANK = 1
     public static let KEYWORD_QUICK_SERVICE_RANK = 2
     public static let KEYWORD_FACILITY_RANK = 3
     
-
     // initializer
     init() {
         self.db_name = Constants.DB_NAME
+        self.db_pathName = Constants.DATABASE_PATH + self.db_name
     }
     
     init(name: String) {
         self.db_name = name
+        self.db_pathName = "\(Constants.DATABASE_PATH)/\(self.db_name)"
     }
     
     func createDB() -> Void {
@@ -92,7 +54,7 @@ class DatabaseHelper {
     func createAdministrativeUnitTable() -> Void {
         do {
             // create table
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let administrativeUnitTable = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
             try db.run(administrativeUnitTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.x)
@@ -122,7 +84,7 @@ class DatabaseHelper {
     func createAdministrativeUnitCategoryTable() -> Void {
         
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let administrativeUnitCategory = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)
 
             try db.run(administrativeUnitCategory.create(ifNotExists: true) { t in
@@ -143,7 +105,7 @@ class DatabaseHelper {
     // create administrativeUnitInCategory Table
     func createAdministrativeUnitInCategoryTable() -> Void {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let administrativeUnitInCategory = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)
 
             try db.run(administrativeUnitInCategory.create(ifNotExists: true) { t in
@@ -160,7 +122,7 @@ class DatabaseHelper {
     // create Edm Table
     func createEDMTable() -> Void {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let edmTable = Table(DBCol.TABLE_EDM)
             try db.run(edmTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.edmId)
@@ -179,7 +141,7 @@ class DatabaseHelper {
     // create Hot Table
     func createHotTable() -> Void {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let hotTable = Table(DBCol.TABLE_HOT)
             try db.run(hotTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.id, primaryKey: .autoincrement)
@@ -198,7 +160,7 @@ class DatabaseHelper {
     // create InKeyword Table
     func createInKeywordTable() -> Void {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let inKeywordTable = Table(DBCol.TABLE_IN_KEYWORD)
 
             try db.run(inKeywordTable.create(ifNotExists: true) { t in
@@ -215,7 +177,7 @@ class DatabaseHelper {
     // create instruction Table
     func createInstructionTable() -> Void {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let instructionTable = Table(DBCol.TABLE_INSTRUCTION)
             try db.run(instructionTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.id, unique: true)
@@ -232,7 +194,7 @@ class DatabaseHelper {
     // create keyword table
     func createKeywordTable() -> Void {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let keywordTable = Table(DBCol.TABLE_KEYWORD)
             try db.run(keywordTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.keywordId)
@@ -251,7 +213,7 @@ class DatabaseHelper {
     // create mapping keyword table
     func createMappingKeywordTable() -> Void {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let mappingKeywordTable = Table("mappingKeyword")
             try db.run(mappingKeywordTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.unitId)
@@ -266,7 +228,7 @@ class DatabaseHelper {
     // create mobile app table
     func createMobileAppTable() -> Void {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let mobileAppTable = Table(DBCol.TABLE_MOBILEAPP)
             try db.run(mobileAppTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.appId)
@@ -288,7 +250,7 @@ class DatabaseHelper {
     // cannot insert into this table
     func insertOrUpdateAdministrativeUnitTable(x: Int64, y: Int64, fieldId: String, unitId: String, parentUnitId: String, name: String, tel: String, fax: String, email: String, website: String, description: String, iconName: String, createTime: Int64, lastUpdateTime: Int64, nearByPathId: String, keyword: String) -> Bool {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
             
             // try insert/replace
@@ -306,7 +268,7 @@ class DatabaseHelper {
     
     func insertOrUpdateAdministrativeUnitCategory(categoryId: String, name: String, description: String, iconName: String, createTime: Int64, lastUpdateTime: Int64, keyword: String) -> Bool {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)
             
             // try insert/replace the row
@@ -322,7 +284,7 @@ class DatabaseHelper {
     
     func insertOrUpdateAdministrativeUnitInCategory(unitId: String, categoryId: String, lastUpdateTime: Int64) -> Bool{
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)
             
             // try insert/replace
@@ -338,7 +300,7 @@ class DatabaseHelper {
     
     func insertOrUpdateEdmTable(edmId: String, edmName: String, edmURL: String, edmImage: String, edmEndDay: String, lastUpdateTime: Int64) -> Bool {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_EDM)
             
             // try insert/replace
@@ -354,7 +316,7 @@ class DatabaseHelper {
     
     func insertOrUpdateHotTable(id: Int64, hotDate: String, hotTitle: String, hotDescription: String, hotLink: String, isDelete: Int64) -> Bool {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_HOT)
             
             // try insert/update
@@ -370,7 +332,7 @@ class DatabaseHelper {
     
     func insertOrUpdateInKeywordTable(id : String, keywordId: String, lastUpdateTime: Int64) -> Bool {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_IN_KEYWORD)
             
             // try insert/replace
@@ -386,7 +348,7 @@ class DatabaseHelper {
     
     func insertOrUpdateInstructionTable(id: Int64, name: String, read: Int64) -> Bool {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_INSTRUCTION)
             
             // try insert/replace
@@ -402,7 +364,7 @@ class DatabaseHelper {
     
     func insertOrUpdateKeywordTable(keywordId: String, keyword: String, rank: Int64, description: String, createTime: Int64, lastUpdateTime: Int64) -> Bool {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_KEYWORD)
             
             // try insert/replace
@@ -418,7 +380,7 @@ class DatabaseHelper {
     
     func insertOrUpdateMappingKeywordTable(unitId: String, keyword: String) -> Bool {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table("mappingKeyword")
             
             // try insert/replace
@@ -434,7 +396,7 @@ class DatabaseHelper {
     
     func insertOrUpdateMobileAppTable(appId: String, appName: String, appIOSUrl: String, appImage: String, lastUpdateTime: Int64) -> Bool {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_MOBILEAPP)
             
             // try insert/replace
@@ -455,10 +417,9 @@ class DatabaseHelper {
 
         do {
             let administrative_table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
 
             for admin_unit in try db.prepare(administrative_table) {
-                
                 let adminUnit = AdministrativeUnit(x: admin_unit[DBColExpressions.x], y: admin_unit[DBColExpressions.y], fieldId: admin_unit[DBColExpressions.fieldId], unitId: admin_unit[DBColExpressions.unitId], parentUnitId: admin_unit[DBColExpressions.parentUnitId], name: admin_unit[DBColExpressions.name], tel: admin_unit[DBColExpressions.tel], fax: admin_unit[DBColExpressions.fax], email: admin_unit[DBColExpressions.email], website: admin_unit[DBColExpressions.website], description: admin_unit[DBColExpressions.description], iconName: admin_unit[DBColExpressions.iconName], createTime: admin_unit[DBColExpressions.createTime], lastUpdateTime: admin_unit[DBColExpressions.lastUpdateTime], nearByPathId: admin_unit[DBColExpressions.nearByPathId], keyword: admin_unit[DBColExpressions.keyword])
                 administrativeUnits.add(adminUnit)
             }
@@ -473,7 +434,7 @@ class DatabaseHelper {
         let administrativeUnitCategories = NSMutableArray()
         do {
             let administrativeUnitCategoryTable = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             for categories in try db.prepare(administrativeUnitCategoryTable) {
                 let adminUnitCategory = AdministrativeUnitCategory(categoryId: categories[DBColExpressions.categoryId], name: categories[DBColExpressions.name], description: categories[DBColExpressions.description], iconName: categories[DBColExpressions.iconName], createTime: categories[DBColExpressions.createTime], lastUpdateTime: categories[DBColExpressions.lastUpdateTime], keyword: categories[DBColExpressions.keyword])
                 administrativeUnitCategories.add(adminUnitCategory)
@@ -489,7 +450,7 @@ class DatabaseHelper {
         let unitInCategories = NSMutableArray()
         do {
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             for rows in try db.prepare(table) {
                 let data = AdministrativeUnitInCategory(unitId: rows[DBColExpressions.unitId], categoryId: rows[DBColExpressions.categoryId], lastUpdateTime: rows[DBColExpressions.lastUpdateTime])
                 unitInCategories.add(data)
@@ -505,7 +466,7 @@ class DatabaseHelper {
         let edms = NSMutableArray()
         do {
             let table = Table(DBCol.TABLE_EDM)
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             for rows in try db.prepare(table) {
                 let data = Edm(edmId: rows[DBColExpressions.edmId], edmName: rows[DBColExpressions.edmName], edmURL: rows[DBColExpressions.edmURL], edmImage: rows[DBColExpressions.edmImage], edmEndDay: rows[DBColExpressions.edmEndDay], lastUpdateTime: rows[DBColExpressions.lastUpdateTime])
                 edms.add(data)
@@ -520,7 +481,7 @@ class DatabaseHelper {
     func queryHotTable() -> NSMutableArray {
         let hots = NSMutableArray()
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_HOT)
             for rows in try db.prepare(table) {
                 let data = HotItem(id: rows[DBColExpressions.id], hotDate: rows[DBColExpressions.hotDate], hotTitle: rows[DBColExpressions.hotTitle], hotDescription: rows[DBColExpressions.hotDescription], hotLink: rows[DBColExpressions.hotLink], isDelete: rows[DBColExpressions.isDelete])
@@ -536,7 +497,7 @@ class DatabaseHelper {
     func queryInKeywordTable() -> NSMutableArray {
         let inKeywords = NSMutableArray()
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_IN_KEYWORD)
             for rows in try db.prepare(table) {
                 let data = InKeywords(id: String(rows[DBColExpressions.stringId]), keywordId: rows[DBColExpressions.keywordId], lastUpdateTime: rows[DBColExpressions.lastUpdateTime])
@@ -552,7 +513,7 @@ class DatabaseHelper {
     func queryInstructionTable() -> NSMutableArray {
         let instructions = NSMutableArray()
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_INSTRUCTION)
             for rows in try db.prepare(table) {
                 let data = InstructionItem(id: rows[DBColExpressions.id], name: rows[DBColExpressions.name], read: rows[DBColExpressions.read])
@@ -568,7 +529,7 @@ class DatabaseHelper {
     func queryKeywordTable() -> NSMutableArray {
         let keywords = NSMutableArray()
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_KEYWORD)
             for rows in try db.prepare(table) {
                 let data = Keyword(keywordId: rows[DBColExpressions.keywordId], keyword: rows[DBColExpressions.keyword], rank: rows[DBColExpressions.rank], description: rows[DBColExpressions.description], createTime: rows[DBColExpressions.createTime], lastUpdateTime: rows[DBColExpressions.lastUpdateTime])
@@ -584,7 +545,7 @@ class DatabaseHelper {
     func queryMappingKeywordTable() -> NSMutableArray {
         let mappings = NSMutableArray()
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table("mappingKeyword")
             for rows in try db.prepare(table) {
                 let data = MappingKeyword(unitId: rows[DBColExpressions.unitId], keyword: rows[DBColExpressions.keyword])
@@ -600,7 +561,7 @@ class DatabaseHelper {
     func queryMobileAppTable() -> NSMutableArray {
         let apps = NSMutableArray()
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_MOBILEAPP)
             for rows in try db.prepare(table) {
                 let data = MobileApps(appId: rows[DBColExpressions.appId], appName: rows[DBColExpressions.appName], appIOSUrl: rows[DBColExpressions.appIOSUrl], appImage: rows[DBColExpressions.appImage], lastUpdateTime: rows[DBColExpressions.lastUpdateTime])
@@ -619,7 +580,7 @@ class DatabaseHelper {
     func getLastUpdateTime(tableName: String) -> NSInteger {
         var lastTime = NSInteger(0)
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(tableName)
             // query "lastUpdateTime" column for the designated table: SELECT lastUpdateTime FROM tableName ORDER BY lastUpdateTime DESC LIMIT 1
             let query = table.select(DBColExpressions.lastUpdateTime).order(DBColExpressions.lastUpdateTime.desc).limit(1)
@@ -655,7 +616,7 @@ class DatabaseHelper {
     func updateAdministrativeUnit(jsonObj: JSON) {
         do {
             // pluck a row: if there is data
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
             if (jsonObj["isDelete"].intValue == 0) {
                 /* perform insert or update */
@@ -710,7 +671,7 @@ class DatabaseHelper {
     func updateAdministrativeUnitCategory(jsonObj: JSON) {
         do {
             // pluck a row: if there is data
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)
             if (jsonObj["isDelete"].intValue == 0) {
                 /* perform insert or update */
@@ -764,7 +725,7 @@ class DatabaseHelper {
     
     func updateAdministrativeUnitInCategory(jsonObj: JSON) {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)
             
             // update administrative unit in category: delete unitId then insert a new one
@@ -800,7 +761,7 @@ class DatabaseHelper {
     func updateKeywordTable(jsonObj: JSON) {
         do {
             // pluck a row: if there is data
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_KEYWORD)
             if (jsonObj["isDelete"].intValue == 0) {
                 /* perform insert or update */
@@ -854,7 +815,7 @@ class DatabaseHelper {
     
     func updateInKeyword(jsonObj: JSON) {
         do {
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_IN_KEYWORD)
             
             // update administrative unit in category: delete unitId then insert a new one
@@ -889,9 +850,10 @@ class DatabaseHelper {
     }
     
     func updateEdmTable(jsonObj: JSON) {
+        print("try edm")
         do {
             // pluck a row: if there is data
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_EDM)
             if (jsonObj["isDelete"].intValue == 0) {
                 /* perform insert or update */
@@ -901,11 +863,11 @@ class DatabaseHelper {
                 if (plucking != nil) {
                     // update if there is row
                     let updateFilter = table.filter(DBColExpressions.edmId == jsonObj["edmId"].stringValue)
-                    try db.run(updateFilter.update(DBColExpressions.edmName <- jsonObj["edmName"].stringValue, DBColExpressions.edmImage <- jsonObj["edmImage"].stringValue, DBColExpressions.edmEndDay <- jsonObj["edmEndDay"].stringValue, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    try db.run(updateFilter.update(DBColExpressions.edmName <- jsonObj["edmName"].stringValue, DBColExpressions.edmImage <- jsonObj["edmImage"].stringValue, DBColExpressions.edmURL <- jsonObj["edmURL"].stringValue, DBColExpressions.edmEndDay <- jsonObj["edmEndDay"].stringValue, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
                     print("update row in \(DBCol.TABLE_EDM), \(DBColExpressions.edmId)=\(jsonObj["edmId"].stringValue) success.")
                 } else {
                     // else insert if there is no existing row
-                    try db.run(table.insert(DBColExpressions.edmId <- jsonObj["edmId"].stringValue, DBColExpressions.edmName <- jsonObj["edmName"].stringValue, DBColExpressions.edmImage <- jsonObj["edmImage"].stringValue, DBColExpressions.edmEndDay <- jsonObj["edmEndDay"].stringValue, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    try db.run(table.insert(DBColExpressions.edmId <- jsonObj["edmId"].stringValue, DBColExpressions.edmName <- jsonObj["edmName"].stringValue, DBColExpressions.edmURL <- jsonObj["edmURL"].stringValue, DBColExpressions.edmImage <- jsonObj["edmImage"].stringValue, DBColExpressions.edmEndDay <- jsonObj["edmEndDay"].stringValue, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
                     print("insert row into \(DBCol.TABLE_EDM), \(DBColExpressions.edmId)=\(jsonObj["edmId"].stringValue) success.")
                 }
             } else {
@@ -946,7 +908,7 @@ class DatabaseHelper {
     func updateMobileApp(jsonObj: JSON) {
         do {
             // pluck a row: if there is data
-            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_MOBILEAPP)
             if (jsonObj["isDelete"].intValue == 0) {
                 /* perform insert or update */
