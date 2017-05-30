@@ -30,10 +30,12 @@ IB_DESIGNABLE
 @property (nonatomic, assign)BOOL isShowingRoute;
 @property (nonatomic, assign)NSInteger zoomLevel;
 
+-(instancetype)initWithProjectId:(NSString *)projectId;
+-(void)runMap;
 -(void)startBLEScan;
 -(void)stopBLEScan;
 -(void)enableShowingRoute;
--(void)disableShowRoute;
+-(void)disableShowingRoute;
 -(void)showMap:(NSString *)fieldId;
 -(NSString *)getCurrentLoadedFieldName;
 -(void)setTarget:(NSString *)fieldId x:(NSInteger)x y:(NSInteger)y;
@@ -45,6 +47,5 @@ IB_DESIGNABLE
 -(void)stopNavigation;
 -(void)startPositioning;
 -(void)stopPositioning;
-
 
 @end

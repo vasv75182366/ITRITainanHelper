@@ -50,6 +50,7 @@ class DBColExpressions {
     static let appURL = Expression<String>(DBCol.APP_URL)
     static let appImage = Expression<String>(DBCol.APP_IMAGE)
     static let sequence = Expression<String>("sequence")
+    static let appIOSUrl = Expression<String>(DBCol.APP_IOSURL)
     
     // special case for "tainan.sqlite"'s "InKeyword" Table
     static let wrongLastUpdateTime = Expression<Int64>("lastUpdateTIme")

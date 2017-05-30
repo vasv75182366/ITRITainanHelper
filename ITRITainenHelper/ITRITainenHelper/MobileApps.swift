@@ -11,7 +11,7 @@ import Foundation
 class MobileApps {
     var appId: String!
     var appName: String?
-    var appURL: String?
+    var appIOSUrl: String?
     var appImage: String?
     var lastUpdateTime: Int64!
     
@@ -19,10 +19,11 @@ class MobileApps {
         
     }
     
-    init(appId: String, appName: String, appURL: String, appImage: String, lastUpdateTime: Int64) {
+    init(appId: String, appName: String, appIOSUrl: String, appImage: String, lastUpdateTime: Int64) {
         self.appId = appId
         self.appName = appName
         self.appImage = appImage
+        self.appIOSUrl = appIOSUrl
         self.lastUpdateTime = lastUpdateTime
     }
     
