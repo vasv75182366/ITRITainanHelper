@@ -15,15 +15,18 @@ class MessageViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var items = [RSSFormat]()   // store news
     var overlay = UIView()      // black frame
+    var guideOverlay = UIView() // black frame
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()  // loading indicator
+    var isFirst = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let defaults = UserDefaults.standard
         let checkFirstLaunch = defaults.bool(forKey: "isAppFirstLaunch")
-        if (checkFirstLaunch != true) {
+        if (checkFirstLaunch == true) {
             // is first launch
+            isFirst = true
             setGuideLayout()
         } else {
             setGeneralLayout()
@@ -42,23 +45,35 @@ class MessageViewController: UIViewController, UITableViewDataSource, UITableVie
         btnCheck.setTitle("確定", for: .normal)
         btnCheck.setTitleColor(UIColor.white, for: .normal)
         btnCheck.isEnabled = true
-        btnCheck.setImage(UIImage(named: "instruction_button.png"), for: .normal)
-        btnCheck.center = CGPoint(x: view.frame.size.width * 0.5, y: view.frame.size.height * 0.3)
+        btnCheck.setBackgroundImage(UIImage(named: "instruction_button.png"), for: .normal)
+        btnCheck.center = CGPoint(x: view.frame.size.width * 0.5, y: view.frame.size.height * 0.2)
+        btnCheck.addTarget(self, action: #selector(MessageViewController.checkClick), for: .touchUpInside)
         // set label
         let lbGuide: UILabel = UILabel()
-        lbGuide.bounds.origin = CGPoint(x: view.frame.size.width * 0.5, y: view.frame.size.height * 0.5)
-        lbGuide.text = "上下滑動以瀏覽內容"
+        lbGuide.bounds = CGRect(x: view.frame.size.width * 0.4 - 40, y: view.frame.size.height * 0.5 - 125, width: 80, height: 250)
+        lbGuide.center = CGPoint(x: view.frame.size.width * 0.4, y: view.frame.size.height * 0.5)
+        lbGuide.text = "上\n下\n滑\n動\n以\n瀏\n覽\n內\n容"
         lbGuide.textColor = UIColor.white
+        lbGuide.numberOfLines = 0
+        lbGuide.lineBreakMode = .byWordWrapping
         lbGuide.font = UIFont.systemFont(ofSize: 18)
         // set image
         let imgHand: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 207, height: 255))
         imgHand.image = UIImage(named: "up_down_hand.png")
         imgHand.center = CGPoint(x: view.frame.size.width * 0.7, y: view.frame.size.height * 0.7)
+        // set guideOverlay
+        guideOverlay.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+        guideOverlay.center = self.view.center
+        guideOverlay.backgroundColor = UIColor(white: 0.0, alpha: 0.9)
         // add component to view
-        view.addSubview(btnCheck)
-        view.addSubview(lbGuide)
-        view.addSubview(imgHand)
-        
+        guideOverlay.addSubview(btnCheck)
+        guideOverlay.addSubview(lbGuide)
+        guideOverlay.addSubview(imgHand)
+        view.addSubview(guideOverlay)
+    }
+    
+    func checkClick() {
+        self.guideOverlay.removeFromSuperview()
     }
     
     // set gerneral layout
@@ -98,9 +113,12 @@ class MessageViewController: UIViewController, UITableViewDataSource, UITableVie
                     for item in list! {
                         self.items.append(RSSFormat(title: item.title, pubDate: item.pubDate, link: item.link))
                     }
+                    
                     self.tvNews.reloadData()
-                    self.activityIndicator.stopAnimating()
-                    self.overlay.removeFromSuperview()
+                    if(self.isFirst == false) {
+                        self.activityIndicator.stopAnimating()
+                        self.overlay.removeFromSuperview()
+                    }
                 }
             })
         }

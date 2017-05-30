@@ -21,7 +21,6 @@
 		5F785BC71EC54DCD00FD8052 /* DrinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BC31EC54DCD00FD8052 /* DrinkViewController.swift */; };
 		5F785BCA1EC5F3E700FD8052 /* Facility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F785BC81EC5F3E700FD8052 /* Facility.storyboard */; };
 		5F785BCB1EC5F3E700FD8052 /* FacilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BC91EC5F3E700FD8052 /* FacilityViewController.swift */; };
-		5F785BCD1ED7E2FD00FD8052 /* Guide1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F785BCC1ED7E2FD00FD8052 /* Guide1ViewController.swift */; };
 		67117C421E7A50C500357D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67117C411E7A50C500357D9F /* AppDelegate.swift */; };
 		67117C441E7A50C500357D9F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67117C431E7A50C500357D9F /* ViewController.swift */; };
 		67117C471E7A50C500357D9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67117C451E7A50C500357D9F /* Main.storyboard */; };
@@ -100,7 +99,6 @@
 		5F785BC31EC54DCD00FD8052 /* DrinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkViewController.swift; sourceTree = "<group>"; };
 		5F785BC81EC5F3E700FD8052 /* Facility.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Facility.storyboard; sourceTree = "<group>"; };
 		5F785BC91EC5F3E700FD8052 /* FacilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityViewController.swift; sourceTree = "<group>"; };
-		5F785BCC1ED7E2FD00FD8052 /* Guide1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guide1ViewController.swift; sourceTree = "<group>"; };
 		67117C3E1E7A50C500357D9F /* ITRITainenHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ITRITainenHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67117C411E7A50C500357D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67117C431E7A50C500357D9F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 				5F785BA51EC2B3A700FD8052 /* NewsCell.swift */,
 				5F785BA71EC2B53700FD8052 /* RSSFormat.swift */,
 				5F785BA91EC2B57500FD8052 /* NewsDetailViewController.swift */,
-				5F785BCC1ED7E2FD00FD8052 /* Guide1ViewController.swift */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -485,7 +482,7 @@
 				TargetAttributes = {
 					67117C3D1E7A50C500357D9F = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 83VPNY26HX;
+						DevelopmentTeam = P7Y2HNH4ZD;
 						ProvisioningStyle = Automatic;
 					};
 					67117C511E7A50C500357D9F = {
@@ -625,7 +622,6 @@
 				67FA181B1E87C9780017DF11 /* MessageViewController.swift in Sources */,
 				6740EC111EA85785000879A3 /* AdministrativeUnitInCategory.swift in Sources */,
 				67FA180F1E87C0FD0017DF11 /* AppsViewController.swift in Sources */,
-				5F785BCD1ED7E2FD00FD8052 /* Guide1ViewController.swift in Sources */,
 				6756BB491E9554BB002D9B96 /* APIConstants.swift in Sources */,
 				5F785BA61EC2B3A700FD8052 /* NewsCell.swift in Sources */,
 				673F102F1E95E9D000499F16 /* DBCol.swift in Sources */,
@@ -823,7 +819,7 @@
 			baseConfigurationReference = 770B123BA99BAFAF4E20AA21 /* Pods-ITRITainenHelper.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 83VPNY26HX;
+				DEVELOPMENT_TEAM = P7Y2HNH4ZD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)/**",
 					"$(PROJECT_DIR)/**",
@@ -835,7 +831,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = itri.oslo.ITRITainenHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = itri.jiang.ITRITainenHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "armv7 arm64 armv7s x86_64";
@@ -847,7 +843,7 @@
 			baseConfigurationReference = F29D885B1DE2474646A5D98E /* Pods-ITRITainenHelper.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 83VPNY26HX;
+				DEVELOPMENT_TEAM = P7Y2HNH4ZD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)/**",
 					"$(PROJECT_DIR)/**",
@@ -859,7 +855,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = itri.oslo.ITRITainenHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = itri.jiang.ITRITainenHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "armv7 arm64 armv7s x86_64";

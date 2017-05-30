@@ -88,7 +88,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         // insertData()
         
         // try to read from tainan3
-        readDataFromTainanSQLite()
+//        readDataFromTainanSQLite()
         
         /*
         self.databaseHelper = DatabaseHelper.init()
