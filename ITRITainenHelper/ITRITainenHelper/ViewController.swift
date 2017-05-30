@@ -9,10 +9,11 @@
 import UIKit
 import SQLite
 import NitigationKit
+import SwiftyJSON
+
 
 class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
     
-    //MARK: - variables
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchButton: UIButton!
     
@@ -39,11 +40,13 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
     var logoImageCount: Int = 0
     var webviewString = [String]()
     var maxImageCount: Int = 0
+    // layer
+    let welcomeLayer = CALayer()
+    
     
     
     
     //MARK: - basic functions
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -68,6 +71,7 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         } else {
             print("app first launch")
             // do something
+//            layoutWelcomeLayoutOne()
         }
         
         // put image to title bar
@@ -78,7 +82,7 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         let logoImageView = UIImageView.init(frame: CGRect(x: self.navigationItem.titleView!.bounds.origin.x, y: self.navigationItem.titleView!.bounds.origin.y, width: self.navigationItem.titleView!.bounds.size.width * 1/5, height: self.navigationItem.titleView!.bounds.size.height))
         let logoLabel = UILabel.init(frame: CGRect(x: self.navigationItem.titleView!.bounds.origin.x + self.navigationItem.titleView!.bounds.width/5, y: self.navigationItem.titleView!.bounds.origin.y, width: self.navigationItem.titleView!.bounds.size.width * 4/5, height: self.navigationItem.titleView!.bounds.size.height))
         logoImageView.image = logo
-        logoLabel.text = "台南洽公小幫手"
+        logoLabel.text = Constants.MAIN_BAR_TITLE
         self.myNavigationItem.titleView!.addSubview(logoImageView)
         self.myNavigationItem.titleView!.addSubview(logoLabel)
         self.myNavigationItem.titleView!.bringSubview(toFront: logoImageView)
@@ -91,23 +95,11 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         // try to read from tainan3
 //        readDataFromTainanSQLite()
         
-        
         self.databaseHelper = DatabaseHelper.init()
         self.databaseHelper.createDB()
         
-        // dataSyncer
-        let dataSyncer = DataSyncer.createInstance("project_1450347754")
-        dataSyncer?.dataSyncListener = self;
-        dataSyncer?.startSync()
-//         sync all database data, TODO: - test
-        dataSyncer?.getData(DBCol.TABLE_ADMINISTRATIVE_UNIT, time:Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_ADMINISTRATIVE_UNIT)))
-        dataSyncer?.getData(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)))
-        dataSyncer?.getData(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)))
-        dataSyncer?.getData(DBCol.TABLE_KEYWORD, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_KEYWORD)))
-        dataSyncer?.getData(DBCol.TABLE_IN_KEYWORD, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_IN_KEYWORD)))
-        dataSyncer?.getData(DBCol.TABLE_EDM, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_EDM)))
-        dataSyncer?.getData(DBCol.TABLE_MOBILEAPP, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_MOBILEAPP)))
-        
+        // SQLITE: - download pictures and data
+        syncAllTables()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -152,6 +144,37 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    //MARK: - layout instruction subviews
+    func layoutInstructionViews() {
+        
+    }
+    
+    func layoutWelcomeLayoutOne() {
+        let bg_size = self.view.bounds
+        let firstWelcomeView = UIView(frame: bg_size)
+//        let maskLayer = CAShapeLayer()
+        
+        
+        // add the welcome subview
+        self.view.addSubview(firstWelcomeView)
+    }
+    
+    func layoutWelcomeLayoutTwo() {
+        
+    }
+    
+    func layoutWelcomeLayoutThird() {
+        // destroy current layout 
+        
+        // call instruction views
+        layoutInstructionViews()
+    }
+    
+    func createMaskLayer() {
+        
     }
     
     
@@ -506,15 +529,15 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         }
         
         // mobile app
-        if dbHelper.insertOrUpdateMobileAppTable(appId: "appId_1", appName: "app 1", appURL: "itunes.apple.com", appImage: "image.png", lastUpdateTime: 1) {
-            print("insert mobile app table success.")
-        }
-        if dbHelper.insertOrUpdateMobileAppTable(appId: "appId_2", appName: "app 2", appURL: "itunes.apple.com", appImage: "image2.png", lastUpdateTime: 2) {
-            print("insert mobile app table success.")
-        }
-        if dbHelper.insertOrUpdateMobileAppTable(appId: "appId_3", appName: "app 3", appURL: "itunes.apple.com", appImage: "image3.png", lastUpdateTime: 3) {
-            print("insert mobile app table success.")
-        }
+//        if dbHelper.insertOrUpdateMobileAppTable(appId: "appId_1", appName: "app 1", appURL: "itunes.apple.com", appImage: "image.png", lastUpdateTime: 1) {
+//            print("insert mobile app table success.")
+//        }
+//        if dbHelper.insertOrUpdateMobileAppTable(appId: "appId_2", appName: "app 2", appURL: "itunes.apple.com", appImage: "image2.png", lastUpdateTime: 2) {
+//            print("insert mobile app table success.")
+//        }
+//        if dbHelper.insertOrUpdateMobileAppTable(appId: "appId_3", appName: "app 3", appURL: "itunes.apple.com", appImage: "image3.png", lastUpdateTime: 3) {
+//            print("insert mobile app table success.")
+//        }
         
         // query data example
         let admins = dbHelper.queryAdministrativeUnitTable()
@@ -528,15 +551,14 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
     func checkDataBase(){
 //        let url = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("tainan3.sqlite")
         let url = Bundle.main.url(forResource: "tainan3", withExtension: "sqlite")!
-//        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("DB.sqlite")
         // Load the existing database
         if !FileManager.default.fileExists(atPath: url.path) {
-            print("Not found, copy one!!!")//log
+            print("Not found, copy one!!!")
             let sourceSqliteURL = Bundle.main.url(forResource: "tainan3", withExtension: "sqlite")!
             print(sourceSqliteURL)
             print(url)
         }else{
-            print("DB file exist")//log
+            print("DB file exist")
         }
     }
     
@@ -544,7 +566,6 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
 //         let dbURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("tainan2")
 //        let path2 = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let path = Bundle.main.path(forResource: "tainan3", ofType: "sqlite")!
-        let dbName = "tainan2.sqlite"
 //        let tempDB = path + dbName
         let adminUnits = NSMutableArray()
         let adminUnitsCat = NSMutableArray()
@@ -620,10 +641,9 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
             }
             
             for mobs in try db.prepare(mobileTable) {
-                let temp = MobileApps(appId: mobs[DBColExpressions.appId], appName: mobs[DBColExpressions.appName], appURL: mobs[DBColExpressions.appURL], appImage: mobs[DBColExpressions.appImage], lastUpdateTime: mobs[DBColExpressions.lastUpdateTime])
+                let temp = MobileApps(appId: mobs[DBColExpressions.appId], appName: mobs[DBColExpressions.appName], appIOSUrl: mobs[DBColExpressions.appIOSUrl], appImage: mobs[DBColExpressions.appImage], lastUpdateTime: mobs[DBColExpressions.lastUpdateTime])
                 mobiles.add(temp)
             }
- 
         } catch _ {
             print("there is error.")
         }
@@ -676,32 +696,121 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         
         for data in mobiles {
             let temp = data as! MobileApps
-            print("(", temp.appId!, ", ", temp.appName!, ", ", temp.appURL!, ", ", temp.appImage!, ", ", temp.lastUpdateTime!, ")")
+            print("(", temp.appId!, ", ", temp.appName!, ", ", temp.appIOSUrl!, ", ", temp.appImage!, ", ", temp.lastUpdateTime!, ")")
         }
     }
     
     
+    // MARK: - DataSyncer
+    func syncAllTables() {
+        /* dataSyncer */
+        let dataSyncer = DataSyncer.createInstance("project_1450347754")
+        dataSyncer?.dataSyncListener = self;
+        dataSyncer?.startSync()
+        dataSyncer?.getData(DBCol.TABLE_ADMINISTRATIVE_UNIT, time:Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_ADMINISTRATIVE_UNIT)))
+        dataSyncer?.getData(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)))
+        dataSyncer?.getData(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)))
+        dataSyncer?.getData(DBCol.TABLE_KEYWORD, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_KEYWORD)))
+        dataSyncer?.getData(DBCol.TABLE_IN_KEYWORD, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_IN_KEYWORD)))
+        dataSyncer?.getData(DBCol.TABLE_EDM, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_EDM)))
+        dataSyncer?.getData(DBCol.TABLE_MOBILEAPP, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_MOBILEAPP)))
+//        dataSyncer?.getData(TABLE_ADMINISTRATIVE_UNIT, time: (dbHelper?.getLastUpdateTime(TABLE_ADMINISTRATIVE_UNIT))!);
+    }
+    
+    
+    // MARK: - DataSyncerListener protocol methods
     // DataSyncerListener protocol method
     func onGetData(_ pTableName: String!, data: Any!) {
+        // test part:
+        /*
+         do {
+         //                let convertedData = data as! NSDictionary
+         //                let obj = try JSONSerialization.jsonObject(with: convertedData, options: JSONSerialization.ReadingOptions.mutableContainers)
+         //                self.databaseHelper.syncKeywordTable(jsonObj: obj as! JSON)
+         } catch _ {
+         print("administrative unit data receive error.")
+         }
+         */
+        
         if (pTableName == DBCol.TABLE_ADMINISTRATIVE_UNIT) {
-            // should update administrative unit table here
+            // NSDictionary
+//            self.databaseHelper.syncAdministrativeUnitTable(jsonObj: data as! NSDictionary)
+            
+            // Swifty.JSON
+            let obj = JSON(data)
+            self.databaseHelper.syncAdministrativeUnitTable(jsonObj: obj)
         } else if (pTableName == DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY) {
-            // TODO: - update unit category
+            let obj = JSON(data)
+            self.databaseHelper.syncAdministrativeUnitCategory(jsonObj: obj)
         } else if (pTableName == DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY) {
-            // TODO: - update unit in category
+            let obj = JSON(data)
+            self.databaseHelper.syncAdministrativeUnitInCategory(jsonObj: obj)
         } else if (pTableName == DBCol.TABLE_KEYWORD) {
-            // TODO: - update keyword table
+            let obj = JSON(data)
+            self.databaseHelper.syncKeywordTable(jsonObj: obj)
         } else if (pTableName == DBCol.TABLE_IN_KEYWORD) {
-            // TODO: - update in keyword table
+            let obj = JSON(data)
+            self.databaseHelper.syncInKeyword(jsonObj: obj)
         } else if (pTableName == DBCol.TABLE_EDM) {
-            // TODO: - edm table
+            let obj = JSON(data)
+            self.databaseHelper.syncEdmTable(jsonObj: obj)
         } else if (pTableName == DBCol.TABLE_MOBILEAPP) {
-            // TODO: - mobile app table
+            let obj = JSON(data)
+            self.databaseHelper.syncMobileApp(jsonObj: obj)
         }
     }
     
     func onSyncerStatus(_ status: SyncStatus) {
         print("synchronization status: ", status)
+    }
+    
+    
+    // MARK: - test query
+    func testQuery() {
+        let administrativeUnitArray = self.databaseHelper.queryAdministrativeUnitTable()
+        let administrativeUnitCategoryArray = self.databaseHelper.queryAdministrativeUnitCategoryTable()
+        let adminstrativeUnitInArray = self.databaseHelper.queryAdministrativeUnitInCategoryTable()
+        let inKeywordArray = self.databaseHelper.queryInKeywordTable()
+        let keywordArray = self.databaseHelper.queryKeywordTable()
+        let edmArray = self.databaseHelper.queryEdmTable()
+        let mobileappsArray = self.databaseHelper.queryMobileAppTable()
+        
+        // print out all table data
+        for data in administrativeUnitArray {
+            let temp = data as! AdministrativeUnit
+            print("administrative unit -> x: ", temp.x!, ", y: ", temp.y!, ", fieldId: ", temp.fieldId!, ", unitId: ", temp.unitId!, ", parentUnitId: ", temp.parentUnitId!, ", name: ", temp.name!, ", tel: ", temp.tel!, ", fax: ", temp.fax!, ", email: ", temp.email!, ", website: ", temp.website!, ", description: ", temp.description!, ", iconName: ", temp.iconName!, ", createTime: ", temp.createTime!, ", lastUpdateTime: ", temp.lastUpdateTime!, ", nearByPathId: ", temp.nearByPathId!, ", keyword: ", temp.keyword!)
+        }
+        
+        for data in administrativeUnitCategoryArray {
+            let temp = data as! AdministrativeUnitCategory
+            print("administrative unit category -> categoryId: ", temp.categoryId!, ", name: ", temp.name!, ", description: ", temp.description!, ", iconName: ", temp.iconName!, ", createTime: ", temp.createTime, ", lastUpdateTime: ", temp.lastUpdateTime, ", keyword: ", temp.keyword!)
+        }
+        
+        for data in adminstrativeUnitInArray {
+            let temp = data as! AdministrativeUnitInCategory
+            print("administrative unit in category -> unitId: ", temp.unitId!, ", categoryId: ", temp.categoryId!, ", lastUpdateTime: ", temp.lastUpdateTime!)
+        }
+        
+        for data in edmArray {
+            let temp = data as! Edm
+            print("edm -> edmId: ", temp.edmId!, ", edmName: ", temp.edmName!, ", edmURL: ", temp.edmURL!, ", edmImage: ", temp.edmImage!, ", edmEndDay: ", temp.edmEndDay!, ", lastUpdateTime: ", temp.lastUpdateTime!)
+        }
+        
+        for data in inKeywordArray {
+            let temp = data as! InKeywords
+            print("(inKeyword -> id: ", temp.id!, ", keywordId: ", temp.keywordId!, ", lastUpdateTime: ", temp.lastUpdateTime!, ")")
+        }
+        
+        for data in keywordArray {
+            let temp = data as! Keyword
+            print("(keyword -> keywordId: ", temp.keywordId!, ", keyword: ", temp.keyword!, ", rank: ", temp.rank!, ", description: ", temp.description!, ", createTime: ", temp.createTime!, ", lastUpdateTime: ", temp.lastUpdateTime!, ")")
+        }
+        
+        for data in mobileappsArray {
+            let temp = data as! MobileApps
+            print("(mobileapp -> appId: ", temp.appId!, ", appName: ", temp.appName!, ", appIOSUrl: ", temp.appIOSUrl!, ", appImage: ", temp.appImage!, ", lastUpdateTime: ", temp.lastUpdateTime!, ")")
+        }
+
     }
     
 }

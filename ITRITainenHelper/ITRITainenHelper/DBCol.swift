@@ -66,6 +66,7 @@ class DBCol {
     static let APP_NAME = "appName"
     static let APP_URL = "appURL"
     static let APP_IMAGE = "appImage"
+    static let APP_IOSURL = "iosAppUrl"
     
     // instruction table
     static let TABLE_INSTRUCTION = "instruction"

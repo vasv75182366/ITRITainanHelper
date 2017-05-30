@@ -12,7 +12,47 @@ import SwiftyJSON
 
 
 class DatabaseHelper {
-    
+    /*
+    let x = Expression<Int64>(DBCol.X)
+    let y = Expression<Int64>(DBCol.Y)
+    let fieldId = Expression<String>(DBCol.FIELD_ID)
+    let parentUnitId = Expression<String>(DBCol.PARENT_UNIT_ID)
+    let tel = Expression<String>(DBCol.TEL)
+    let fax = Expression<String>(DBCol.FAX)
+    let email = Expression<String>(DBCol.EMAIL)
+    let website = Expression<String>(DBCol.WEBSITE)
+    let category = Expression<String>(DBCol.CATEGORY)
+    let name = Expression<String>(DBCol.NAME)
+    let description = Expression<String>(DBCol.DESCRIPTION)
+    let nearByPathId = Expression<String>(DBCol.NEAR_BY_PATH_ID)
+    let iconName = Expression<String>(DBCol.ICON_NAME)
+    let createTime = Expression<Int64>(DBCol.CREATE_TIME)
+    let lastUpdateTime = Expression<Int64>(DBCol.LAST_UPDATE_TIME)
+    let keyword = Expression<String>(DBCol.KEYWORD)
+    let unitId = Expression<String>(DBCol.UNIT_ID)
+    let categoryId = Expression<String>(DBCol.CATEGORY_ID)
+    let edmId = Expression<String>(DBCol.EDM_ID)
+    let edmName = Expression<String>(DBCol.EDM_NAME)
+    let edmURL = Expression<String>(DBCol.EDM_URL)
+    let edmImage = Expression<String>(DBCol.EDM_IMAGE)
+    let edmEndDay = Expression<String>(DBCol.EDM_END_DAY)
+    let id = Expression<Int64>("id")
+    let stringId = Expression<String>("id")
+    let hotDate = Expression<String>(DBCol.HOT_DATE)
+    let hotTitle = Expression<String>(DBCol.HOT_TITLE)
+    let hotDescription = Expression<String>(DBCol.HOT_DESCRIPTION)
+    let hotLink = Expression<String>(DBCol.HOT_LINK)
+    let isDelete = Expression<Int64>(DBCol.IS_DELETE)
+    let keywordId = Expression<String>(DBCol.KEYWORD_ID)
+    let read = Expression<Int64>("read")
+    let rank = Expression<Int64>(DBCol.RANK)
+    let appId = Expression<String>(DBCol.APP_ID)
+    let appName = Expression<String>(DBCol.APP_NAME)
+    let appURL = Expression<String>(DBCol.APP_URL)
+    let appImage = Expression<String>(DBCol.APP_IMAGE)
+    let sequence = Expression<String>("sequence")
+    let appIOSUrl = Expression<String>(DBCol.APP_IOSURL)
+    */
     var db_name: String!
     private static let DB_VERSION = 2
     public static let KEYWORD_ADMINISTRATIVE_CATEGORY_RANK = 1
@@ -35,7 +75,6 @@ class DatabaseHelper {
     
     
     // MARK: - create tables
-
     func createAllTables() -> Void {
         createAdministrativeUnitTable()
         createAdministrativeUnitCategoryTable()
@@ -53,9 +92,8 @@ class DatabaseHelper {
     func createAdministrativeUnitTable() -> Void {
         do {
             // create table
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let administrativeUnitTable = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
-            
             try db.run(administrativeUnitTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.x)
                 t.column(DBColExpressions.y)
@@ -78,14 +116,13 @@ class DatabaseHelper {
         } catch  {
             print("create \(DBCol.TABLE_ADMINISTRATIVE_UNIT) error.")
         }
-
     }
     
     // create administrativeUnitCategory Table
     func createAdministrativeUnitCategoryTable() -> Void {
         
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let administrativeUnitCategory = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)
 
             try db.run(administrativeUnitCategory.create(ifNotExists: true) { t in
@@ -106,7 +143,7 @@ class DatabaseHelper {
     // create administrativeUnitInCategory Table
     func createAdministrativeUnitInCategoryTable() -> Void {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let administrativeUnitInCategory = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)
 
             try db.run(administrativeUnitInCategory.create(ifNotExists: true) { t in
@@ -123,7 +160,7 @@ class DatabaseHelper {
     // create Edm Table
     func createEDMTable() -> Void {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let edmTable = Table(DBCol.TABLE_EDM)
             try db.run(edmTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.edmId)
@@ -142,7 +179,7 @@ class DatabaseHelper {
     // create Hot Table
     func createHotTable() -> Void {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let hotTable = Table(DBCol.TABLE_HOT)
             try db.run(hotTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.id, primaryKey: .autoincrement)
@@ -161,7 +198,7 @@ class DatabaseHelper {
     // create InKeyword Table
     func createInKeywordTable() -> Void {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let inKeywordTable = Table(DBCol.TABLE_IN_KEYWORD)
 
             try db.run(inKeywordTable.create(ifNotExists: true) { t in
@@ -178,7 +215,7 @@ class DatabaseHelper {
     // create instruction Table
     func createInstructionTable() -> Void {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let instructionTable = Table(DBCol.TABLE_INSTRUCTION)
             try db.run(instructionTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.id, unique: true)
@@ -195,7 +232,7 @@ class DatabaseHelper {
     // create keyword table
     func createKeywordTable() -> Void {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let keywordTable = Table(DBCol.TABLE_KEYWORD)
             try db.run(keywordTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.keywordId)
@@ -214,7 +251,7 @@ class DatabaseHelper {
     // create mapping keyword table
     func createMappingKeywordTable() -> Void {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let mappingKeywordTable = Table("mappingKeyword")
             try db.run(mappingKeywordTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.unitId)
@@ -229,12 +266,12 @@ class DatabaseHelper {
     // create mobile app table
     func createMobileAppTable() -> Void {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let mobileAppTable = Table(DBCol.TABLE_MOBILEAPP)
             try db.run(mobileAppTable.create(ifNotExists: true) { t in
                 t.column(DBColExpressions.appId)
                 t.column(DBColExpressions.appName)
-                t.column(DBColExpressions.appURL)
+                t.column(DBColExpressions.appIOSUrl)
                 t.column(DBColExpressions.appImage)
                 t.column(DBColExpressions.lastUpdateTime)
             })
@@ -245,11 +282,13 @@ class DatabaseHelper {
     }
     
     
+    
+    
     // MARK: - insert or update
     // cannot insert into this table
     func insertOrUpdateAdministrativeUnitTable(x: Int64, y: Int64, fieldId: String, unitId: String, parentUnitId: String, name: String, tel: String, fax: String, email: String, website: String, description: String, iconName: String, createTime: Int64, lastUpdateTime: Int64, nearByPathId: String, keyword: String) -> Bool {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
             
             // try insert/replace
@@ -267,7 +306,7 @@ class DatabaseHelper {
     
     func insertOrUpdateAdministrativeUnitCategory(categoryId: String, name: String, description: String, iconName: String, createTime: Int64, lastUpdateTime: Int64, keyword: String) -> Bool {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)
             
             // try insert/replace the row
@@ -283,7 +322,7 @@ class DatabaseHelper {
     
     func insertOrUpdateAdministrativeUnitInCategory(unitId: String, categoryId: String, lastUpdateTime: Int64) -> Bool{
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)
             
             // try insert/replace
@@ -299,7 +338,7 @@ class DatabaseHelper {
     
     func insertOrUpdateEdmTable(edmId: String, edmName: String, edmURL: String, edmImage: String, edmEndDay: String, lastUpdateTime: Int64) -> Bool {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_EDM)
             
             // try insert/replace
@@ -315,7 +354,7 @@ class DatabaseHelper {
     
     func insertOrUpdateHotTable(id: Int64, hotDate: String, hotTitle: String, hotDescription: String, hotLink: String, isDelete: Int64) -> Bool {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_HOT)
             
             // try insert/update
@@ -331,7 +370,7 @@ class DatabaseHelper {
     
     func insertOrUpdateInKeywordTable(id : String, keywordId: String, lastUpdateTime: Int64) -> Bool {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_IN_KEYWORD)
             
             // try insert/replace
@@ -347,7 +386,7 @@ class DatabaseHelper {
     
     func insertOrUpdateInstructionTable(id: Int64, name: String, read: Int64) -> Bool {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_INSTRUCTION)
             
             // try insert/replace
@@ -363,7 +402,7 @@ class DatabaseHelper {
     
     func insertOrUpdateKeywordTable(keywordId: String, keyword: String, rank: Int64, description: String, createTime: Int64, lastUpdateTime: Int64) -> Bool {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_KEYWORD)
             
             // try insert/replace
@@ -379,7 +418,7 @@ class DatabaseHelper {
     
     func insertOrUpdateMappingKeywordTable(unitId: String, keyword: String) -> Bool {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table("mappingKeyword")
             
             // try insert/replace
@@ -393,13 +432,13 @@ class DatabaseHelper {
         return false
     }
     
-    func insertOrUpdateMobileAppTable(appId: String, appName: String, appURL: String, appImage: String, lastUpdateTime: Int64) -> Bool {
+    func insertOrUpdateMobileAppTable(appId: String, appName: String, appIOSUrl: String, appImage: String, lastUpdateTime: Int64) -> Bool {
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_MOBILEAPP)
             
             // try insert/replace
-            try db.run(table.insert(or: .replace, DBColExpressions.appId <- appId, DBColExpressions.appName <- appName, DBColExpressions.appURL <- appURL, DBColExpressions.appImage <- appImage, DBColExpressions.lastUpdateTime <- lastUpdateTime))
+            try db.run(table.insert(or: .replace, DBColExpressions.appId <- appId, DBColExpressions.appName <- appName, DBColExpressions.appIOSUrl <- appIOSUrl, DBColExpressions.appImage <- appImage, DBColExpressions.lastUpdateTime <- lastUpdateTime))
             
             print("insert/update mobile app table succeeded.")
             return true
@@ -410,18 +449,13 @@ class DatabaseHelper {
     }
     
     
-    
-    // MARK: - new update and insert function for 
-    
-    
-    
     // MARK: - query functions
     func queryAdministrativeUnitTable() -> NSMutableArray {
         let administrativeUnits = NSMutableArray()
 
         do {
             let administrative_table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
 
             for admin_unit in try db.prepare(administrative_table) {
                 
@@ -439,7 +473,7 @@ class DatabaseHelper {
         let administrativeUnitCategories = NSMutableArray()
         do {
             let administrativeUnitCategoryTable = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             for categories in try db.prepare(administrativeUnitCategoryTable) {
                 let adminUnitCategory = AdministrativeUnitCategory(categoryId: categories[DBColExpressions.categoryId], name: categories[DBColExpressions.name], description: categories[DBColExpressions.description], iconName: categories[DBColExpressions.iconName], createTime: categories[DBColExpressions.createTime], lastUpdateTime: categories[DBColExpressions.lastUpdateTime], keyword: categories[DBColExpressions.keyword])
                 administrativeUnitCategories.add(adminUnitCategory)
@@ -455,7 +489,7 @@ class DatabaseHelper {
         let unitInCategories = NSMutableArray()
         do {
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             for rows in try db.prepare(table) {
                 let data = AdministrativeUnitInCategory(unitId: rows[DBColExpressions.unitId], categoryId: rows[DBColExpressions.categoryId], lastUpdateTime: rows[DBColExpressions.lastUpdateTime])
                 unitInCategories.add(data)
@@ -471,7 +505,7 @@ class DatabaseHelper {
         let edms = NSMutableArray()
         do {
             let table = Table(DBCol.TABLE_EDM)
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             for rows in try db.prepare(table) {
                 let data = Edm(edmId: rows[DBColExpressions.edmId], edmName: rows[DBColExpressions.edmName], edmURL: rows[DBColExpressions.edmURL], edmImage: rows[DBColExpressions.edmImage], edmEndDay: rows[DBColExpressions.edmEndDay], lastUpdateTime: rows[DBColExpressions.lastUpdateTime])
                 edms.add(data)
@@ -486,7 +520,7 @@ class DatabaseHelper {
     func queryHotTable() -> NSMutableArray {
         let hots = NSMutableArray()
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_HOT)
             for rows in try db.prepare(table) {
                 let data = HotItem(id: rows[DBColExpressions.id], hotDate: rows[DBColExpressions.hotDate], hotTitle: rows[DBColExpressions.hotTitle], hotDescription: rows[DBColExpressions.hotDescription], hotLink: rows[DBColExpressions.hotLink], isDelete: rows[DBColExpressions.isDelete])
@@ -502,7 +536,7 @@ class DatabaseHelper {
     func queryInKeywordTable() -> NSMutableArray {
         let inKeywords = NSMutableArray()
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_IN_KEYWORD)
             for rows in try db.prepare(table) {
                 let data = InKeywords(id: String(rows[DBColExpressions.stringId]), keywordId: rows[DBColExpressions.keywordId], lastUpdateTime: rows[DBColExpressions.lastUpdateTime])
@@ -518,7 +552,7 @@ class DatabaseHelper {
     func queryInstructionTable() -> NSMutableArray {
         let instructions = NSMutableArray()
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_INSTRUCTION)
             for rows in try db.prepare(table) {
                 let data = InstructionItem(id: rows[DBColExpressions.id], name: rows[DBColExpressions.name], read: rows[DBColExpressions.read])
@@ -534,7 +568,7 @@ class DatabaseHelper {
     func queryKeywordTable() -> NSMutableArray {
         let keywords = NSMutableArray()
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_KEYWORD)
             for rows in try db.prepare(table) {
                 let data = Keyword(keywordId: rows[DBColExpressions.keywordId], keyword: rows[DBColExpressions.keyword], rank: rows[DBColExpressions.rank], description: rows[DBColExpressions.description], createTime: rows[DBColExpressions.createTime], lastUpdateTime: rows[DBColExpressions.lastUpdateTime])
@@ -550,7 +584,7 @@ class DatabaseHelper {
     func queryMappingKeywordTable() -> NSMutableArray {
         let mappings = NSMutableArray()
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table("mappingKeyword")
             for rows in try db.prepare(table) {
                 let data = MappingKeyword(unitId: rows[DBColExpressions.unitId], keyword: rows[DBColExpressions.keyword])
@@ -566,10 +600,10 @@ class DatabaseHelper {
     func queryMobileAppTable() -> NSMutableArray {
         let apps = NSMutableArray()
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_MOBILEAPP)
             for rows in try db.prepare(table) {
-                let data = MobileApps(appId: rows[DBColExpressions.appId], appName: rows[DBColExpressions.appName], appURL: rows[DBColExpressions.appURL], appImage: rows[DBColExpressions.appImage], lastUpdateTime: rows[DBColExpressions.lastUpdateTime])
+                let data = MobileApps(appId: rows[DBColExpressions.appId], appName: rows[DBColExpressions.appName], appIOSUrl: rows[DBColExpressions.appIOSUrl], appImage: rows[DBColExpressions.appImage], lastUpdateTime: rows[DBColExpressions.lastUpdateTime])
                 apps.add(data)
             }
             print("query mobileapp table succeed.")
@@ -580,10 +614,12 @@ class DatabaseHelper {
     }
     
     
-    func getLastUpdateTime(tableName: String) -> Int64 {
-        var lastTime = Int64(0)
+    
+    // MARK: - sync tables
+    func getLastUpdateTime(tableName: String) -> NSInteger {
+        var lastTime = NSInteger(0)
         do {
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(tableName)
             // query "lastUpdateTime" column for the designated table: SELECT lastUpdateTime FROM tableName ORDER BY lastUpdateTime DESC LIMIT 1
             let query = table.select(DBColExpressions.lastUpdateTime).order(DBColExpressions.lastUpdateTime.desc).limit(1)
@@ -591,26 +627,21 @@ class DatabaseHelper {
             // get first row
             for times in try db.prepare(query) {
                 if (count == 1) {
-                    lastTime = times[DBColExpressions.lastUpdateTime]
+                    lastTime = NSInteger(times[DBColExpressions.lastUpdateTime])
                     break
                 }
             }
 //            let times = try db.pluck(query)
         } catch _ {
-            print("query lastUpdateTime error.")
+            print("query lastUpdateTime error, return lastUpdateTime = \(lastTime)")
         }
         return lastTime
     }
     
     
-    
-    // MARK: - sync tables
-    
     // administrative unit
     func syncAdministrativeUnitTable(jsonObj: JSON) {
-        let result = jsonObj["result"].intValue;
-        // print result
-        print(result)
+        let result = jsonObj["result"].intValue
         if (result == 0) {
             let dataArray = jsonObj["data"];
             for dict in dataArray {
@@ -624,7 +655,7 @@ class DatabaseHelper {
     func updateAdministrativeUnit(jsonObj: JSON) {
         do {
             // pluck a row: if there is data
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
             if (jsonObj["isDelete"].intValue == 0) {
                 /* perform insert or update */
@@ -635,9 +666,11 @@ class DatabaseHelper {
                     // update if there is row
                     let updateFilter = table.filter(DBColExpressions.unitId == jsonObj["unitId"].stringValue)
                     try db.run(updateFilter.update(DBColExpressions.parentUnitId <- jsonObj["parentUnitId"].stringValue, DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.fieldId <- jsonObj["fieldId"].stringValue, DBColExpressions.x <- jsonObj["x"].int64Value, DBColExpressions.y <- jsonObj["y"].int64Value, DBColExpressions.nearByPathId <- jsonObj["nearByPathId"].stringValue, DBColExpressions.tel <- jsonObj["tel"].stringValue, DBColExpressions.fax <- jsonObj["fax"].stringValue, DBColExpressions.email <- jsonObj["email"].stringValue, DBColExpressions.website <- jsonObj["website"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    print("update data to \(DBCol.TABLE_ADMINISTRATIVE_UNIT), unitId = \(jsonObj["unitId"].stringValue)")
                 } else {
                     // else insert if there is no existing row
-                    try db.run(table.insert(or: .replace, DBColExpressions.unitId <- jsonObj["unitId"].stringValue, DBColExpressions.parentUnitId <- jsonObj["parentUnitId"].stringValue, DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.fieldId <- jsonObj["fieldId"].stringValue, DBColExpressions.x <- jsonObj["x"].int64Value, DBColExpressions.y <- jsonObj["y"].int64Value, DBColExpressions.nearByPathId <- jsonObj["nearByPathId"].stringValue, DBColExpressions.tel <- jsonObj["tel"].stringValue, DBColExpressions.fax <- jsonObj["fax"].stringValue, DBColExpressions.email <- jsonObj["email"].stringValue, DBColExpressions.website <- jsonObj["website"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    try db.run(table.insert(DBColExpressions.unitId <- jsonObj["unitId"].stringValue, DBColExpressions.parentUnitId <- jsonObj["parentUnitId"].stringValue, DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.fieldId <- jsonObj["fieldId"].stringValue, DBColExpressions.x <- jsonObj["x"].int64Value, DBColExpressions.y <- jsonObj["y"].int64Value, DBColExpressions.nearByPathId <- jsonObj["nearByPathId"].stringValue, DBColExpressions.tel <- jsonObj["tel"].stringValue, DBColExpressions.fax <- jsonObj["fax"].stringValue, DBColExpressions.email <- jsonObj["email"].stringValue, DBColExpressions.website <- jsonObj["website"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    print("insert data to \(DBCol.TABLE_ADMINISTRATIVE_UNIT), unitId = \(jsonObj["unitId"].stringValue)")
                 }
             } else {
                 /* perform delete action */
@@ -645,16 +678,16 @@ class DatabaseHelper {
                 let deleteUnitId = table.filter(DBColExpressions.unitId == jsonObj["unitId"].stringValue)
                 do {
                     if try db.run(deleteUnitId.delete()) > 0 {
-                        print("deleted row, unitId: \(jsonObj["unitId"].stringValue)")
+                        print("\(DBCol.TABLE_ADMINISTRATIVE_UNIT) deleted row, unitId: \(jsonObj["unitId"].stringValue)")
                     } else {
-                        print("row unitId: \(jsonObj["unitId"].stringValue) not found.")
+                        print("\(DBCol.TABLE_ADMINISTRATIVE_UNIT), unitId: \(jsonObj["unitId"].stringValue) not found.")
                     }
                 } catch {
-                    print("delete failed: \(error)")
+                    print("\(DBCol.TABLE_ADMINISTRATIVE_UNIT) delete row failed: \(error)")
                 }
             }
         } catch _ {
-            print("update administrative unit table error.")
+            print("update \(DBCol.TABLE_ADMINISTRATIVE_UNIT) table error.")
         }
     }
     
@@ -677,7 +710,7 @@ class DatabaseHelper {
     func updateAdministrativeUnitCategory(jsonObj: JSON) {
         do {
             // pluck a row: if there is data
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)
             if (jsonObj["isDelete"].intValue == 0) {
                 /* perform insert or update */
@@ -688,9 +721,11 @@ class DatabaseHelper {
                     // update if there is row
                     let updateFilter = table.filter(DBColExpressions.categoryId == jsonObj["categoryId"].stringValue)
                     try db.run(updateFilter.update(DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    print("update data to \(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY), unitId = \(jsonObj["categoryId"].stringValue)")
                 } else {
                     // else insert if there is no existing row
-                    try db.run(table.insert(or: .replace, DBColExpressions.categoryId <- jsonObj["categoryId"].stringValue, DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    try db.run(table.insert(DBColExpressions.categoryId <- jsonObj["categoryId"].stringValue, DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    print("insert data to \(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY), unitId = \(jsonObj["categoryId"].stringValue)")
                 }
             } else {
                 /* perform delete action */
@@ -698,19 +733,18 @@ class DatabaseHelper {
                 let deleteUnitId = table.filter(DBColExpressions.categoryId == jsonObj["categoryId"].stringValue)
                 do {
                     if try db.run(deleteUnitId.delete()) > 0 {
-                        print("deleted row, unitId: \(jsonObj["categoryId"].stringValue)")
+                        print("delete data \(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY), categoryId = \(jsonObj["categoryId"].stringValue)")
                     } else {
-                        print("row unitId: \(jsonObj["categoryId"].stringValue) not found.")
+                        print("\(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY), categoryId: \(jsonObj["categoryId"].stringValue) not found.")
                     }
                 } catch {
-                    print("delete failed: \(error)")
+                    print("\(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY) delete categoryId=\(jsonObj["categoryId"].stringValue) failed: \(error)")
                 }
             }
         } catch _ {
-            print("update administrative unit category table error.")
+            print("update \(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY) table error.")
         }
     }
-    
     
     
     // administrative unit in category
@@ -730,48 +764,222 @@ class DatabaseHelper {
     
     func updateAdministrativeUnitInCategory(jsonObj: JSON) {
         do {
-            // pluck a row: if there is data
-            let db = try Connection(Constants.DB_FULLPATH)
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)
             
+            // update administrative unit in category: delete unitId then insert a new one
             let deleteFilter = table.filter(DBColExpressions.unitId == jsonObj["unitId"].stringValue)
             if try db.run(deleteFilter.delete()) > 0 {
-                print("deleted row, unitId: \(jsonObj["unitId"].stringValue)")
+                print("\(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY) deleted row, unitId: \(jsonObj["unitId"].stringValue)")
             } else {
-                print("row unitId: \(jsonObj["unitId"])");
+                print("\(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY), unitId: \(jsonObj["unitId"].stringValue) not deleted.")
             }
-            
+            // insert new row
+            try db.run(table.insert(DBColExpressions.unitId <- jsonObj["unitId"].stringValue, DBColExpressions.categoryId <- jsonObj["categoryId"].stringValue, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+            print("insert data to \(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY), unitId: \(jsonObj["unitId"].stringValue)")
+        } catch _ {
+            print("update \(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY) table error.")
+        }
+    }
+    
+    // keyword table
+    func syncKeywordTable(jsonObj: JSON) {
+        let result = jsonObj["result"].intValue;
+        // print result
+        print(result)
+        if (result == 0) {
+            let dataArray = jsonObj["data"];
+            for dict in dataArray {
+                // call new insert function by passing json object
+                // 取當下 dictionary 的 value 值 --> JSON
+                updateKeywordTable(jsonObj: dict.1)
+            }
+        }
+    }
+    
+    func updateKeywordTable(jsonObj: JSON) {
+        do {
+            // pluck a row: if there is data
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let table = Table(DBCol.TABLE_KEYWORD)
             if (jsonObj["isDelete"].intValue == 0) {
                 /* perform insert or update */
                 // pluck to check if the row exists
-                let filtering = table.filter(DBColExpressions.categoryId == jsonObj["categoryId"].stringValue).limit(1)
+                let filtering = table.filter(DBColExpressions.keywordId == jsonObj["keywordId"].stringValue).limit(1)
                 let plucking = try db.pluck(filtering)
                 if (plucking != nil) {
                     // update if there is row
-                    let updateFilter = table.filter(DBColExpressions.categoryId == jsonObj["categoryId"].stringValue)
-                    try db.run(updateFilter.update(DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    let updateFilter = table.filter(DBColExpressions.keywordId == jsonObj["keywordId"].stringValue)
+                    try db.run(updateFilter.update(DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.rank <- jsonObj["rank"].int64Value, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    print("update row in \(DBCol.TABLE_KEYWORD), \(DBColExpressions.keywordId)=\(jsonObj["keywordId"].stringValue)")
                 } else {
                     // else insert if there is no existing row
-                    try db.run(table.insert(or: .replace, DBColExpressions.categoryId <- jsonObj["categoryId"].stringValue, DBColExpressions.name <- jsonObj["name"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.iconName <- jsonObj["iconName"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    try db.run(table.insert(DBColExpressions.keywordId <- jsonObj["keywordId"].stringValue, DBColExpressions.keyword <- jsonObj["keyword"].stringValue, DBColExpressions.description <- jsonObj["description"].stringValue, DBColExpressions.rank <- jsonObj["rank"].int64Value, DBColExpressions.createTime <- jsonObj["createTime"].int64Value, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    print("insert row into \(DBCol.TABLE_KEYWORD), \(DBColExpressions.keywordId)=\(jsonObj["keywordId"].stringValue)")
                 }
             } else {
                 /* perform delete action */
                 // filter by unitId
-                let deleteUnitId = table.filter(DBColExpressions.categoryId == jsonObj["categoryId"].stringValue)
+                let deleteUnitId = table.filter(DBColExpressions.keywordId == jsonObj["keywordId"].stringValue)
                 do {
                     if try db.run(deleteUnitId.delete()) > 0 {
-                        print("deleted row, unitId: \(jsonObj["categoryId"].stringValue)")
+                        print("\(DBCol.TABLE_KEYWORD) deleted row, keywordId: \(jsonObj["keywordId"].stringValue)")
                     } else {
-                        print("row unitId: \(jsonObj["categoryId"].stringValue) not found.")
+                        print("\(DBCol.TABLE_KEYWORD) row keywordId: \(jsonObj["keywordId"].stringValue) not found.")
                     }
                 } catch {
-                    print("delete failed: \(error)")
+                    print("\(DBCol.TABLE_KEYWORD) delete row failed: \(error)")
                 }
             }
         } catch _ {
-            print("update administrative unit category table error.")
+            print("update \(DBCol.TABLE_KEYWORD) table error.")
         }
     }
     
+    
+    // In Keyword table
+    func syncInKeyword(jsonObj: JSON) {
+        let result = jsonObj["result"].intValue;
+        // print result
+        print(result)
+        if (result == 0) {
+            let dataArray = jsonObj["data"];
+            for dict in dataArray {
+                // call new insert function by passing json object
+                // 取當下 dictionary 的 value 值 --> JSON
+                updateInKeyword(jsonObj: dict.1)
+            }
+        }
+    }
+    
+    func updateInKeyword(jsonObj: JSON) {
+        do {
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let table = Table(DBCol.TABLE_IN_KEYWORD)
+            
+            // update administrative unit in category: delete unitId then insert a new one
+            let deleteFilter = table.filter(DBColExpressions.stringId == jsonObj["stringId"].stringValue)
+            if try db.run(deleteFilter.delete()) > 0 {
+                print("\(DBCol.TABLE_IN_KEYWORD) delete row, stringId=\(jsonObj["stringId"].stringValue) success.")
+            } else {
+                print("\(DBCol.TABLE_IN_KEYWORD), stringId=\(jsonObj["stringId"]) not found");
+            }
+            // insert new row
+            try db.run(table.insert(DBColExpressions.stringId <- jsonObj["stringId"].stringValue, DBColExpressions.keywordId <- jsonObj["keywordId"].stringValue, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+            print("insert row into \(DBCol.TABLE_IN_KEYWORD), \(DBColExpressions.stringId)=\(jsonObj["stringId"].stringValue)")
+        } catch _ {
+            print("update \(DBCol.TABLE_IN_KEYWORD) table error.")
+        }
+    }
+    
+    
+    // EDM
+    func syncEdmTable(jsonObj: JSON) {
+        let result = jsonObj["result"].intValue;
+        // print result
+        print(result)
+        if (result == 0) {
+            let dataArray = jsonObj["data"];
+            for dict in dataArray {
+                // call new insert function by passing json object
+                // 取當下 dictionary 的 value 值 --> JSON
+                updateEdmTable(jsonObj: dict.1)
+            }
+        }
+    }
+    
+    func updateEdmTable(jsonObj: JSON) {
+        do {
+            // pluck a row: if there is data
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let table = Table(DBCol.TABLE_EDM)
+            if (jsonObj["isDelete"].intValue == 0) {
+                /* perform insert or update */
+                // pluck to check if the row exists
+                let filtering = table.filter(DBColExpressions.edmId == jsonObj["edmId"].stringValue).limit(1)
+                let plucking = try db.pluck(filtering)
+                if (plucking != nil) {
+                    // update if there is row
+                    let updateFilter = table.filter(DBColExpressions.edmId == jsonObj["edmId"].stringValue)
+                    try db.run(updateFilter.update(DBColExpressions.edmName <- jsonObj["edmName"].stringValue, DBColExpressions.edmImage <- jsonObj["edmImage"].stringValue, DBColExpressions.edmEndDay <- jsonObj["edmEndDay"].stringValue, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    print("update row in \(DBCol.TABLE_EDM), \(DBColExpressions.edmId)=\(jsonObj["edmId"].stringValue) success.")
+                } else {
+                    // else insert if there is no existing row
+                    try db.run(table.insert(DBColExpressions.edmId <- jsonObj["edmId"].stringValue, DBColExpressions.edmName <- jsonObj["edmName"].stringValue, DBColExpressions.edmImage <- jsonObj["edmImage"].stringValue, DBColExpressions.edmEndDay <- jsonObj["edmEndDay"].stringValue, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    print("insert row into \(DBCol.TABLE_EDM), \(DBColExpressions.edmId)=\(jsonObj["edmId"].stringValue) success.")
+                }
+            } else {
+                /* perform delete action */
+                // filter by unitId
+                let deleteUnitId = table.filter(DBColExpressions.edmId == jsonObj["edmId"].stringValue)
+                do {
+                    if try db.run(deleteUnitId.delete()) > 0 {
+                        print("\(DBCol.TABLE_EDM) delete row, edmId=\(jsonObj["edmId"].stringValue) success.")
+                    } else {
+                        print("\(DBCol.TABLE_EDM) row, edmId=\(jsonObj["edmId"].stringValue) not found.")
+                    }
+                } catch {
+                    print("\(DBCol.TABLE_EDM) delete row: edmId=\(jsonObj["edmId"].stringValue), failed: \(error)")
+                }
+            }
+        } catch _ {
+            print("update \(DBCol.TABLE_EDM) table error.")
+        }
+    }
+    
+    
+    // mobile app
+    func syncMobileApp(jsonObj: JSON) {
+        let result = jsonObj["result"].intValue;
+        // print result
+        print(result)
+        if (result == 0) {
+            let dataArray = jsonObj["data"];
+            for dict in dataArray {
+                // call new insert function by passing json object
+                // 取當下 dictionary 的 value 值 --> JSON
+                updateMobileApp(jsonObj: dict.1)
+            }
+        }
+    }
+    
+    func updateMobileApp(jsonObj: JSON) {
+        do {
+            // pluck a row: if there is data
+            let db = try Connection(Constants.FULL_DATABASE_NAME)
+            let table = Table(DBCol.TABLE_MOBILEAPP)
+            if (jsonObj["isDelete"].intValue == 0) {
+                /* perform insert or update */
+                // pluck to check if the row exists
+                let filtering = table.filter(DBColExpressions.appId == jsonObj["appId"].stringValue).limit(1)
+                let plucking = try db.pluck(filtering)
+                if (plucking != nil) {
+                    // update if there is row
+                    let updateFilter = table.filter(DBColExpressions.appId == jsonObj["appId"].stringValue)
+                    try db.run(updateFilter.update(DBColExpressions.appName <- jsonObj["appName"].stringValue, DBColExpressions.appImage <- jsonObj["appImage"].stringValue, DBColExpressions.appIOSUrl <- jsonObj["appIOSUrl"].stringValue, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    print("update row in \(DBCol.TABLE_MOBILEAPP), \(DBColExpressions.appId)=\(jsonObj["appId"].stringValue) success.")
+                } else {
+                    // else insert if there is no existing row
+                    try db.run(table.insert(DBColExpressions.appId <- jsonObj["appId"].stringValue, DBColExpressions.appName <- jsonObj["appName"].stringValue, DBColExpressions.appImage <- jsonObj["appImage"].stringValue, DBColExpressions.appIOSUrl <- jsonObj["appIOSUrl"].stringValue, DBColExpressions.lastUpdateTime <- jsonObj["lastUpdateTime"].int64Value))
+                    print("insert row into \(DBCol.TABLE_MOBILEAPP), \(DBColExpressions.appId)=\(jsonObj["appId"].stringValue) success.")
+                }
+            } else {
+                /* perform delete action */
+                // filter by unitId
+                let deleteUnitId = table.filter(DBColExpressions.appId == jsonObj["appId"].stringValue)
+                do {
+                    if try db.run(deleteUnitId.delete()) > 0 {
+                        print("\(DBCol.TABLE_MOBILEAPP) delete row, appId: \(jsonObj["appId"].stringValue) success.")
+                    } else {
+                        print("\(DBCol.TABLE_MOBILEAPP) row, appId: \(jsonObj["appId"].stringValue) not found.")
+                    }
+                } catch {
+                    print("\(DBCol.TABLE_MOBILEAPP) delete row, appId: \(jsonObj["appId"].stringValue), failed: \(error).")
+                }
+            }
+        } catch _ {
+            print("update \(DBCol.TABLE_MOBILEAPP) table error.")
+        }
+    }
     
 }

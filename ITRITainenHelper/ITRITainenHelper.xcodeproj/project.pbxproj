@@ -35,7 +35,6 @@
 		67250A2A1E867E4B00F824DD /* Service.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67250A291E867E4B00F824DD /* Service.storyboard */; };
 		67250A2D1E867E5A00F824DD /* Navigation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67250A2C1E867E5A00F824DD /* Navigation.storyboard */; };
 		67250A331E867E8100F824DD /* Apps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67250A321E867E8100F824DD /* Apps.storyboard */; };
-		6735317B1EACED5D00F2E20B /* DatabaseTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6735317A1EACED5D00F2E20B /* DatabaseTester.swift */; };
 		673868DA1E9F2A4000C4823B /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673868D91E9F2A4000C4823B /* MainPageViewController.swift */; };
 		673F102F1E95E9D000499F16 /* DBCol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673F102E1E95E9D000499F16 /* DBCol.swift */; };
 		6740EC0D1EA84A89000879A3 /* AdministrativeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6740EC0C1EA84A89000879A3 /* AdministrativeUnit.swift */; };
@@ -51,7 +50,6 @@
 		6740EC211EA8681A000879A3 /* SQLiteSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6740EC201EA8681A000879A3 /* SQLiteSequence.swift */; };
 		6740EC231EA89C70000879A3 /* NavigationDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6740EC221EA89C70000879A3 /* NavigationDetailTableViewController.swift */; };
 		6740EC251EA89CA7000879A3 /* NavigationDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6740EC241EA89CA7000879A3 /* NavigationDetailTableViewCell.swift */; };
-		67431EA41ED7CB1400BD9D03 /* NitigationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67431EA31ED7CB1400BD9D03 /* NitigationKit.framework */; };
 		67431EA51ED7CCDC00BD9D03 /* NitigationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67431EA31ED7CB1400BD9D03 /* NitigationKit.framework */; };
 		67431EA61ED7CCDC00BD9D03 /* NitigationKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 67431EA31ED7CB1400BD9D03 /* NitigationKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6747D7A31ED7C57A00EFFB72 /* Pods_ITRITainenHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8875017D01ADB2C4A1117FC1 /* Pods_ITRITainenHelper.framework */; };
@@ -60,6 +58,7 @@
 		6756BB491E9554BB002D9B96 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6756BB481E9554BB002D9B96 /* APIConstants.swift */; };
 		67575DD51EC4B98F00CA1DBC /* TainanAdminUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67575DD41EC4B98F00CA1DBC /* TainanAdminUnit.swift */; };
 		6788C25A1E837FC90089EC2D /* Macros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6788C2591E837FC90089EC2D /* Macros.swift */; };
+		67ABBFE61ED97D7500F03052 /* MainPageInstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ABBFE51ED97D7500F03052 /* MainPageInstructionViewController.swift */; };
 		67BB5A861E82D23300D344BC /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BB5A851E82D23300D344BC /* CustomSearchBar.swift */; };
 		67E81DD51E898B370005CE40 /* ServiceResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E81DD41E898B370005CE40 /* ServiceResultViewController.swift */; };
 		67FA180F1E87C0FD0017DF11 /* AppsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FA180E1E87C0FD0017DF11 /* AppsViewController.swift */; };
@@ -139,7 +138,6 @@
 		67250A291E867E4B00F824DD /* Service.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Service.storyboard; sourceTree = "<group>"; };
 		67250A2C1E867E5A00F824DD /* Navigation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Navigation.storyboard; sourceTree = "<group>"; };
 		67250A321E867E8100F824DD /* Apps.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Apps.storyboard; sourceTree = "<group>"; };
-		6735317A1EACED5D00F2E20B /* DatabaseTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseTester.swift; sourceTree = "<group>"; };
 		673868D91E9F2A4000C4823B /* MainPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		673F102E1E95E9D000499F16 /* DBCol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBCol.swift; sourceTree = "<group>"; };
 		6740EC0C1EA84A89000879A3 /* AdministrativeUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdministrativeUnit.swift; sourceTree = "<group>"; };
@@ -164,6 +162,7 @@
 		67575DD41EC4B98F00CA1DBC /* TainanAdminUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TainanAdminUnit.swift; sourceTree = "<group>"; };
 		6788C2591E837FC90089EC2D /* Macros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Macros.swift; sourceTree = "<group>"; };
 		67998FA11EABBE9100311345 /* MacroDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacroDefinition.h; sourceTree = "<group>"; };
+		67ABBFE51ED97D7500F03052 /* MainPageInstructionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageInstructionViewController.swift; sourceTree = "<group>"; };
 		67BB5A851E82D23300D344BC /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		67E81DD41E898B370005CE40 /* ServiceResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceResultViewController.swift; sourceTree = "<group>"; };
 		67FA180E1E87C0FD0017DF11 /* AppsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppsViewController.swift; sourceTree = "<group>"; };
@@ -184,7 +183,6 @@
 			files = (
 				67431EA51ED7CCDC00BD9D03 /* NitigationKit.framework in Frameworks */,
 				6747D7A31ED7C57A00EFFB72 /* Pods_ITRITainenHelper.framework in Frameworks */,
-				67431EA41ED7CB1400BD9D03 /* NitigationKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +240,7 @@
 		67117C401E7A50C500357D9F /* ITRITainenHelper */ = {
 			isa = PBXGroup;
 			children = (
+				67ABBFE41ED97D2100F03052 /* InstructionView */,
 				67431EA71ED7CF5300BD9D03 /* tainan3.sqlite */,
 				67575DD31EC4B97B00CA1DBC /* TainanData */,
 				6756BB451E9553FE002D9B96 /* Database */,
@@ -393,7 +392,6 @@
 			children = (
 				6756BB461E955419002D9B96 /* DatabaseHelper.swift */,
 				673F102E1E95E9D000499F16 /* DBCol.swift */,
-				6735317A1EACED5D00F2E20B /* DatabaseTester.swift */,
 				674B5A441ECB620E0055C828 /* DBColExpressions.swift */,
 			);
 			name = Database;
@@ -414,6 +412,14 @@
 				6756BB481E9554BB002D9B96 /* APIConstants.swift */,
 			);
 			name = MACROS;
+			sourceTree = "<group>";
+		};
+		67ABBFE41ED97D2100F03052 /* InstructionView */ = {
+			isa = PBXGroup;
+			children = (
+				67ABBFE51ED97D7500F03052 /* MainPageInstructionViewController.swift */,
+			);
+			name = InstructionView;
 			sourceTree = "<group>";
 		};
 		67BB5A841E82D10F00D344BC /* CustomView */ = {
@@ -662,9 +668,9 @@
 				67FA18191E87C9580017DF11 /* ActivityViewController.swift in Sources */,
 				67117C421E7A50C500357D9F /* AppDelegate.swift in Sources */,
 				67FA18151E87C9220017DF11 /* NavigationViewController.swift in Sources */,
+				67ABBFE61ED97D7500F03052 /* MainPageInstructionViewController.swift in Sources */,
 				6740EC151EA85CE7000879A3 /* HotItem.swift in Sources */,
 				6740EC1F1EA8666D000879A3 /* MobileApps.swift in Sources */,
-				6735317B1EACED5D00F2E20B /* DatabaseTester.swift in Sources */,
 				67BB5A861E82D23300D344BC /* CustomSearchBar.swift in Sources */,
 				5F785BA81EC2B53700FD8052 /* RSSFormat.swift in Sources */,
 				673868DA1E9F2A4000C4823B /* MainPageViewController.swift in Sources */,
@@ -780,7 +786,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -826,7 +832,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
