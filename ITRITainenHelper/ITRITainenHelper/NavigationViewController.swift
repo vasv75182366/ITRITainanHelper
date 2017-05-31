@@ -18,6 +18,9 @@ class NavigationViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
 //        self.navigationDataArray.add("yes")
         // Do any additional setup after loading the view.
+        
+        // load data(only at init)
+        
     }
 
     override func didReceiveMemoryWarning() {

@@ -12,7 +12,7 @@
         <!--Navigation View Controller-->
         <scene sceneID="Jal-4y-Yk7">
             <objects>
-                <viewController id="XaW-wy-aUJ" customClass="NavigationViewController" customModule="ITRITainenHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="navigationVC" id="XaW-wy-aUJ" customClass="NavigationViewController" customModule="ITRITainenHelper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aTb-VC-D2W"/>
                         <viewControllerLayoutGuide type="bottom" id="Ull-jX-qBl"/>

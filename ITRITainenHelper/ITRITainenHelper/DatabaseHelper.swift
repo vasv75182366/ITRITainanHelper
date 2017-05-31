@@ -245,18 +245,24 @@ class DatabaseHelper {
     
     
     
-    
     // MARK: - insert or update
     // cannot insert into this table
     func insertOrUpdateAdministrativeUnitTable(x: Int64, y: Int64, fieldId: String, unitId: String, parentUnitId: String, name: String, tel: String, fax: String, email: String, website: String, description: String, iconName: String, createTime: Int64, lastUpdateTime: Int64, nearByPathId: String, keyword: String) -> Bool {
         do {
             let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
-            
-            // try insert/replace
-            try db.run(table.insert(or: .replace, DBColExpressions.x <- x, DBColExpressions.y <- y, DBColExpressions.fieldId <- fieldId, DBColExpressions.unitId <- unitId, DBColExpressions.parentUnitId <- parentUnitId, DBColExpressions.name <- name, DBColExpressions.tel <- tel, DBColExpressions.fax <- fax, DBColExpressions.email <- email, DBColExpressions.website <- website, DBColExpressions.description <- description, DBColExpressions.iconName <- iconName, DBColExpressions.createTime <- createTime, DBColExpressions.lastUpdateTime <- lastUpdateTime, DBColExpressions.nearByPathId <- nearByPathId, DBColExpressions.keyword <- keyword))
-            
-            print("insert/update administrative unit table succeeded.")
+            let filtering = table.filter(DBColExpressions.unitId == unitId).limit(1)
+            let plucking = try db.pluck(filtering)
+            if (plucking != nil) {
+                // update if there is row
+                let updateFilter = table.filter(DBColExpressions.unitId == unitId)
+                try db.run(updateFilter.update(DBColExpressions.x <- x, DBColExpressions.y <- y, DBColExpressions.fieldId <- fieldId, DBColExpressions.parentUnitId <- parentUnitId, DBColExpressions.name <- name, DBColExpressions.tel <- tel, DBColExpressions.fax <- fax, DBColExpressions.email <- email, DBColExpressions.website <- website, DBColExpressions.description <- description, DBColExpressions.iconName <- iconName, DBColExpressions.createTime <- createTime, DBColExpressions.lastUpdateTime <- lastUpdateTime, DBColExpressions.nearByPathId <- nearByPathId, DBColExpressions.keyword <- keyword))
+                print("update data to \(DBCol.TABLE_ADMINISTRATIVE_UNIT), unitId = \(unitId)")
+            } else {
+                // else insert if there is no existing row
+                try db.run(table.insert(or: .replace, DBColExpressions.x <- x, DBColExpressions.y <- y, DBColExpressions.fieldId <- fieldId, DBColExpressions.unitId <- unitId, DBColExpressions.parentUnitId <- parentUnitId, DBColExpressions.name <- name, DBColExpressions.tel <- tel, DBColExpressions.fax <- fax, DBColExpressions.email <- email, DBColExpressions.website <- website, DBColExpressions.description <- description, DBColExpressions.iconName <- iconName, DBColExpressions.createTime <- createTime, DBColExpressions.lastUpdateTime <- lastUpdateTime, DBColExpressions.nearByPathId <- nearByPathId, DBColExpressions.keyword <- keyword))
+                print("insert data to \(DBCol.TABLE_ADMINISTRATIVE_UNIT), unitId = \(unitId)")
+            }
             return true
         } catch _ {
             print("insert/update administrative unit table error.")
@@ -264,17 +270,22 @@ class DatabaseHelper {
         }
     }
     
-    
-    
     func insertOrUpdateAdministrativeUnitCategory(categoryId: String, name: String, description: String, iconName: String, createTime: Int64, lastUpdateTime: Int64, keyword: String) -> Bool {
         do {
             let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY)
-            
-            // try insert/replace the row
-            try db.run(table.insert(or: .replace, DBColExpressions.categoryId <- categoryId, DBColExpressions.name <- name, DBColExpressions.description <- description, DBColExpressions.iconName <- iconName, DBColExpressions.createTime <- createTime, DBColExpressions.lastUpdateTime <- lastUpdateTime, DBColExpressions.keyword <- keyword))
-            
-            print("insert/update administrative unit category table succeeded.")
+            let filtering = table.filter(DBColExpressions.categoryId == categoryId).limit(1)
+            let plucking = try db.pluck(filtering)
+            if (plucking != nil) {
+                // update if there is row
+                let updateFilter = table.filter(DBColExpressions.categoryId == categoryId)
+                try db.run(updateFilter.update(DBColExpressions.name <- name, DBColExpressions.description <- description, DBColExpressions.iconName <- iconName, DBColExpressions.createTime <- createTime, DBColExpressions.lastUpdateTime <- lastUpdateTime, DBColExpressions.keyword <- keyword))
+                print("update data to \(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY), categoryId = \(categoryId)")
+            } else {
+                // else insert if there is no existing row
+                try db.run(table.insert(or: .replace, DBColExpressions.categoryId <- categoryId, DBColExpressions.name <- name, DBColExpressions.description <- description, DBColExpressions.iconName <- iconName, DBColExpressions.createTime <- createTime, DBColExpressions.lastUpdateTime <- lastUpdateTime, DBColExpressions.keyword <- keyword))
+                print("insert data to \(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY), categoryId = \(categoryId)")
+            }
             return true
         } catch _ {
             print("insert/update administrative unit category table error.")
@@ -286,11 +297,18 @@ class DatabaseHelper {
         do {
             let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY)
-            
-            // try insert/replace
-            try db.run(table.insert(or: .replace, DBColExpressions.unitId <- unitId, DBColExpressions.categoryId <- categoryId, DBColExpressions.lastUpdateTime <- lastUpdateTime))
-            
-            print("insert/update administrative unit in category table succeeded.")
+            let filtering = table.filter(DBColExpressions.unitId == unitId).limit(1)
+            let plucking = try db.pluck(filtering)
+            if (plucking != nil) {
+                // update if there is row
+                let updateFilter = table.filter(DBColExpressions.unitId == unitId)
+                try db.run(updateFilter.update(DBColExpressions.categoryId <- categoryId, DBColExpressions.lastUpdateTime <- lastUpdateTime))
+                print("update data to \(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY), unitId = \(unitId)")
+            } else {
+                // else insert if there is no existing row
+                try db.run(table.insert(or: .replace, DBColExpressions.unitId <- unitId, DBColExpressions.categoryId <- categoryId, DBColExpressions.lastUpdateTime <- lastUpdateTime))
+                print("insert data to \(DBCol.TABLE_ADMINISTRATIVE_UNIT_IN_CATEGORY), unitId = \(unitId)")
+            }
             return true
         } catch _ {
             print("insert/update administrative unit in category table error.")
@@ -302,11 +320,18 @@ class DatabaseHelper {
         do {
             let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_EDM)
-            
-            // try insert/replace
-            try db.run(table.insert(or: .replace, DBColExpressions.edmId <- edmId, DBColExpressions.edmName <- edmName, DBColExpressions.edmURL <- edmURL, DBColExpressions.edmImage <- edmImage, DBColExpressions.edmEndDay <- edmEndDay, DBColExpressions.lastUpdateTime <- lastUpdateTime))
-            
-            print("insert/update edm table succeeded.")
+            let filtering = table.filter(DBColExpressions.edmId == edmId).limit(1)
+            let plucking = try db.pluck(filtering)
+            if (plucking != nil) {
+                // update if there is row
+                let updateFilter = table.filter(DBColExpressions.edmId == edmId)
+                try db.run(updateFilter.update(DBColExpressions.edmName <- edmName, DBColExpressions.edmURL <- edmURL, DBColExpressions.edmImage <- edmImage, DBColExpressions.edmEndDay <- edmEndDay, DBColExpressions.lastUpdateTime <- lastUpdateTime))
+                print("update data to \(DBCol.TABLE_EDM), edmId = \(edmId)")
+            } else {
+                // else insert if there is no existing row
+                try db.run(table.insert(or: .replace, DBColExpressions.edmId <- edmId, DBColExpressions.edmName <- edmName, DBColExpressions.edmURL <- edmURL, DBColExpressions.edmImage <- edmImage, DBColExpressions.edmEndDay <- edmEndDay, DBColExpressions.lastUpdateTime <- lastUpdateTime))
+                print("insert data to \(DBCol.TABLE_EDM), edmId = \(edmId)")
+            }
             return true
         } catch _ {
             print("insert/update edm table error.")
@@ -318,11 +343,19 @@ class DatabaseHelper {
         do {
             let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_HOT)
-            
-            // try insert/update
-            try db.run(table.insert(or: .replace, DBColExpressions.id <- id, DBColExpressions.hotDate <- hotDate, DBColExpressions.hotTitle <- hotTitle, DBColExpressions.hotDescription <- hotDescription, DBColExpressions.hotLink <- hotLink, DBColExpressions.isDelete <- isDelete))
-            
-            print("insert/update hot table error.")
+            let filtering = table.filter(DBColExpressions.id == id).limit(1)
+            let plucking = try db.pluck(filtering)
+            if (plucking != nil) {
+                // update if there is row
+                let updateFilter = table.filter(DBColExpressions.id == id)
+                try db.run(updateFilter.update(DBColExpressions.hotDate <- hotDate, DBColExpressions.hotTitle <- hotTitle, DBColExpressions.hotDescription <- hotDescription, DBColExpressions.hotLink <- hotLink, DBColExpressions.isDelete <- isDelete))
+                print("update data to \(DBCol.TABLE_HOT), id = \(id)")
+            } else {
+                // else insert if there is no existing row
+                try db.run(table.insert(or: .replace, DBColExpressions.id <- id, DBColExpressions.hotDate <- hotDate, DBColExpressions.hotTitle <- hotTitle, DBColExpressions.hotDescription <- hotDescription, DBColExpressions.hotLink <- hotLink, DBColExpressions.isDelete <- isDelete))
+                print("insert data to \(DBCol.TABLE_HOT), id = \(id)")
+            }
+            print("insert/update hot table succeeded.")
             return true
         } catch _ {
             print("insert/update hot table error.")
@@ -334,11 +367,19 @@ class DatabaseHelper {
         do {
             let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_IN_KEYWORD)
-            
             // try insert/replace
-            try db.run(table.insert(or: .replace, DBColExpressions.stringId <- id, DBColExpressions.keywordId <- keywordId, DBColExpressions.lastUpdateTime <- lastUpdateTime))
-            
-            print("insert/update in keyword table succeeded.")
+            let filtering = table.filter(DBColExpressions.stringId == id).limit(1)
+            let plucking = try db.pluck(filtering)
+            if (plucking != nil) {
+                // update if there is row
+                let updateFilter = table.filter(DBColExpressions.stringId == id)
+                try db.run(updateFilter.update(DBColExpressions.keywordId <- keywordId, DBColExpressions.lastUpdateTime <- lastUpdateTime))
+                print("update data to \(DBCol.TABLE_IN_KEYWORD), stringId = \(id)")
+            } else {
+                // else insert if there is no existing row
+                try db.run(table.insert(or: .replace, DBColExpressions.stringId <- id, DBColExpressions.keywordId <- keywordId, DBColExpressions.lastUpdateTime <- lastUpdateTime))
+                print("insert data to \(DBCol.TABLE_IN_KEYWORD), stringId = \(id)")
+            }
             return true
         } catch _ {
             print("insert/update in keyword table error.")
@@ -350,11 +391,18 @@ class DatabaseHelper {
         do {
             let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_INSTRUCTION)
-            
-            // try insert/replace
-            try db.run(table.insert(or: .replace, DBColExpressions.id <- id, DBColExpressions.name <- name, DBColExpressions.read <- read))
-            
-            print("insert/update instruction table succeeded.")
+            let filtering = table.filter(DBColExpressions.id == id).limit(1)
+            let plucking = try db.pluck(filtering)
+            if (plucking != nil) {
+                // update if there is row
+                let updateFilter = table.filter(DBColExpressions.id == id)
+                try db.run(updateFilter.update(DBColExpressions.name <- name, DBColExpressions.read <- read))
+                print("update data to \(DBCol.TABLE_INSTRUCTION), id = \(id)")
+            } else {
+                // else insert if there is no existing row
+                try db.run(table.insert(or: .replace, DBColExpressions.id <- id, DBColExpressions.name <- name, DBColExpressions.read <- read))
+                print("insert data to \(DBCol.TABLE_INSTRUCTION), id = \(id)")
+            }
             return true
         } catch _ {
             print("insert/update instruction table error.")
@@ -366,10 +414,18 @@ class DatabaseHelper {
         do {
             let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_KEYWORD)
-            
-            // try insert/replace
-            try db.run(table.insert(or: .replace, DBColExpressions.keywordId <- keywordId, DBColExpressions.keyword <- keyword, DBColExpressions.rank <- rank, DBColExpressions.description <- description, DBColExpressions.createTime <- createTime, DBColExpressions.lastUpdateTime <- lastUpdateTime))
-            
+            let filtering = table.filter(DBColExpressions.keywordId == keywordId).limit(1)
+            let plucking = try db.pluck(filtering)
+            if (plucking != nil) {
+                // update if there is row
+                let updateFilter = table.filter(DBColExpressions.keywordId == keywordId)
+                try db.run(updateFilter.update(DBColExpressions.keyword <- keyword, DBColExpressions.rank <- rank, DBColExpressions.description <- description, DBColExpressions.createTime <- createTime, DBColExpressions.lastUpdateTime <- lastUpdateTime))
+                print("update data to \(DBCol.TABLE_KEYWORD), keywordId = \(keywordId)")
+            } else {
+                // else insert if there is no existing row
+                try db.run(table.insert(or: .replace, DBColExpressions.keywordId <- keywordId, DBColExpressions.keyword <- keyword, DBColExpressions.rank <- rank, DBColExpressions.description <- description, DBColExpressions.createTime <- createTime, DBColExpressions.lastUpdateTime <- lastUpdateTime))
+                print("insert data to \(DBCol.TABLE_KEYWORD), keywordId = \(keywordId)")
+            }
             print("insert/update keyword table succeeded.")
             return true
         } catch _ {
@@ -382,10 +438,16 @@ class DatabaseHelper {
         do {
             let db = try Connection(self.db_pathName)
             let table = Table("mappingKeyword")
-            
-            // try insert/replace
-            try db.run(table.insert(or: .replace, DBColExpressions.unitId <- unitId, DBColExpressions.keyword <- keyword))
-            
+            let filtering = table.filter(DBColExpressions.unitId == unitId).limit(1)
+            let plucking = try db.pluck(filtering)
+            if (plucking != nil) {
+                let updateFilter = table.filter(DBColExpressions.unitId == unitId)
+                try db.run(updateFilter.update(DBColExpressions.keyword <- keyword))
+                print("update data to mappingKeyword, unitId = \(unitId)")
+            } else {
+                try db.run(table.insert(or: .replace, DBColExpressions.unitId <- unitId, DBColExpressions.keyword <- keyword))
+                print("insert data to mappingKeyword, unitId = \(unitId)")
+            }
             print("insert/update mapping keyword table succeeded.")
             return true
         } catch _ {
@@ -398,11 +460,18 @@ class DatabaseHelper {
         do {
             let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_MOBILEAPP)
-            
-            // try insert/replace
-            try db.run(table.insert(or: .replace, DBColExpressions.appId <- appId, DBColExpressions.appName <- appName, DBColExpressions.appIOSUrl <- appIOSUrl, DBColExpressions.appImage <- appImage, DBColExpressions.lastUpdateTime <- lastUpdateTime))
-            
-            print("insert/update mobile app table succeeded.")
+            let filtering = table.filter(DBColExpressions.appId == appId).limit(1)
+            let plucking = try db.pluck(filtering)
+            if (plucking != nil) {
+                // update if there is row
+                let updateFilter = table.filter(DBColExpressions.appId == appId)
+                try db.run(updateFilter.update(DBColExpressions.appName <- appName, DBColExpressions.appIOSUrl <- appIOSUrl, DBColExpressions.appImage <- appImage, DBColExpressions.lastUpdateTime <- lastUpdateTime))
+                print("update data to \(DBCol.TABLE_MOBILEAPP), appId = \(appId)")
+            } else {
+                // else insert if there is no existing row
+                try db.run(table.insert(or: .replace, DBColExpressions.appId <- appId, DBColExpressions.appName <- appName, DBColExpressions.appIOSUrl <- appIOSUrl, DBColExpressions.appImage <- appImage, DBColExpressions.lastUpdateTime <- lastUpdateTime))
+                print("insert data to \(DBCol.TABLE_MOBILEAPP), appId = \(appId)")
+            }
             return true
         } catch _ {
             print("insert/update mobile app table error.")
@@ -411,14 +480,13 @@ class DatabaseHelper {
     }
     
     
+    
     // MARK: - query functions
     func queryAdministrativeUnitTable() -> NSMutableArray {
         let administrativeUnits = NSMutableArray()
-
         do {
             let administrative_table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
             let db = try Connection(self.db_pathName)
-
             for admin_unit in try db.prepare(administrative_table) {
                 let adminUnit = AdministrativeUnit(x: admin_unit[DBColExpressions.x], y: admin_unit[DBColExpressions.y], fieldId: admin_unit[DBColExpressions.fieldId], unitId: admin_unit[DBColExpressions.unitId], parentUnitId: admin_unit[DBColExpressions.parentUnitId], name: admin_unit[DBColExpressions.name], tel: admin_unit[DBColExpressions.tel], fax: admin_unit[DBColExpressions.fax], email: admin_unit[DBColExpressions.email], website: admin_unit[DBColExpressions.website], description: admin_unit[DBColExpressions.description], iconName: admin_unit[DBColExpressions.iconName], createTime: admin_unit[DBColExpressions.createTime], lastUpdateTime: admin_unit[DBColExpressions.lastUpdateTime], nearByPathId: admin_unit[DBColExpressions.nearByPathId], keyword: admin_unit[DBColExpressions.keyword])
                 administrativeUnits.add(adminUnit)
@@ -573,7 +641,6 @@ class DatabaseHelper {
         }
         return apps
     }
-    
     
     
     // MARK: - sync tables
@@ -817,8 +884,6 @@ class DatabaseHelper {
         do {
             let db = try Connection(self.db_pathName)
             let table = Table(DBCol.TABLE_IN_KEYWORD)
-            
-            // update administrative unit in category: delete unitId then insert a new one
             let deleteFilter = table.filter(DBColExpressions.stringId == jsonObj["stringId"].stringValue)
             if try db.run(deleteFilter.delete()) > 0 {
                 print("\(DBCol.TABLE_IN_KEYWORD) delete row, stringId=\(jsonObj["stringId"].stringValue) success.")
