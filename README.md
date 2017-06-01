@@ -84,26 +84,14 @@ All data corresponding to table has its specific data type.
 * 主要就是 addSearchCache(), getSearchCache() 這兩個函數
  
 ### Edm：就是首頁可滑動區域那些照片，對應到 edm table
+* 進入首頁後：
+1. 呼叫 getEdm() 得到所有 edm 資料
+2. 根據每一個 edm 資料，設定相對應的 image，然後紀錄他們的 edmUrl。
+3. 點擊任何一個 edm image，要叫出能夠顯示對應的 edm url 的 view controller
  
 ### App 專區：
-* 關於 app 專區需要的圖片資料，可以呼叫 database helper 的 queryMobileApp() 函數獲得所有的資料，從獲得的資料中可以得到對應欄位的 appIOSUrl
-* 此時，需要先去檢查 app 內部空間是否含有那些照片。若有照片了，請直接讀取照片。若沒有照片，請呼叫函數去下載(要使用 API，這部分我還找不到 url string，已詢問旭政)
+1. 進入 app 專區的 view 後，呼叫 database helper 的 queryMobileApp() 函數獲得所有的資料，從獲得的資料中可以得到對應欄位的 appIOSUrl
+2. 此時，需要先去檢查 app 內部空間是否含有那些照片。若有照片了，請直接讀取照片。若沒有照片，請呼叫函數去下載(要使用 API，這部分我還找不到 url string，已詢問旭政)
  
 ## Others
 PS. 便民服務、局處導覽、市府設施在進入抓資料前，會先呼叫 searchCache 相關函數獲得之前瀏覽紀錄
-For “SERVICE” & “NAVIGATION” & “FACILITY”：
-
-
-First layout: 
-SERVICE: call  _____  function
-NAVIGATION: call  ____  function
-FACILITY: call  ____  function
-Second layout:
-SERVICE: call  ____  function
-NAVIGATION: call  ____  function
-FACILITY: call  ____  function
-Third layout (Map) : 
-SERVICE: call  ____  function
-NAVIGATION: call  ____  function
-FACILITY: call  ____  function
-
