@@ -46,3 +46,64 @@ Should be relatively easy to use query:
 // example:
 dbHelper.queryMobileAppTable()
 ```
+
+#### Getting data
+All data corresponding to table has its specific data type.
+*to be done...*
+
+## Responsibility (for each main function)
+### 最新訊息：對應到 NewsActivity
+* 需要用到 RSS，需要在程式碼中使用 API 抓資料
+* 抓完存起來，或者不存皆可
+ 
+### 熱門活動：HotActivity
+* 與最新消息相同，從 API 抓完資料後，使用 insertOrUpdateHotTable() 把資料存到 sqlite database。
+* 實作：每一次進入熱門活動的介面，先呼叫給定的 API 得到資料後，存到 sqlite 裡面；再呼叫 queryHotTable() 函數把所有的熱門活動的資料抓出來顯示
+ 
+### 市府設施：FacilityActivity
+* 呼叫 database helper 的 function (get administrative category by rank → 3)
+* 進入第一個 view controller 後：
+1. 先呼叫 database helper 的 getFacilities() 函數，得到 AdministrativeUnitCategory 的 array
+2. 根據自己設定的 6 個 layout 上主要元件的 position，從上一個步驟得到的 array 中取出你要的相對應的資料
+3. 最後，在 6 個主要元件都各自設定 segue，能夠對應呼叫需要顯示的 view。此時，需要紀錄的是 categoryId，要帶入 categoryId 給 queryAdministrativeUnitByCategoryId() 抓出對應的所有 data
+ 
+### 便民服務：QuickServiceActivity 
+* 呼叫 db function (rank → 2)
+1. 呼叫 getSearchCache()，實作出 dropdown list，list 需要顯示的就是 getSearchCache 回傳的所有 data
+2. 呼叫 database helper 的 getQuickServices() 函數，並且在 UITableView 上顯示所有 array 內的資料
+ 
+### 局處導覽：DashboardActivity --> AdministrativeUnitCategoryActivity
+* 呼叫 db function (rank → 1)
+1. 呼叫 getSearchCache()，實作出 dropdown list，list 需要顯示的就是 getSearchCache 回傳的所有 data
+2. 呼叫 database helper 的 getAdministrativeCategories() 函數，並且在 UITableView 上顯示所有 array 內的資料
+ 
+**市府設施 & 便民服務 & 局處導覽功能是一樣的，只差在帶入的 rank 數值不同；這邊的函數會再趕工**
+ 
+### 搜尋活動：這部分就是根據 textview 上的字串去 search 整個 database，並且回傳
+* searchCache() 會去紀錄曾經搜尋過的關鍵字，並且加入到 drop down list 中
+* 主要就是 addSearchCache(), getSearchCache() 這兩個函數
+ 
+### Edm：就是首頁可滑動區域那些照片，對應到 edm table
+ 
+### App 專區：
+* 關於 app 專區需要的圖片資料，可以呼叫 database helper 的 queryMobileApp() 函數獲得所有的資料，從獲得的資料中可以得到對應欄位的 appIOSUrl
+* 此時，需要先去檢查 app 內部空間是否含有那些照片。若有照片了，請直接讀取照片。若沒有照片，請呼叫函數去下載(要使用 API，這部分我還找不到 url string，已詢問旭政)
+ 
+## Others
+PS. 便民服務、局處導覽、市府設施在進入抓資料前，會先呼叫 searchCache 相關函數獲得之前瀏覽紀錄
+For “SERVICE” & “NAVIGATION” & “FACILITY”：
+
+
+First layout: 
+SERVICE: call  _____  function
+NAVIGATION: call  ____  function
+FACILITY: call  ____  function
+Second layout:
+SERVICE: call  ____  function
+NAVIGATION: call  ____  function
+FACILITY: call  ____  function
+Third layout (Map) : 
+SERVICE: call  ____  function
+NAVIGATION: call  ____  function
+FACILITY: call  ____  function
+
