@@ -43,13 +43,20 @@ dbHelper.updateMobileApp(jsonObj: json_obj)
 #### Query
 Should be relatively easy to use query:
 ```jsx
-// example:
-dbHelper.queryMobileAppTable()
+// example: mobileapp_array consists of MobileApp
+let mobileapp_array = dbHelper.queryMobileAppTable()
 ```
 
 #### Getting data
 All data corresponding to table has its specific data type.
-*to be done...*
+使用上面的 Query section 的介紹範例：
+```jsx
+// mobile app
+for app in mobileapp_array {
+	let app_data = app as! MobileApp
+	print(app_data)
+}
+```
 
 ## Responsibility (for each main function)
 ### 最新訊息：對應到 NewsActivity
