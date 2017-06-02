@@ -32,7 +32,7 @@ DatabaseHelper would finish creating the "defined" table for you.
 You should have to options to insert or update rows into our database.
 1. use function such as: `insertOrUpdate*TableName*()`, pass in the data object needed for that db.
 2. use function such as: `update*TableName*()` and pass in a JSON Object as the only parameter.
-*p.s. for JSON Object data types, please refer to https://github.com/SwiftyJSON/SwiftyJSON#swiftyjson*
+*p.s. for JSON Object data types, please refer to https://github.com/SwiftyJSON/SwiftyJSON*
 ```jsx
 // insert a row
 dbHelper.insertOrUpdateKeywordTable(id: 1, name: "two", read: 0)
@@ -68,19 +68,16 @@ for app in mobileapp_array {
 * 實作：每一次進入熱門活動的介面，先呼叫給定的 API 得到資料後，存到 sqlite 裡面；再呼叫 queryHotTable() 函數把所有的熱門活動的資料抓出來顯示
  
 ### 市府設施：FacilityActivity
-* 呼叫 database helper 的 function (get administrative category by rank → 3)
 * 進入第一個 view controller 後：
 1. 先呼叫 database helper 的 getFacilities() 函數，得到 AdministrativeUnitCategory 的 array
 2. 根據自己設定的 6 個 layout 上主要元件的 position，從上一個步驟得到的 array 中取出你要的相對應的資料
 3. 最後，在 6 個主要元件都各自設定 segue，能夠對應呼叫需要顯示的 view。此時，需要紀錄的是 categoryId，要帶入 categoryId 給 queryAdministrativeUnitByCategoryId() 抓出對應的所有 data
  
 ### 便民服務：QuickServiceActivity 
-* 呼叫 db function (rank → 2)
 1. 呼叫 getSearchCache()，實作出 dropdown list，list 需要顯示的就是 getSearchCache 回傳的所有 data
 2. 呼叫 database helper 的 getQuickServices() 函數，並且在 UITableView 上顯示所有 array 內的資料
  
 ### 局處導覽：DashboardActivity --> AdministrativeUnitCategoryActivity
-* 呼叫 db function (rank → 1)
 1. 呼叫 getSearchCache()，實作出 dropdown list，list 需要顯示的就是 getSearchCache 回傳的所有 data
 2. 呼叫 database helper 的 getAdministrativeCategories() 函數，並且在 UITableView 上顯示所有 array 內的資料
  
