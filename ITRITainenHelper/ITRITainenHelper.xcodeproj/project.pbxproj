@@ -52,6 +52,8 @@
 		6740EC251EA89CA7000879A3 /* NavigationDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6740EC241EA89CA7000879A3 /* NavigationDetailTableViewCell.swift */; };
 		67431EA51ED7CCDC00BD9D03 /* NitigationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67431EA31ED7CB1400BD9D03 /* NitigationKit.framework */; };
 		67431EA61ED7CCDC00BD9D03 /* NitigationKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 67431EA31ED7CB1400BD9D03 /* NitigationKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		67446A6D1EE18578001671AC /* SearchCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67446A6C1EE18578001671AC /* SearchCache.swift */; };
+		67446AA91EE19D61001671AC /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 67446AA81EE19D61001671AC /* video.mp4 */; };
 		6747D7A31ED7C57A00EFFB72 /* Pods_ITRITainenHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8875017D01ADB2C4A1117FC1 /* Pods_ITRITainenHelper.framework */; };
 		674B5A451ECB620E0055C828 /* DBColExpressions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674B5A441ECB620E0055C828 /* DBColExpressions.swift */; };
 		6756BB471E955419002D9B96 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6756BB461E955419002D9B96 /* DatabaseHelper.swift */; };
@@ -155,6 +157,8 @@
 		6740EC241EA89CA7000879A3 /* NavigationDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationDetailTableViewCell.swift; sourceTree = "<group>"; };
 		67431EA31ED7CB1400BD9D03 /* NitigationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NitigationKit.framework; sourceTree = "<group>"; };
 		67431EA71ED7CF5300BD9D03 /* tainan3.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = tainan3.sqlite; sourceTree = "<group>"; };
+		67446A6C1EE18578001671AC /* SearchCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCache.swift; sourceTree = "<group>"; };
+		67446AA81EE19D61001671AC /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		6747D7A11ED7C56D00EFFB72 /* Pods */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Pods; path = ../Pods; sourceTree = "<group>"; };
 		674B5A441ECB620E0055C828 /* DBColExpressions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBColExpressions.swift; sourceTree = "<group>"; };
 		6756BB461E955419002D9B96 /* DatabaseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
@@ -307,6 +311,7 @@
 				6740EC1C1EA86484000879A3 /* MappingKeyword.swift */,
 				6740EC1E1EA8666D000879A3 /* MobileApps.swift */,
 				6740EC201EA8681A000879A3 /* SQLiteSequence.swift */,
+				67446A6C1EE18578001671AC /* SearchCache.swift */,
 			);
 			name = CustomObjects;
 			sourceTree = "<group>";
@@ -408,6 +413,7 @@
 		6788C2571E837EB70089EC2D /* MACROS */ = {
 			isa = PBXGroup;
 			children = (
+				67446AA81EE19D61001671AC /* video.mp4 */,
 				6788C2591E837FC90089EC2D /* Macros.swift */,
 				6756BB481E9554BB002D9B96 /* APIConstants.swift */,
 			);
@@ -562,6 +568,7 @@
 				67250A2D1E867E5A00F824DD /* Navigation.storyboard in Resources */,
 				67117C491E7A50C500357D9F /* Assets.xcassets in Resources */,
 				67117C471E7A50C500357D9F /* Main.storyboard in Resources */,
+				67446AA91EE19D61001671AC /* video.mp4 in Resources */,
 				67250A331E867E8100F824DD /* Apps.storyboard in Resources */,
 				67250A2A1E867E4B00F824DD /* Service.storyboard in Resources */,
 			);
@@ -655,6 +662,7 @@
 				673F102F1E95E9D000499F16 /* DBCol.swift in Sources */,
 				5F785BC41EC54DCD00FD8052 /* Bathroomcell.swift in Sources */,
 				67FA18111E87C18A0017DF11 /* TemplateViewController.swift in Sources */,
+				67446A6D1EE18578001671AC /* SearchCache.swift in Sources */,
 				67250A211E867AFF00F824DD /* MainCollectionViewCell.swift in Sources */,
 				6740EC231EA89C70000879A3 /* NavigationDetailTableViewController.swift in Sources */,
 				67117C441E7A50C500357D9F /* ViewController.swift in Sources */,
@@ -859,7 +867,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = itri.oslo.ITRITainenHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = "itri-tainan.500.ITRITainenHelper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "armv7 arm64 armv7s x86_64";
@@ -883,7 +891,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = itri.oslo.ITRITainenHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = "itri-tainan.500.ITRITainenHelper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "armv7 arm64 armv7s x86_64";

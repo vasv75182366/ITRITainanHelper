@@ -82,7 +82,7 @@
         <!--Navigation Detail Table View Controller-->
         <scene sceneID="WBj-ne-AtO">
             <objects>
-                <tableViewController id="gd8-Gz-RcA" customClass="NavigationDetailTableViewController" customModule="ITRITainenHelper" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="dashboardDetailVC" id="gd8-Gz-RcA" customClass="NavigationDetailTableViewController" customModule="ITRITainenHelper" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="Sxd-y6-esb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

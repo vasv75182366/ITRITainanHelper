@@ -10,6 +10,8 @@ import UIKit
 import SQLite
 import NitigationKit
 import SwiftyJSON
+import AVKit
+import AVFoundation
 
 
 class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
@@ -42,6 +44,14 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
     var maxImageCount: Int = 0
     // layer
     let welcomeLayer = CALayer()
+    // syncing views and flags
+    var isSyncComplete = false
+    let syncingView = UIView()
+    // AVPlayer
+    let playerUrl = Bundle.main.url(forResource: "video", withExtension: "mp4")!
+    var playerLayer = AVPlayerLayer()
+    var player = AVPlayer()
+    //
     
     
 
@@ -49,6 +59,28 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // reset syncingView
+        self.syncingView.frame = self.view.bounds
+        
+        // AVPlayer set up
+        let playerItem = AVPlayerItem(url: self.playerUrl)
+        self.player = AVPlayer(playerItem: playerItem)
+        self.playerLayer = AVPlayerLayer(player: self.player)
+        self.playerLayer.frame = self.view.bounds
+        
+        /* syncing always goes first */
+        // add
+        if isSyncComplete == false {
+            let downloadingLabel = UILabel(frame: CGRect(x: self.view.bounds.origin.x + self.view.bounds.size.width/5, y: self.view.bounds.origin.y + self.view.bounds.size.height * 13/14, width: self.view.bounds.size.width * 3/5, height: self.view.bounds.size.height/14))
+            downloadingLabel.text = Constants.DATA_STATUS_SYNC
+            downloadingLabel.backgroundColor = UIColor.clear
+            downloadingLabel.textColor = UIColor.black
+            self.syncingView.layer.addSublayer(self.playerLayer)
+            self.syncingView.addSubview(downloadingLabel)
+        }
+        
+        
         self.navigationBar = UINavigationBar.appearance()
         self.navigationItem.hidesBackButton = false
         
@@ -60,18 +92,6 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         
         // initialize iamge view
         self.activityImageView = UIImageView.init(frame: self.activityView.bounds)
-        
-        // check app first launch
-        let defaults = UserDefaults.standard
-        let checkFirstLaunch = defaults.bool(forKey: "isAppFirstLaunch")
-        if (checkFirstLaunch != true) {
-            // is first launch
-            print("app already launched")
-        } else {
-            print("app first launch")
-            // do instruction layout only at viewDidLoad()
-//            layoutWelcomeLayoutOne()
-        }
         
         // put image to title bar
         print(self.myNavigationItem.title!)
@@ -88,7 +108,7 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         self.myNavigationItem.titleView!.backgroundColor = UIColor.init(red: 60, green: 176, blue: 157, alpha: 1)
         
         // database initialization
-        self.databaseHelper = DatabaseHelper.init(name: "new_db.sqlite")
+        self.databaseHelper = DatabaseHelper.init(name: "test_1.sqlite")
         self.databaseHelper.createDB()
         
         // SQLITE: - download pictures and data
@@ -146,10 +166,10 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
     }
     
     func layoutWelcomeLayoutOne() {
-        let bg_size = self.view.bounds
-        let firstWelcomeView = UIView(frame: bg_size)
-//        let maskLayer = CAShapeLayer()
-        
+        let firstWelcomeView = UIView()
+        firstWelcomeView.frame = self.view.bounds
+        // alpha 0.5 black
+        firstWelcomeView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         
         // add the welcome subview
         self.view.addSubview(firstWelcomeView)
@@ -201,6 +221,7 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         }
     }
     
+    // MARK: - need to pass data to new view controller
     // tap handler on page view
     // always open new view controller if tapped the imageview
     func handlePageTap(sender: UITapGestureRecognizer) {
@@ -707,7 +728,6 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         dataSyncer?.getData(DBCol.TABLE_IN_KEYWORD, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_IN_KEYWORD)))
         dataSyncer?.getData(DBCol.TABLE_EDM, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_EDM)))
         dataSyncer?.getData(DBCol.TABLE_MOBILEAPP, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_MOBILEAPP)))
-//        dataSyncer?.getData(TABLE_ADMINISTRATIVE_UNIT, time: (dbHelper?.getLastUpdateTime(TABLE_ADMINISTRATIVE_UNIT))!);
     }
     
     
@@ -753,8 +773,29 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         }
     }
     
+    // protocol method
     func onSyncerStatus(_ status: SyncStatus) {
-        print("synchronization status: ", status)
+        if (status == SYNC_START) {
+            print("start syncing data...")
+        } else if (status == SYNC_DONE || status == SYNC_SERVER_FAIL) {
+            self.isSyncComplete = true
+            print("done syncing.")
+            // remove syncing view
+            self.syncingView.removeFromSuperview()
+            // check instruction flag
+            // check app first launch
+            let defaults = UserDefaults.standard
+            let checkFirstLaunch = defaults.bool(forKey: "isAppFirstLaunch")
+            if (checkFirstLaunch != true) {
+                print("app already launched")
+            } else {
+                print("app first launch")
+                // first launch --> instruction layout
+                layoutWelcomeLayoutOne()
+            }
+        } else if (status == SYNC_INTERNET_FAIL) {
+            print("suncing, internet fail.")
+        }
     }
     
     

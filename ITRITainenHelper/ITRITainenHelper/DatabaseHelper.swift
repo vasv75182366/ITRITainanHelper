@@ -243,6 +243,20 @@ class DatabaseHelper {
         }
     }
     
+    // create search cache table
+    func createSearchCacheTable() -> Void {
+        do {
+            let db = try Connection(self.db_pathName)
+            let table = Table(DBCol.TABLE_SEARCH_CACHE)
+            try db.run(table.create(ifNotExists: true) { t in
+                t.column(DBColExpressions.searchKeyword)
+            })
+            print("create search cache table succeeded.")
+        } catch {
+            print("create search cache table fail.")
+        }
+    }
+    
     
     
     // MARK: - insert or update
@@ -482,12 +496,31 @@ class DatabaseHelper {
     
     
     // MARK: - query functions
+    // return NSMutableArray[AdministrativeUnit]
     func queryAdministrativeUnitTable() -> NSMutableArray {
         let administrativeUnits = NSMutableArray()
         do {
             let administrative_table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
             let db = try Connection(self.db_pathName)
             for admin_unit in try db.prepare(administrative_table) {
+                let adminUnit = AdministrativeUnit(x: admin_unit[DBColExpressions.x], y: admin_unit[DBColExpressions.y], fieldId: admin_unit[DBColExpressions.fieldId], unitId: admin_unit[DBColExpressions.unitId], parentUnitId: admin_unit[DBColExpressions.parentUnitId], name: admin_unit[DBColExpressions.name], tel: admin_unit[DBColExpressions.tel], fax: admin_unit[DBColExpressions.fax], email: admin_unit[DBColExpressions.email], website: admin_unit[DBColExpressions.website], description: admin_unit[DBColExpressions.description], iconName: admin_unit[DBColExpressions.iconName], createTime: admin_unit[DBColExpressions.createTime], lastUpdateTime: admin_unit[DBColExpressions.lastUpdateTime], nearByPathId: admin_unit[DBColExpressions.nearByPathId], keyword: admin_unit[DBColExpressions.keyword])
+                administrativeUnits.add(adminUnit)
+            }
+            print("query administrative unit table succeed.")
+        } catch _ {
+            print("query administrative unit table fail.")
+        }
+        return administrativeUnits
+    }
+    
+    // return NSMutableArray[AdministrativeUnit]
+    func queryAdministrativeUnitByCategoryId(categoryId: String) -> NSMutableArray {
+        let administrativeUnits = NSMutableArray()
+        do {
+            let db = try Connection(self.db_pathName)
+            let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
+            let filter = table.filter(DBColExpressions.categoryId == categoryId)
+            for admin_unit in try db.prepare(filter) {
                 let adminUnit = AdministrativeUnit(x: admin_unit[DBColExpressions.x], y: admin_unit[DBColExpressions.y], fieldId: admin_unit[DBColExpressions.fieldId], unitId: admin_unit[DBColExpressions.unitId], parentUnitId: admin_unit[DBColExpressions.parentUnitId], name: admin_unit[DBColExpressions.name], tel: admin_unit[DBColExpressions.tel], fax: admin_unit[DBColExpressions.fax], email: admin_unit[DBColExpressions.email], website: admin_unit[DBColExpressions.website], description: admin_unit[DBColExpressions.description], iconName: admin_unit[DBColExpressions.iconName], createTime: admin_unit[DBColExpressions.createTime], lastUpdateTime: admin_unit[DBColExpressions.lastUpdateTime], nearByPathId: admin_unit[DBColExpressions.nearByPathId], keyword: admin_unit[DBColExpressions.keyword])
                 administrativeUnits.add(adminUnit)
             }
@@ -512,6 +545,26 @@ class DatabaseHelper {
             print("query administrative unit category table fail.")
         }
         return administrativeUnitCategories
+    }
+    
+    // TODO: - test
+    // return lots of
+    func queryAdministrativeUnitCategoryByRank(rank: Int) -> NSMutableArray {
+        var array = NSMutableArray()
+        do {
+            let db = try Connection(self.db_pathName)
+            let stmt = try db.prepare("SELECT auc.* FROM \(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY) auc, \(DBCol.TABLE_KEYWORD) k, \(DBCol.TABLE_IN_KEYWORD) ik, WHERE k.rank=\(rank) AND ik.keywordId=k.keywordId AND ik.id=auc.categoryId AND auc.categoryId=auc.categroyId")
+            // todo: need to return data
+            for row in stmt {
+                for (index, name) in stmt.columnNames.enumerated() {
+                    print("\(name) = \(row[index]!)")
+                }
+                array.add(row)
+            }
+        } catch _ {
+            print("query administrative unit category with rank: \(rank) error.")
+        }
+        return array
     }
     
     func queryAdministrativeUnitInCategoryTable() -> NSMutableArray {
@@ -642,6 +695,77 @@ class DatabaseHelper {
         return apps
     }
     
+    func getFacilities() -> NSMutableArray {
+        return queryAdministrativeUnitCategoryByRank(rank: DatabaseHelper.KEYWORD_FACILITY_RANK)
+    }
+    
+    func getQuickServices() -> NSMutableArray {
+        return queryAdministrativeUnitCategoryByRank(rank: DatabaseHelper.KEYWORD_QUICK_SERVICE_RANK)
+    }
+    
+    func getAdministrativeCategories() -> NSMutableArray {
+        return queryAdministrativeUnitCategoryByRank(rank: DatabaseHelper.KEYWORD_ADMINISTRATIVE_CATEGORY_RANK)
+    }
+    
+    // TODO: - test
+    func searchAdminUnitsByKeyword(keyword: String) -> NSMutableArray {
+        let array = NSMutableArray()
+        do {
+            let db = try Connection(self.db_pathName)
+            let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
+            // filter: select where keyword like %keyword%
+            let filter = table.filter(DBColExpressions.name.like("'%\(keyword)%'"))
+            for admin_unit in try db.prepare(filter) {
+                let data = AdministrativeUnit(x: admin_unit[DBColExpressions.x], y: admin_unit[DBColExpressions.y], fieldId: admin_unit[DBColExpressions.fieldId], unitId: admin_unit[DBColExpressions.unitId], parentUnitId: admin_unit[DBColExpressions.parentUnitId], name: admin_unit[DBColExpressions.name], tel: admin_unit[DBColExpressions.tel], fax: admin_unit[DBColExpressions.fax], email: admin_unit[DBColExpressions.email], website: admin_unit[DBColExpressions.website], description: admin_unit[DBColExpressions.description], iconName: admin_unit[DBColExpressions.iconName], createTime: admin_unit[DBColExpressions.createTime], lastUpdateTime: admin_unit[DBColExpressions.lastUpdateTime], nearByPathId: admin_unit[DBColExpressions.nearByPathId], keyword: admin_unit[DBColExpressions.keyword])
+                array.add(data)
+            }
+        } catch _ {
+            print("search administrative units by: \(keyword) error.")
+        }
+        return array
+    }
+    
+    // TODO: - test
+    func searchAdminUnits(keyword: String) -> NSMutableArray {
+        let trimmedKeyword = keyword.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if (keyword.characters.count == 0) {
+            return NSMutableArray()
+        }
+        
+        var nameLikeCondition = ""
+        var descriptionLikeCondition = ""
+        for token in trimmedKeyword.components(separatedBy: " ") {
+            // unit name like
+            if nameLikeCondition != "" {
+                nameLikeCondition += " OR "
+            }
+            nameLikeCondition += ("'%" + token + "%'")
+            
+            // description like
+            if descriptionLikeCondition != "" {
+                descriptionLikeCondition += " OR "
+            }
+            descriptionLikeCondition += ("'%" + token + "%'")
+        }
+        
+        let dataArray = NSMutableArray()
+        // query
+        do {
+            let db = try Connection(self.db_pathName)
+            let table = Table(DBCol.TABLE_ADMINISTRATIVE_UNIT)
+            // where name like
+            let filtering = table.filter(DBColExpressions.name.like(nameLikeCondition) && DBColExpressions.description.like(descriptionLikeCondition))
+            for admin_unit in try db.prepare(filtering) {
+                let data = AdministrativeUnit(x: admin_unit[DBColExpressions.x], y: admin_unit[DBColExpressions.y], fieldId: admin_unit[DBColExpressions.fieldId], unitId: admin_unit[DBColExpressions.unitId], parentUnitId: admin_unit[DBColExpressions.parentUnitId], name: admin_unit[DBColExpressions.name], tel: admin_unit[DBColExpressions.tel], fax: admin_unit[DBColExpressions.fax], email: admin_unit[DBColExpressions.email], website: admin_unit[DBColExpressions.website], description: admin_unit[DBColExpressions.description], iconName: admin_unit[DBColExpressions.iconName], createTime: admin_unit[DBColExpressions.createTime], lastUpdateTime: admin_unit[DBColExpressions.lastUpdateTime], nearByPathId: admin_unit[DBColExpressions.nearByPathId], keyword: admin_unit[DBColExpressions.keyword])
+                dataArray.add(data)
+            }
+        } catch _ {
+            print("query administrative unit with keyword: \(keyword) fail.")
+        }
+        return dataArray
+    }
+    
+    
     
     // MARK: - sync tables
     func getLastUpdateTime(tableName: String) -> NSInteger {
@@ -665,7 +789,6 @@ class DatabaseHelper {
         }
         return lastTime
     }
-    
     
     // administrative unit
     func syncAdministrativeUnitTable(jsonObj: JSON) {
@@ -718,7 +841,6 @@ class DatabaseHelper {
             print("update \(DBCol.TABLE_ADMINISTRATIVE_UNIT) table error.")
         }
     }
-    
     
     // administrative unit
     func syncAdministrativeUnitCategory(jsonObj: JSON) {
@@ -773,7 +895,6 @@ class DatabaseHelper {
             print("update \(DBCol.TABLE_ADMINISTRATIVE_UNIT_CATEGORY) table error.")
         }
     }
-    
     
     // administrative unit in category
     func syncAdministrativeUnitInCategory(jsonObj: JSON) {
@@ -864,7 +985,6 @@ class DatabaseHelper {
         }
     }
     
-    
     // In Keyword table
     func syncInKeyword(jsonObj: JSON) {
         let result = jsonObj["result"].intValue;
@@ -897,7 +1017,6 @@ class DatabaseHelper {
             print("update \(DBCol.TABLE_IN_KEYWORD) table error.")
         }
     }
-    
     
     // EDM
     func syncEdmTable(jsonObj: JSON) {
@@ -954,7 +1073,6 @@ class DatabaseHelper {
         }
     }
     
-    
     // mobile app
     func syncMobileApp(jsonObj: JSON) {
         let result = jsonObj["result"].intValue;
@@ -1007,6 +1125,42 @@ class DatabaseHelper {
         } catch _ {
             print("update \(DBCol.TABLE_MOBILEAPP) table error.")
         }
+    }
+    
+    
+    
+    // MARK: - data related function
+    func addSearchCache(searchText: String) -> Bool {
+        var result = false
+        do {
+            let db = try Connection(self.db_pathName)
+            let table = Table(DBCol.TABLE_SEARCH_CACHE)
+            let filtering = table.filter(DBColExpressions.searchKeyword == searchText)
+            let plucking = try db.pluck(filtering)
+            if (plucking == nil) {
+                // insert if no previous data
+                try db.run(table.insert(DBColExpressions.searchKeyword <- searchText))
+                result = true
+            }
+        } catch _ {
+            print("add search cache failed.")
+        }
+        return result
+    }
+    
+    func getSearchCache() -> NSMutableArray {
+        let array = NSMutableArray()
+        do {
+            let db = try Connection(self.db_pathName)
+            let table = Table(DBCol.TABLE_SEARCH_CACHE)
+            for items in try db.prepare(table) {
+                let data = SearchCache(searchCache: items[DBColExpressions.searchKeyword])
+                array.add(data)
+            }
+        } catch _ {
+            print("")
+        }
+        return array
     }
     
 }

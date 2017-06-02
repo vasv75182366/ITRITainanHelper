@@ -13,6 +13,7 @@ class NavigationViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var navigationTableView: UITableView!
     @IBOutlet weak var navigationSearchBar: UISearchBar!
     var navigationDataArray = NSMutableArray()
+    var databaseHelper = DatabaseHelper.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +21,7 @@ class NavigationViewController: UIViewController, UITableViewDelegate, UITableVi
         // Do any additional setup after loading the view.
         
         // load data(only at init)
-        
+        self.databaseHelper = DatabaseHelper.init()
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,6 +60,10 @@ class NavigationViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+//        if (segue.identifier == "dashboardDetailVC") {
+//            let detailVC = segue.destination
+//            
+//        }
     }
     
 
