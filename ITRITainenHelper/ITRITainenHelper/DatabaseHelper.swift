@@ -547,9 +547,9 @@ class DatabaseHelper {
         return administrativeUnitCategories
     }
     
-    // TODO: - test
     // return lots of
     func queryAdministrativeUnitCategoryByRank(rank: Int) -> NSMutableArray {
+        // TODO: - test
         var array = NSMutableArray()
         do {
             let db = try Connection(self.db_pathName)

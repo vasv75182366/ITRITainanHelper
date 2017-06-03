@@ -14,7 +14,7 @@ import AVKit
 import AVFoundation
 
 
-class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
+class ViewController: UIViewController, DataSyncerListener, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchButton: UIButton!
@@ -51,8 +51,11 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
     let playerUrl = Bundle.main.url(forResource: "video", withExtension: "mp4")!
     var playerLayer = AVPlayerLayer()
     var player = AVPlayer()
-    //
-    
+    // welcome view
+    var firstWelcomeView = UIView()
+    var secondWelcomeView = UIView()
+    var thirdWelcomeView = UIView()
+    var welcomeInstructinView = UIView()
     
 
     //MARK: - basic functions
@@ -60,7 +63,10 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        // reset syncingView
+        // database initialization
+        self.databaseHelper = DatabaseHelper.init(name: "test_1.sqlite")
+        self.databaseHelper.createDB()
+        
         self.syncingView.frame = self.view.bounds
         
         // AVPlayer set up
@@ -69,15 +75,20 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         self.playerLayer = AVPlayerLayer(player: self.player)
         self.playerLayer.frame = self.view.bounds
         
+        // SQLITE: - download pictures and data
+        syncAllTables()
+        
         /* syncing always goes first */
         // add
-        if isSyncComplete == false {
+        if self.isSyncComplete == false {
             let downloadingLabel = UILabel(frame: CGRect(x: self.view.bounds.origin.x + self.view.bounds.size.width/5, y: self.view.bounds.origin.y + self.view.bounds.size.height * 13/14, width: self.view.bounds.size.width * 3/5, height: self.view.bounds.size.height/14))
             downloadingLabel.text = Constants.DATA_STATUS_SYNC
             downloadingLabel.backgroundColor = UIColor.clear
             downloadingLabel.textColor = UIColor.black
             self.syncingView.layer.addSublayer(self.playerLayer)
             self.syncingView.addSubview(downloadingLabel)
+            // 開始播放
+            self.player.play()
         }
         
         
@@ -93,6 +104,7 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         // initialize iamge view
         self.activityImageView = UIImageView.init(frame: self.activityView.bounds)
         
+        // TODO: - navigation bar/item layout is not good, needed to be fixed
         // put image to title bar
         print(self.myNavigationItem.title!)
         self.myNavigationItem.titleView = UIView.init(frame: CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y, width: self.view.bounds.size.width, height: self.view.bounds.height/12.5))
@@ -106,13 +118,6 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         self.myNavigationItem.titleView!.bringSubview(toFront: logoImageView)
         self.myNavigationItem.titleView!.bringSubview(toFront: logoLabel)
         self.myNavigationItem.titleView!.backgroundColor = UIColor.init(red: 60, green: 176, blue: 157, alpha: 1)
-        
-        // database initialization
-        self.databaseHelper = DatabaseHelper.init(name: "test_1.sqlite")
-        self.databaseHelper.createDB()
-        
-        // SQLITE: - download pictures and data
-        syncAllTables()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -161,35 +166,158 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
     
     
     //MARK: - layout instruction subviews
-    func layoutInstructionViews() {
-        
-    }
-    
     func layoutWelcomeLayoutOne() {
-        let firstWelcomeView = UIView()
-        firstWelcomeView.frame = self.view.bounds
+        self.firstWelcomeView.frame = self.view.bounds
         // alpha 0.5 black
-        firstWelcomeView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        self.firstWelcomeView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+    
+        // dialog
+        let dialogView = UIImageView()
+        dialogView.frame = CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y, width: self.view.bounds.size.width, height: self.view.bounds.size.height * 3/5)
+        dialogView.image = UIImage(named: "instruction_dialog.png")
+        // dialog text
+        let dialogText = UILabel()
+        dialogText.frame = CGRect(x: dialogView.frame.origin.x + (dialogView.bounds.size.width/10), y: dialogView.frame.origin.y + (dialogView.bounds.size.height/4), width: dialogView.bounds.size.width * 9/10, height: dialogView.bounds.size.height/2)
+        dialogText.text = Constants.INSTRUCTION_WELCOME_1
+        // image
+        let personImageView = UIImageView()
+        personImageView.frame = CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y + (self.view.bounds.size.height*2/3), width: self.view.bounds.size.width/2, height: self.view.bounds.size.height/3)
+        personImageView.image = UIImage(named: "instructor.png")
+        // button
+        let nextButton = UIButton()
+        nextButton.frame = CGRect(x: self.view.bounds.origin.x + self.view.bounds.size.width/3, y: self.view.bounds.origin.y + (self.view.bounds.size.height*13/14), width: self.view.bounds.size.width/3, height: self.view.bounds.size.height/14)
+        nextButton.setImage(UIImage(named: "instruction_button.png"), for: UIControlState.normal)
+        nextButton.setImage(UIImage(named: "instruction_button_pressed.png"), for: UIControlState.selected)
+        nextButton.setImage(UIImage(named: "instruction_button_pressed.png"), for: UIControlState.highlighted)
+        // add button event
+        nextButton.addTarget(self, action: #selector(instructionEventOne(sender:)), for: .touchUpInside)
+        nextButton.titleLabel?.text = "下一步"
+        
+        // add all subview
+        self.firstWelcomeView.addSubview(dialogView)
+        self.firstWelcomeView.addSubview(dialogText)
+        self.firstWelcomeView.addSubview(personImageView)
+        self.firstWelcomeView.addSubview(nextButton)
         
         // add the welcome subview
-        self.view.addSubview(firstWelcomeView)
+        self.view.addSubview(self.firstWelcomeView)
     }
     
     func layoutWelcomeLayoutTwo() {
+        self.secondWelcomeView.frame = self.view.bounds
+        self.secondWelcomeView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         
+        // dialog
+        let dialogView = UIImageView()
+        dialogView.frame = CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y, width: self.view.bounds.size.width, height: self.view.bounds.size.height * 3/5)
+        dialogView.image = UIImage(named: "instruction_dialog1.png")
+        // dialog text
+        let dialogText = UILabel()
+        dialogText.frame = CGRect(x: dialogView.frame.origin.x + (dialogView.bounds.size.width/10), y: dialogView.frame.origin.y + (dialogView.bounds.size.height/4), width: dialogView.bounds.size.width * 9/10, height: dialogView.bounds.size.height/2)
+        dialogText.text = Constants.INSTRUCTION_WELCOME_2
+        // image
+        let personImageView = UIImageView()
+        personImageView.frame = CGRect(x: self.view.bounds.origin.x + self.view.bounds.size.width/2, y: self.view.bounds.origin.y + (self.view.bounds.size.height*2/3), width: self.view.bounds.size.width/2, height: self.view.bounds.size.height/3)
+        personImageView.image = UIImage(named: "instructor1.png")
+        // button
+        let nextButton = UIButton()
+        nextButton.frame = CGRect(x: self.view.bounds.origin.x + self.view.bounds.size.width/3, y: self.view.bounds.origin.y + (self.view.bounds.size.height*13/14), width: self.view.bounds.size.width/3, height: self.view.bounds.size.height/14)
+        nextButton.setImage(UIImage(named: "instruction_button.png"), for: UIControlState.normal)
+        nextButton.setImage(UIImage(named: "instruction_button_pressed.png"), for: UIControlState.selected)
+        nextButton.setImage(UIImage(named: "instruction_button_pressed.png"), for: UIControlState.highlighted)
+        // event
+        nextButton.addTarget(self, action: #selector(instructionEventTwo(sender:)), for: .touchUpInside)
+        nextButton.titleLabel?.text = "下一步"
+        
+        // add subview
+        self.secondWelcomeView.addSubview(dialogView)
+        self.secondWelcomeView.addSubview(dialogText)
+        self.secondWelcomeView.addSubview(personImageView)
+        self.secondWelcomeView.addSubview(nextButton)
+        
+        self.view.addSubview(self.secondWelcomeView)
     }
     
     func layoutWelcomeLayoutThird() {
-        // destroy current layout 
+        self.thirdWelcomeView.frame = self.view.bounds
+        self.thirdWelcomeView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         
-        // call instruction views
+        // dialog
+        let dialogView = UIImageView()
+        dialogView.frame = CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y, width: self.view.bounds.size.width, height: self.view.bounds.size.height * 3/5)
+        dialogView.image = UIImage(named: "instruction_dialog2.png")
+        // dialog text
+        let dialogText = UILabel()
+        dialogText.frame = CGRect(x: dialogView.frame.origin.x + (dialogView.bounds.size.width/10), y: dialogView.frame.origin.y + (dialogView.bounds.size.height/4), width: dialogView.bounds.size.width * 9/10, height: dialogView.bounds.size.height/2)
+        dialogText.text = Constants.INSTRUCTION_WELCOME_3
+        // image1
+        let leftImageView = UIImageView()
+        leftImageView.frame = CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y + (self.view.bounds.size.height*2/3), width: self.view.bounds.size.width/2, height: self.view.bounds.size.height/3)
+        leftImageView.image = UIImage(named: "instructor.png")
+        // image2
+        let personImageView = UIImageView()
+        personImageView.frame = CGRect(x: self.view.bounds.origin.x + self.view.bounds.size.width/2, y: self.view.bounds.origin.y + (self.view.bounds.size.height*2/3), width: self.view.bounds.size.width/2, height: self.view.bounds.size.height/3)
+        personImageView.image = UIImage(named: "instructor1.png")
+        // button
+        let nextButton = UIButton()
+        nextButton.frame = CGRect(x: self.view.bounds.origin.x + self.view.bounds.size.width/3, y: self.view.bounds.origin.y + (self.view.bounds.size.height*13/14), width: self.view.bounds.size.width/3, height: self.view.bounds.size.height/14)
+        nextButton.setImage(UIImage(named: "instruction_button.png"), for: UIControlState.normal)
+        nextButton.setImage(UIImage(named: "instruction_button_pressed.png"), for: UIControlState.selected)
+        nextButton.setImage(UIImage(named: "instruction_button_pressed.png"), for: UIControlState.highlighted)
+        // event
+        nextButton.addTarget(self, action: #selector(instructionEventThree(sender:)), for: .touchUpInside)
+        nextButton.titleLabel?.text = "確認"
+        
+        self.thirdWelcomeView.addSubview(dialogView)
+        self.thirdWelcomeView.addSubview(dialogText)
+        self.thirdWelcomeView.addSubview(leftImageView)
+        self.thirdWelcomeView.addSubview(personImageView)
+        self.thirdWelcomeView.addSubview(nextButton)
+        
+        self.view.addSubview(self.thirdWelcomeView)
+    }
+    
+    // 左右滑動以瀏覽內容？
+    func layoutInstructionViews() {
+        self.welcomeInstructinView.frame = self.view.bounds
+        self.welcomeInstructinView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        
+        let fingerView = UIImageView()
+        fingerView.frame = CGRect(x: self.view.bounds.origin.x + self.view.bounds.size.width/4, y: self.view.bounds.origin.y + self.view.bounds.size.height/3, width: self.view.bounds.size.width/2, height: self.view.bounds.height/3)
+        fingerView.image = UIImage(named: "up_down_hand.png")
+        // button
+        let nextButton = UIButton()
+        nextButton.frame = CGRect(x: self.view.bounds.origin.x + self.view.bounds.size.width/3, y: self.view.bounds.origin.y + (self.view.bounds.size.height*13/14), width: self.view.bounds.size.width/3, height: self.view.bounds.size.height/14)
+        nextButton.setImage(UIImage(named: "instruction_button.png"), for: UIControlState.normal)
+        nextButton.setImage(UIImage(named: "instruction_button_pressed.png"), for: UIControlState.selected)
+        nextButton.setImage(UIImage(named: "instruction_button_pressed.png"), for: UIControlState.highlighted)
+        // event
+        nextButton.addTarget(self, action: #selector(instructionEventLast(sender:)), for: .touchUpInside)
+        nextButton.titleLabel?.text = "確定"
+    }
+    
+    // instruction button events
+    func instructionEventOne(sender: UIButton) {
+        self.firstWelcomeView.removeFromSuperview()
+        // load second instruction view
+        layoutWelcomeLayoutTwo()
+    }
+    
+    func instructionEventTwo(sender: UIButton) {
+        self.secondWelcomeView.removeFromSuperview()
+        // load second instruction view
+        layoutWelcomeLayoutThird()
+    }
+    
+    func instructionEventThree(sender: UIButton) {
+        self.thirdWelcomeView.removeFromSuperview()
+        // load second instruction view
         layoutInstructionViews()
     }
     
-    func createMaskLayer() {
-        
+    func instructionEventLast(sender: UIButton) {
+        self.welcomeInstructinView.removeFromSuperview()
     }
-    
     
     //MARK: - swipe handler & tap handler on pageView
     
@@ -469,6 +597,7 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
     }
     
     
+    
     // MARK: - insert data
     func insertData() {
         /* test databasehelper */
@@ -561,8 +690,7 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         }
     }
     
-    
-    func checkDataBase(){
+    func checkDataBase() {
 //        let url = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("tainan3.sqlite")
         let url = Bundle.main.url(forResource: "tainan3", withExtension: "sqlite")!
         // Load the existing database
@@ -715,6 +843,7 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
     }
     
     
+    
     // MARK: - DataSyncer
     func syncAllTables() {
         /* dataSyncer */
@@ -729,6 +858,7 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
         dataSyncer?.getData(DBCol.TABLE_EDM, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_EDM)))
         dataSyncer?.getData(DBCol.TABLE_MOBILEAPP, time: Int(self.databaseHelper.getLastUpdateTime(tableName: DBCol.TABLE_MOBILEAPP)))
     }
+    
     
     
     // MARK: - DataSyncerListener protocol methods
@@ -795,6 +925,12 @@ class ViewController: UIViewController, DataSyncerListener,  UISearchBarDelegate
             }
         } else if (status == SYNC_INTERNET_FAIL) {
             print("suncing, internet fail.")
+            let actionSheetController: UIAlertController = UIAlertController(title: "警告", message: "網路連線錯誤！", preferredStyle: .alert)
+            let cancelAction: UIAlertAction = UIAlertAction(title: "確認", style: .cancel) { action -> Void in
+                //Just dismiss the action sheet
+            }
+            actionSheetController.addAction(cancelAction)
+            self.present(actionSheetController, animated: true, completion: nil)
         }
     }
     
