@@ -81,7 +81,9 @@ for app in mobileapp_array {
 1. 呼叫 getSearchCache()，實作出 dropdown list，list 需要顯示的就是 getSearchCache 回傳的所有 data
 2. 呼叫 database helper 的 getAdministrativeCategories() 函數，並且在 UITableView 上顯示所有 array 內的資料
  
-**市府設施 & 便民服務 & 局處導覽功能是一樣的，只差在帶入的 rank 數值不同；這邊的函數會再趕工**
+### Detail View Controllers for Facility/Service/Navigation View Controllers
+* Facility / Navigation / Service View Controller: pass "categoryId" for the selected cell, and call "queryAdministrativeUnitByCategoryId(categoryId: String)" function, then display the return data in each cell.
+
  
 ### 搜尋活動：這部分就是根據 textview 上的字串去 search 整個 database，並且回傳
 * searchCache() 會去紀錄曾經搜尋過的關鍵字，並且加入到 drop down list 中
