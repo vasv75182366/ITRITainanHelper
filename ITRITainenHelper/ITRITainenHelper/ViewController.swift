@@ -118,6 +118,17 @@ class ViewController: UIViewController, DataSyncerListener, UISearchBarDelegate,
         self.myNavigationItem.titleView!.bringSubview(toFront: logoImageView)
         self.myNavigationItem.titleView!.bringSubview(toFront: logoLabel)
         self.myNavigationItem.titleView!.backgroundColor = UIColor.init(red: 60, green: 176, blue: 157, alpha: 1)
+        // self-created database
+        // insertData()
+        
+        // try to read from tainan3
+//        readDataFromTainanSQLite()
+        
+        // database initialization
+        self.databaseHelper = DatabaseHelper.init(name: "new_db.sqlite")
+        self.databaseHelper.createDB()
+        // SQLITE: - download pictures and data
+        syncAllTables()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -806,10 +817,10 @@ class ViewController: UIViewController, DataSyncerListener, UISearchBarDelegate,
             print("administrative unit in category -> unitId: ", temp.unitId!, ", categoryId: ", temp.categoryId!, ", lastUpdateTime: ", temp.lastUpdateTime!)
         }
         
-        for data in edms {
-            let temp = data as! Edm
-            print("edm -> edmId: ", temp.edmId!, ", edmName: ", temp.edmName!, ", edmURL: ", temp.edmURL!, ", edmImage: ", temp.edmImage!, ", edmEndDay: ", temp.edmEndDay!, ", lastUpdateTime: ", temp.lastUpdateTime!)
-        }
+//        for data in edms {
+//            let temp = data as! Edm
+//            print("edm -> edmId: ", temp.edmId!, ", edmName: ", temp.edmName!, ", edmURL: ", temp.edmURL!, ", edmImage: ", temp.edmImage!, ", edmEndDay: ", temp.edmEndDay!, ", lastUpdateTime: ", temp.lastUpdateTime!)
+//        }
         
         for data in hots {
             let temp = data as! HotItem
@@ -838,7 +849,8 @@ class ViewController: UIViewController, DataSyncerListener, UISearchBarDelegate,
         
         for data in mobiles {
             let temp = data as! MobileApps
-            print("(", temp.appId!, ", ", temp.appName!, ", ", temp.appIOSUrl!, ", ", temp.appImage!, ", ", temp.lastUpdateTime!, ")")
+            print("(", temp.appId, ", ", temp.appName!, ", ", temp.appIOSUrl!, ", ", temp.appImage!, ", ", temp.lastUpdateTime, ")")
+
         }
     }
     
