@@ -101,3 +101,27 @@ for app in mobileapp_array {
  
 ## Others
 PS. 便民服務、局處導覽、市府設施在進入抓資料前，會先呼叫 searchCache 相關函數獲得之前瀏覽紀錄
+
+## First Launch
+```jsx
+//main layout
+let defaults = UserDefaults.standard
+let isAppLaunchBefore = defaults.bool(forKey: "isAppLaunchBefore")
+if isAppLaunchBefore {
+    /* normal layout */
+} else {
+    /* first launch layout */
+    defaults.set(true, forKey: "isAppLaunchBefore")
+}
+```
+```jsx
+//message layout
+let defaults = UserDefaults.standard
+let isMessageLaunchBefore = defaults.bool(forKey: "isMessageLaunchBefore")
+if isMessageLaunchBefore {
+    /* normal layout */
+} else {
+    /* first launch layout */
+    defaults.set(true, forKey: "isMessageLaunchBefore")
+}
+```
